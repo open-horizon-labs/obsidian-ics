@@ -13,7 +13,7 @@ export class DateNormalizer {
    * @returns Normalized date string in YYYY-MM-DD format
    * @throws Error if the input is invalid or unsupported
    */
-  static normalizeDateInput(dateInput: FlexibleDateInput): string {
+  static normalizeDateInput(this: void, dateInput: FlexibleDateInput): string {
     if (dateInput === null || dateInput === undefined) {
       throw new Error("Date input cannot be null or undefined");
     }
