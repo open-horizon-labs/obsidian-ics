@@ -4,6 +4,13 @@ set -euo pipefail
 
 if [ "$#" -ne 2 ]; then
     echo "Usage: $0 <new-version> <minimum-obsidian-version>"
+    echo ""
+    echo "IMPORTANT: if any <new-version>-betaN pre-release has already"
+    echo "shipped, do not reuse <new-version> here - Obsidian's stock"
+    echo "update checker can't compare pre-release suffixes, so users who"
+    echo "installed the beta would never see this release as an update."
+    echo "Bump at least the patch version higher than the beta's base."
+    echo "See CONTRIBUTING.md for details."
     exit 1
 fi
 
