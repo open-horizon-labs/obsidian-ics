@@ -1,7 +1,7 @@
 {
   "id": "ics",
   "name": "ICS Calendar",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "minAppVersion": "1.9.12",
   "description": "Parse multiple ICS files to include in your notes. Designed for Daily Notes and the Day Planner format. Through templates you can customize it for other use cases.",
   "author": "Open Horizon Labs",
