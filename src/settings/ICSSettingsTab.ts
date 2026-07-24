@@ -167,19 +167,27 @@ export default class ICSSettingsTab extends PluginSettingTab {
         .addExtraButton((b) => {
           b.setIcon("trash")
             .setTooltip("Delete Field Section")
-            .onClick(async () => {
-              const confirmed = confirm(`Are you sure you want to delete the "${fieldName}" field section? This will remove all ${fieldPatterns.length} pattern(s) in this section.`);
-              if (confirmed) {
-                // Remove all patterns in this field section
-                fieldPatterns.forEach(pattern => {
-                  const patternIndex = patterns.findIndex(p => p === pattern);
-                  if (patternIndex !== -1) {
-                    patterns.splice(patternIndex, 1);
+            .onClick(() => {
+              new ConfirmModal(
+                this.app,
+                `Are you sure you want to delete the "${fieldName}" field section? This will remove all ${fieldPatterns.length} pattern(s) in this section.`,
+                (confirmed) => {
+                  if (!confirmed) {
+                    return;
                   }
-                });
-                await this.plugin.saveSettings();
-                this.display();
-              }
+                  void (async () => {
+                    // Remove all patterns in this field section
+                    fieldPatterns.forEach(pattern => {
+                      const patternIndex = patterns.findIndex(p => p === pattern);
+                      if (patternIndex !== -1) {
+                        patterns.splice(patternIndex, 1);
+                      }
+                    });
+                    await this.plugin.saveSettings();
+                    this.display();
+                  })();
+                }
+              ).open();
             });
         });
 
@@ -267,13 +275,21 @@ export default class ICSSettingsTab extends PluginSettingTab {
         return button
           .setButtonText("Reset All")
           .setWarning()
-          .onClick(async () => {
-            const confirmed = confirm("Are you sure you want to reset all field extraction patterns to defaults? This will delete all your custom patterns and cannot be undone.");
-            if (confirmed) {
-              this.plugin.data.fieldExtraction.patterns = [...DEFAULT_FIELD_EXTRACTION_PATTERNS];
-              await this.plugin.saveSettings();
-              this.display();
-            }
+          .onClick(() => {
+            new ConfirmModal(
+              this.app,
+              "Are you sure you want to reset all field extraction patterns to defaults? This will delete all your custom patterns and cannot be undone.",
+              (confirmed) => {
+                if (!confirmed) {
+                  return;
+                }
+                void (async () => {
+                  this.plugin.data.fieldExtraction.patterns = [...DEFAULT_FIELD_EXTRACTION_PATTERNS];
+                  await this.plugin.saveSettings();
+                  this.display();
+                })();
+              }
+            ).open();
           });
       });
   }
@@ -490,6 +506,41 @@ export default class ICSSettingsTab extends PluginSettingTab {
 
 }
 
+// Obsidian ships a built-in ConfirmationModal, but only since 1.13.0 - using
+// it would raise this plugin's minAppVersion far beyond its current 1.9.12.
+// This is a minimal, backward-compatible replacement for the native confirm()
+// dialog the Obsidian review guidelines flag.
+class ConfirmModal extends Modal {
+  constructor(app: App, private message: string, private onConfirm: (confirmed: boolean) => void) {
+    super(app);
+  }
+
+  onOpen() {
+    const { contentEl } = this;
+    contentEl.createEl('p', { text: this.message });
+
+    const footerEl = contentEl.createDiv();
+    const footerButtons = new Setting(footerEl);
+    footerButtons.addButton((b) => {
+      b.setButtonText("Confirm")
+        .setWarning()
+        .onClick(() => {
+          this.onConfirm(true);
+          this.close();
+        });
+      return b;
+    });
+    footerButtons.addExtraButton((b) => {
+      b.setTooltip("Cancel")
+        .setIcon("cross")
+        .onClick(() => {
+          this.onConfirm(false);
+          this.close();
+        });
+      return b;
+    });
+  }
+}
 
 class SettingsModal extends Modal {
   plugin: ICSPlugin;
@@ -746,13 +797,16 @@ class SettingsModal extends Modal {
 
   close() {
     if (this.hasChanges) {
-      const confirmDiscard = confirm('You have unsaved changes. Are you sure you want to discard them?');
-      if (!confirmDiscard) {
-        return; // Prevent the modal from closing
-      }
-      // Pre-existing: not awaited, so a reopen before this resolves could see
-      // stale data. Modal.close() is a synchronous override point.
-      void this.plugin.loadSettings();
+      new ConfirmModal(this.app, 'You have unsaved changes. Are you sure you want to discard them?', (confirmed) => {
+        if (!confirmed) {
+          return;
+        }
+        void (async () => {
+          await this.plugin.loadSettings();
+          super.close();
+        })();
+      }).open();
+      return; // Don't close yet - wait for the confirmation modal
     }
     super.close();
   }
@@ -970,10 +1024,12 @@ class FieldExtractionPatternModal extends Modal {
 
   close() {
     if (this.hasChanges) {
-      const confirmDiscard = confirm('You have unsaved changes. Are you sure you want to discard them?');
-      if (!confirmDiscard) {
-        return; // Prevent the modal from closing
-      }
+      new ConfirmModal(this.app, 'You have unsaved changes. Are you sure you want to discard them?', (confirmed) => {
+        if (confirmed) {
+          super.close();
+        }
+      }).open();
+      return; // Don't close yet - wait for the confirmation modal
     }
     super.close();
   }
@@ -1107,10 +1163,12 @@ class FieldSectionModal extends Modal {
 
   close() {
     if (this.hasChanges) {
-      const confirmDiscard = confirm('You have unsaved changes. Are you sure you want to discard them?');
-      if (!confirmDiscard) {
-        return; // Prevent the modal from closing
-      }
+      new ConfirmModal(this.app, 'You have unsaved changes. Are you sure you want to discard them?', (confirmed) => {
+        if (confirmed) {
+          super.close();
+        }
+      }).open();
+      return; // Don't close yet - wait for the confirmation modal
     }
     super.close();
   }
