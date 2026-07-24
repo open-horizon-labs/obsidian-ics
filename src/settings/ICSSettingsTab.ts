@@ -96,7 +96,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
           .setButtonText("+")
           .onClick(async () => {
             const modal = new FieldSectionModal(this.app, this.plugin);
-            modal.onClose = async () => {
+            modal.onClose = () => {
               if (modal.saved) {
                 // Refresh display to show new section
                 this.display();
@@ -132,12 +132,14 @@ export default class ICSSettingsTab extends PluginSettingTab {
             .setTooltip("Add Pattern to this Field")
             .onClick(async () => {
               const modal = new FieldExtractionPatternModal(this.app, this.plugin, undefined, fieldName);
-              modal.onClose = async () => {
-                if (modal.saved) {
-                  patterns.push(modal.pattern);
-                  await this.plugin.saveSettings();
-                  this.display();
-                }
+              modal.onClose = () => {
+                void (async () => {
+                  if (modal.saved) {
+                    patterns.push(modal.pattern);
+                    await this.plugin.saveSettings();
+                    this.display();
+                  }
+                })();
               };
               modal.open();
             });
@@ -147,15 +149,17 @@ export default class ICSSettingsTab extends PluginSettingTab {
             .setTooltip("Edit Field Name")
             .onClick(async () => {
               const modal = new FieldSectionModal(this.app, this.plugin, fieldName);
-              modal.onClose = async () => {
-                if (modal.saved && modal.fieldName !== fieldName) {
-                  // Update all patterns in this field to use the new field name
-                  fieldPatterns.forEach(pattern => {
-                    pattern.extractedFieldName = modal.fieldName;
-                  });
-                  await this.plugin.saveSettings();
-                  this.display();
-                }
+              modal.onClose = () => {
+                void (async () => {
+                  if (modal.saved && modal.fieldName !== fieldName) {
+                    // Update all patterns in this field to use the new field name
+                    fieldPatterns.forEach(pattern => {
+                      pattern.extractedFieldName = modal.fieldName;
+                    });
+                    await this.plugin.saveSettings();
+                    this.display();
+                  }
+                })();
               };
               modal.open();
             });
@@ -223,15 +227,17 @@ export default class ICSSettingsTab extends PluginSettingTab {
               .setTooltip("Edit")
               .onClick(() => {
                 const modal = new FieldExtractionPatternModal(this.app, this.plugin, pattern);
-                modal.onClose = async () => {
-                  if (modal.saved) {
-                    const originalIndex = patterns.findIndex(p => p === pattern);
-                    if (originalIndex !== -1) {
-                      patterns[originalIndex] = modal.pattern;
-                      await this.plugin.saveSettings();
-                      this.display();
+                modal.onClose = () => {
+                  void (async () => {
+                    if (modal.saved) {
+                      const originalIndex = patterns.findIndex(p => p === pattern);
+                      if (originalIndex !== -1) {
+                        patterns[originalIndex] = modal.pattern;
+                        await this.plugin.saveSettings();
+                        this.display();
+                      }
                     }
-                  }
+                  })();
                 };
                 modal.open();
               });
@@ -335,9 +341,9 @@ export default class ICSSettingsTab extends PluginSettingTab {
           .onClick(async () => {
             const modal = new SettingsModal(this.app, this.plugin);
 
-            modal.onClose = async () => {
+            modal.onClose = () => {
               if (modal.saved) {
-                this.plugin.addCalendar({
+                void this.plugin.addCalendar({
                   icsName: modal.icsName,
                   icsUrl: modal.icsUrl,
                   ownerEmail: modal.ownerEmail,
@@ -372,10 +378,10 @@ export default class ICSSettingsTab extends PluginSettingTab {
             .onClick(() => {
               const modal = new SettingsModal(this.app, this.plugin, calendar);
 
-              modal.onClose = async () => {
+              modal.onClose = () => {
                 if (modal.saved) {
-                  this.plugin.removeCalendar(calendar);
-                  this.plugin.addCalendar({
+                  void this.plugin.removeCalendar(calendar);
+                  void this.plugin.addCalendar({
                     icsName: modal.icsName,
                     icsUrl: modal.icsUrl,
                     ownerEmail: modal.ownerEmail,
@@ -393,7 +399,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
           b.setIcon("trash")
             .setTooltip("Delete")
             .onClick(() => {
-              this.plugin.removeCalendar(calendar);
+              void this.plugin.removeCalendar(calendar);
               this.display();
             });
         });
@@ -744,7 +750,9 @@ class SettingsModal extends Modal {
       if (!confirmDiscard) {
         return; // Prevent the modal from closing
       }
-      this.plugin.loadSettings();
+      // Pre-existing: not awaited, so a reopen before this resolves could see
+      // stale data. Modal.close() is a synchronous override point.
+      void this.plugin.loadSettings();
     }
     super.close();
   }
