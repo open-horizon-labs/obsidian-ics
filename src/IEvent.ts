@@ -19,6 +19,8 @@ export interface IEvent {
 	organizer: IOrganizer; // Email of the organizer of the event
   attendees: IAttendee[]; // Array of attendees
   eventType: string; // Type of event (e.g., one-off, recurring, recurring override)
+  uid: string | null; // The ICS UID property uniquely identifying the event
+  url: string | null; // The ICS URL property, if the event specifies one
 }
 
 export interface IAttendee {
