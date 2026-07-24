@@ -1,11 +1,26 @@
 import * as ical from 'node-ical';
+import type { VEvent } from 'node-ical';
 import { tz } from 'moment-timezone';
 import { moment } from "obsidian";
 import { WINDOWS_TO_IANA_TIMEZONES } from './generated/windowsTimezones';
 
 import { FieldExtractionPattern } from './settings/ICSSettings';
 
-export function extractFields(e: any, patterns?: FieldExtractionPattern[]): Record<string, string[]> {
+// node-ical's VEvent plus the fields this plugin adds while filtering/expanding
+// recurrences. All additions are optional since a freshly-parsed VEvent won't
+// have them yet.
+export type ProcessedEvent = VEvent & {
+  recurrent?: boolean;
+  eventType?: string;
+  'GOOGLE-CONFERENCE'?: string;
+};
+
+// extractFields/findPatternMatches only ever look at these three fields, so
+// accept just that shape rather than a full ProcessedEvent - callers (and
+// tests) shouldn't need to fabricate an entire VEvent to extract fields.
+export type FieldExtractionSource = Pick<ProcessedEvent, 'location' | 'description' | 'GOOGLE-CONFERENCE'>;
+
+export function extractFields(e: FieldExtractionSource, patterns?: FieldExtractionPattern[]): Record<string, string[]> {
   // If patterns not provided or empty, return empty object
   if (!patterns || patterns.length === 0) {
     return {};
@@ -35,7 +50,7 @@ export function extractFields(e: any, patterns?: FieldExtractionPattern[]): Reco
   return extractedFields;
 }
 
-function findPatternMatches(e: any, pattern: FieldExtractionPattern): string[] {
+function findPatternMatches(e: FieldExtractionSource, pattern: FieldExtractionPattern): string[] {
   const matches: string[] = [];
 
   // Special handling for Google Meet conference data
@@ -44,15 +59,19 @@ function findPatternMatches(e: any, pattern: FieldExtractionPattern): string[] {
     return matches;
   }
 
-  // Check location field
-  if (e.location) {
-    const locationMatches = matchTextForPattern(e.location, pattern);
+  // Check location field (location/description are ICS "TEXT" properties -
+  // node-ical returns a plain string unless the property carries parameters,
+  // in which case it's { val, params } instead)
+  const locationText = typeof e.location === 'string' ? e.location : e.location?.val;
+  if (locationText) {
+    const locationMatches = matchTextForPattern(locationText, pattern);
     matches.push(...locationMatches);
   }
 
   // Check description field
-  if (e.description) {
-    const descriptionMatches = matchTextForPattern(e.description, pattern);
+  const descriptionText = typeof e.description === 'string' ? e.description : e.description?.val;
+  if (descriptionText) {
+    const descriptionMatches = matchTextForPattern(descriptionText, pattern);
     matches.push(...descriptionMatches);
   }
 
@@ -76,7 +95,7 @@ function matchTextForPattern(text: string, pattern: FieldExtractionPattern): str
       }
     } else if (pattern.matchType === 'regex') {
       const regex = new RegExp(pattern.pattern, 'g'); // Use global flag to find all matches
-      let match;
+      let match: RegExpExecArray | null;
       while ((match = regex.exec(text)) !== null) {
         // If regex has capture groups, use the first group, otherwise use full match
         matches.push(match[1] || match[0]);
@@ -106,14 +125,21 @@ function isExcluded(recurrenceDate: moment.Moment, exdateArray: moment.Moment[])
   return exdateArray.some(exDate => exDate.isSame(recurrenceDate, 'day'));
 }
 
-function processRecurrenceOverrides(event: any, sortedDaysToMatch: string[], _excludedDates: moment.Moment[], matchingEvents: any[]) {
+// SUMMARY/LOCATION/DESCRIPTION are ICS "TEXT" properties: node-ical returns a
+// plain string unless the property carries parameters, in which case it's
+// { val, params } instead.
+export function textValue(value: ical.ParameterValue<string, Record<string, string>> | undefined): string {
+  return typeof value === 'string' ? value : value?.val ?? '';
+}
+
+function processRecurrenceOverrides(event: ProcessedEvent, sortedDaysToMatch: string[], _excludedDates: moment.Moment[], matchingEvents: ProcessedEvent[]) {
   // node-ical keys event.recurrences by both a date-only key and a full
   // ISO-timestamp key for the same override, so the same override object
   // can appear twice under different keys. Dedupe by recurrenceid.
   const seenRecurrenceIds = new Set<number>();
 
   for (const date in event.recurrences) {
-    const recurrence = event.recurrences[date];
+    const recurrence = event.recurrences[date] as ProcessedEvent;
     const recurrenceMoment = moment(date).startOf('day');
 
     const recurrenceIdTime = recurrence.recurrenceid instanceof Date
@@ -128,7 +154,7 @@ function processRecurrenceOverrides(event: any, sortedDaysToMatch: string[], _ex
 
     // Skip canceled overrides
     if (recurrence.status && recurrence.status.toUpperCase() === "CANCELLED") {
-      console.debug(`Skipping canceled recurrence override: ${recurrence.summary} on ${date}`);
+      console.debug(`Skipping canceled recurrence override: ${textValue(recurrence.summary)} on ${date}`);
       continue;
     }
 
@@ -136,28 +162,30 @@ function processRecurrenceOverrides(event: any, sortedDaysToMatch: string[], _ex
 
     // Check if this override matches the dayToMatch
     if (moment(recurrence.start).isBetween(sortedDaysToMatch[0], sortedDaysToMatch[sortedDaysToMatch.length - 1], "day", "[]")) {
-      console.debug(`Adding recurring event with override: ${recurrence.summary} on ${recurrenceMoment.format('YYYY-MM-DD')}`);
+      console.debug(`Adding recurring event with override: ${textValue(recurrence.summary)} on ${recurrenceMoment.format('YYYY-MM-DD')}`);
       recurrence.eventType = "recurring override";
       matchingEvents.push(recurrence);
     }
   }
 }
 
-function processRecurringRules(event: any, sortedDaysToMatch: string[], excludedDates: moment.Moment[], matchingEvents: any[]) {
-  const tzid = event.rrule.origOptions.tzid || 'UTC';
+function processRecurringRules(event: ProcessedEvent, sortedDaysToMatch: string[], excludedDates: moment.Moment[], matchingEvents: ProcessedEvent[]) {
+  // Only ever called when event.rrule is truthy (checked by the caller)
+  const rrule = event.rrule;
+  const tzid = (rrule.options.tzid as string) || 'UTC';
 
   // Use UTC for rrule calculations to avoid timezone offset issues
   const startOfRange = moment.utc(sortedDaysToMatch[0]).subtract(1, 'day').startOf('day').toDate();
   const endOfRange = moment.utc(sortedDaysToMatch[sortedDaysToMatch.length - 1]).add(1, 'day').endOf('day').toDate();
 
   // Get recurrence dates within the range
-  const recurrenceDates = event.rrule.between(startOfRange, endOfRange, true);
+  const recurrenceDates = rrule.between(startOfRange, endOfRange, true);
 
   recurrenceDates.forEach(recurrenceDate => {
     const recurrenceMoment = tz(recurrenceDate, tzid).startOf('day');
 
     if (isExcluded(recurrenceMoment, excludedDates)) {
-      console.debug(`Skipping excluded recurrence: ${event.summary} on ${recurrenceMoment.format('YYYY-MM-DD')}`);
+      console.debug(`Skipping excluded recurrence: ${textValue(event.summary)} on ${recurrenceMoment.format('YYYY-MM-DD')}`);
       return;
     }
 
@@ -173,7 +201,7 @@ function processRecurringRules(event: any, sortedDaysToMatch: string[], excluded
     const eventStartMoment = tz(clonedEvent.start, tzid);
     const eventStartDate = eventStartMoment.format('YYYY-MM-DD');
     if (sortedDaysToMatch.includes(eventStartDate)) {
-      console.debug(`Adding recurring event: ${clonedEvent.summary} ${clonedEvent.start} - ${clonedEvent.end}`);
+      console.debug(`Adding recurring event: ${textValue(clonedEvent.summary)} ${clonedEvent.start?.toISOString()} - ${clonedEvent.end?.toISOString()}`);
       console.debug("Excluded dates:", excludedDates.map(date => date.format('YYYY-MM-DD')));
 
       console.debug(clonedEvent);
@@ -183,7 +211,7 @@ function processRecurringRules(event: any, sortedDaysToMatch: string[], excluded
   });
 }
 
-function shouldIncludeOngoing(event: any, dayToMatch: string): boolean {
+function shouldIncludeOngoing(event: ProcessedEvent, dayToMatch: string): boolean {
   const day = moment(dayToMatch, 'YYYY-MM-DD').startOf('day');
   const eventStartDay = moment(event.start).startOf('day');
   const eventEndDay = moment(event.end).startOf('day');
@@ -206,12 +234,12 @@ function shouldIncludeOngoing(event: any, dayToMatch: string): boolean {
   return false;
 }
 
-export function filterMatchingEvents(icsArray: any[], daysToMatch: string[], showOngoing: boolean) {
+export function filterMatchingEvents(icsArray: ProcessedEvent[], daysToMatch: string[], showOngoing: boolean): ProcessedEvent[] {
   const sortedDaysToMatch = [...daysToMatch].sort();
-  return icsArray.reduce((matchingEvents, event) => {
+  return icsArray.reduce<ProcessedEvent[]>((matchingEvents, event) => {
     // Skip canceled parent events
     if (event.status && event.status.toUpperCase() === "CANCELLED") {
-      console.debug(`Skipping canceled event: ${event.summary}`);
+      console.debug(`Skipping canceled event: ${textValue(event.summary)}`);
       return matchingEvents;
     }
 
@@ -292,16 +320,17 @@ function preprocessMicrosoftIcs(ics: string): string {
   return processedIcs;
 }
 
-export function parseIcs(ics: string) {
+export function parseIcs(ics: string): VEvent[] {
   try {
     // First, try parsing the ICS as-is
     const data = ical.parseICS(ics);
-    const vevents = [];
+    const vevents: VEvent[] = [];
 
     for (const i in data) {
-      if (data[i].type != "VEVENT")
+      const component = data[i];
+      if (component.type != "VEVENT")
         continue;
-      vevents.push(data[i]);
+      vevents.push(component);
     }
     return vevents;
   } catch (error) {
@@ -315,18 +344,20 @@ export function parseIcs(ics: string) {
       try {
         const preprocessedIcs = preprocessMicrosoftIcs(ics);
         const data = ical.parseICS(preprocessedIcs);
-        const vevents = [];
+        const vevents: VEvent[] = [];
 
         for (const i in data) {
-          if (data[i].type != "VEVENT")
+          const component = data[i];
+          if (component.type != "VEVENT")
             continue;
-          vevents.push(data[i]);
+          vevents.push(component);
         }
 
         return vevents;
       } catch (preprocessError) {
         console.error('Failed to parse ICS even after preprocessing:', preprocessError);
-        throw new Error(`ICS parsing failed: ${error.message}. Preprocessing also failed: ${preprocessError.message}`);
+        const preprocessMessage = preprocessError instanceof Error ? preprocessError.message : String(preprocessError);
+        throw new Error(`ICS parsing failed: ${error.message}. Preprocessing also failed: ${preprocessMessage}`);
       }
     } else {
       // Re-throw non-timezone related errors

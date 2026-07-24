@@ -1,6 +1,5 @@
 import { parseIcs, filterMatchingEvents, extractFields } from '../src/icalUtils';
 import { DEFAULT_FIELD_EXTRACTION_PATTERNS } from '../src/settings/ICSSettings';
-import { moment } from 'obsidian';
 
 describe('icalUtils', () => {
   describe('parseIcs', () => {
@@ -49,10 +48,13 @@ END:VCALENDAR`;
   describe('filterMatchingEvents', () => {
     it('should filter non-recurring events by date', () => {
       const events = [{
+        type: 'VEVENT' as const,
         summary: 'Test Event',
         start: new Date('2025-03-01T12:00:00Z'),
         end: new Date('2025-03-01T13:00:00Z'),
-        uid: 'test-event'
+        uid: 'test-event',
+        dtstamp: new Date('2025-03-01T00:00:00Z'),
+        datetype: 'date-time' as const
       }];
 
       const matching = filterMatchingEvents(events, ['2025-03-01'], false);
@@ -65,10 +67,13 @@ END:VCALENDAR`;
 
     it('should handle ongoing events when showOngoing is true', () => {
       const events = [{
+        type: 'VEVENT' as const,
         summary: 'Multi-day Event',
         start: new Date('2025-03-01T12:00:00Z'),
         end: new Date('2025-03-03T13:00:00Z'),
-        uid: 'multi-day-event'
+        uid: 'multi-day-event',
+        dtstamp: new Date('2025-03-01T00:00:00Z'),
+        datetype: 'date-time' as const
       }];
 
       // Should not match without showOngoing
@@ -83,10 +88,13 @@ END:VCALENDAR`;
 
     it('should show multi-day events on all spanned days only when showOngoing is enabled', () => {
       const events = [{
+        type: 'VEVENT' as const,
         summary: 'Spanning Event',
         start: new Date('2025-10-09T09:00:00Z'),
         end: new Date('2025-10-11T17:00:00Z'),
-        uid: 'spanning-event-uid'
+        uid: 'spanning-event-uid',
+        dtstamp: new Date('2025-10-01T00:00:00Z'),
+        datetype: 'date-time' as const
       }];
 
       const dates = ['2025-10-09', '2025-10-10', '2025-10-11'];
@@ -111,11 +119,14 @@ END:VCALENDAR`;
 
     it('should skip cancelled events', () => {
       const events = [{
+        type: 'VEVENT' as const,
         summary: 'Cancelled Event',
         start: new Date('2025-03-01T12:00:00Z'),
         end: new Date('2025-03-01T13:00:00Z'),
-        status: 'CANCELLED',
-        uid: 'cancelled-event'
+        status: 'CANCELLED' as const,
+        uid: 'cancelled-event',
+        dtstamp: new Date('2025-03-01T00:00:00Z'),
+        datetype: 'date-time' as const
       }];
 
       const matching = filterMatchingEvents(events, ['2025-03-01'], false);
@@ -192,18 +203,14 @@ END:VCALENDAR`;
     });
 
     it('should return empty object when no patterns provided', () => {
-      const event = {
-        summary: 'Regular meeting'
-      };
+      const event = {};
 
       const extractedFields = extractFields(event, []);
       expect(extractedFields).toEqual({});
     });
 
     it('should return empty object when no matches found', () => {
-      const event = {
-        summary: 'Regular meeting'
-      };
+      const event = {};
 
       const extractedFields = extractFields(event, DEFAULT_FIELD_EXTRACTION_PATTERNS);
       expect(extractedFields).toEqual({});
