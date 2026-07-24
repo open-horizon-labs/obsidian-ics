@@ -1,8 +1,8 @@
 {
   "id": "ics",
   "name": "ICS Calendar",
-  "version": "1.6.6",
-  "minAppVersion": "1.5.11",
+  "version": "1.12.1-beta1",
+  "minAppVersion": "1.9.12",
   "description": "Parse multiple ICS files to include in your notes. Designed for Daily Notes and the Day Planner format. Through templates you can customize it for other use cases.",
   "author": "Cloud Atlas",
   "authorUrl": "https://github.com/open-horizon-labs",
