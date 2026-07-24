@@ -20,9 +20,20 @@ import {
   Plugin,
   request
 } from 'obsidian';
-import { parseIcs, filterMatchingEvents, extractFields } from './icalUtils';
+import { parseIcs, filterMatchingEvents, extractFields, textValue, ProcessedEvent } from './icalUtils';
 import { IEvent } from './IEvent';
 import { DateNormalizer, FlexibleDateInput } from './DateNormalizer';
+
+// Organizer/Attendee are ICS "TEXT with parameters" properties, typed by
+// node-ical as `string | { val, params }`. This plugin has only ever handled
+// the object shape (a bare string organizer/attendee has no email to extract
+// from anyway), so this is the assumption made explicit rather than left
+// implicit under `any`.
+type PersonValue = { val?: string; params?: Record<string, string | undefined> };
+
+// ICSSettings predates the fieldExtraction migration below; older saved data
+// may still have this now-removed key.
+type LegacySettings = ICSSettings & { videoCallExtraction?: { enabled?: boolean } };
 
 export default class ICSPlugin extends Plugin {
   data: ICSSettings;
@@ -80,7 +91,8 @@ export default class ICSPlugin extends Plugin {
     try {
       normalizedDates = DateNormalizer.normalizeDateInputs(dates);
     } catch (error) {
-      new Notice(`⚠️ ICS Plugin: Error parsing date inputs: ${error.message}`, 10000);
+      const message = error instanceof Error ? error.message : String(error);
+      new Notice(`⚠️ ICS Plugin: Error parsing date inputs: ${message}`, 10000);
       console.error("Date parsing error:", error);
       return [];
     }
@@ -90,7 +102,7 @@ export default class ICSPlugin extends Plugin {
 
     for (const calendar in this.data.calendars) {
       const calendarSetting = this.data.calendars[calendar];
-      let icsArray: any[] = [];
+      let icsArray: ProcessedEvent[] = [];
 
       try {
         if (calendarSetting.calendarType === 'vdir') {
@@ -109,7 +121,7 @@ export default class ICSPlugin extends Plugin {
         errorMessages.push(`Error processing calendar "${calendarSetting.icsName}"`);
       }
 
-      let dateEvents;
+      let dateEvents: ProcessedEvent[] = [];
 
       // Exception handling for parsing and filtering
       try {
@@ -117,10 +129,13 @@ export default class ICSPlugin extends Plugin {
           .filter(e => this.excludeTransparentEvents(e, calendarSetting))
           .filter(e => this.excludeDeclinedEvents(e, calendarSetting));
 
-          // Deduplicate events based on calendar, title, start, and end time
-          const uniqueEventSet = new Set();
+          // Deduplicate events based on title, start, and end time (this
+          // already runs per-calendar, so calendar identity isn't part of
+          // the key - every event here is already known to be from the
+          // same calendar)
+          const uniqueEventSet = new Set<string>();
           dateEvents = dateEvents.filter(e => {
-            const uniqueKey = `${e.calendar}-${e.summary}-${e.start}-${e.end}`;
+            const uniqueKey = `${textValue(e.summary)}-${e.start?.toISOString()}-${e.end?.toISOString()}`;
             if (uniqueEventSet.has(uniqueKey)) {
               return false;
             } else {
@@ -148,6 +163,10 @@ export default class ICSPlugin extends Plugin {
           // let's just use "Video Call" as a generic type when we have a URL
           const callType = callUrl ? "Video Call" : null;
 
+          const organizer = e.organizer as PersonValue | string | undefined;
+          const organizerValue = typeof organizer === 'string' ? undefined : organizer;
+          const locationText = textValue(e.location);
+
           const event: IEvent = {
             utime: moment(e.start).format('X'),
             time: moment(e.start).format(this.data.format.timeFormat),
@@ -157,24 +176,28 @@ export default class ICSPlugin extends Plugin {
             recurrent: e.recurrent ? true : false,
             lastModified: e.lastmodified ? moment(e.lastmodified).format('X') : moment(e.created).format('X'),
             icsName: calendarSetting.icsName,
-            summary: e.summary,
-            description: e.description,
+            summary: textValue(e.summary),
+            description: textValue(e.description),
             format: calendarSetting.format,
-            location: e.location ? e.location : null,
+            location: locationText ? locationText : null,
             callUrl: callUrl,
             callType: callType,
             extractedFields: extractedFields,
             eventType: e.eventType,
             uid: e.uid ? e.uid : null,
             url: e.url ? e.url : null,
-            organizer: { email: e.organizer?.val?.substring(7) || null, name: e.organizer?.params?.CN || null },
-            attendees: e.attendee ? (Array.isArray(e.attendee) ? e.attendee : [e.attendee]).map(attendee => ({
-              name: attendee.params?.CN,
-              email: attendee.val?.substring(7),
-              status: attendee.params?.PARTSTAT,
-              role: attendee.params?.ROLE,
-              type: attendee.params?.CUTYPE || "INDIVIDUAL"
-            })) : []
+            organizer: { email: organizerValue?.val?.substring(7) || null, name: organizerValue?.params?.CN || null },
+            attendees: e.attendee ? (Array.isArray(e.attendee) ? e.attendee : [e.attendee]).map((attendee) => {
+              const att = attendee as PersonValue | string;
+              const attValue = typeof att === 'string' ? undefined : att;
+              return {
+                name: attValue?.params?.CN,
+                email: attValue?.val?.substring(7),
+                status: attValue?.params?.PARTSTAT,
+                role: attValue?.params?.ROLE,
+                type: attValue?.params?.CUTYPE || "INDIVIDUAL"
+              };
+            }) : []
           };
           events.push(event);
         });
@@ -198,7 +221,7 @@ export default class ICSPlugin extends Plugin {
     this.addSettingTab(new ICSSettingsTab(this.app, this));
     this.addCommand({
       id: "import_events",
-      name: "import events",
+      name: "Import events",
       editorCallback: async (editor: Editor, view: MarkdownView) => {
         let fileDate = "";
 
@@ -210,9 +233,9 @@ export default class ICSPlugin extends Plugin {
           return;
         }
 
-        const events: any[] = await this.getEvents(fileDate);
+        const events = await this.getEvents(fileDate);
 
-        const mdArray = events.sort((a, b) => a.utime - b.utime).map((e) => this.formatEvent(e));
+        const mdArray = events.sort((a, b) => Number(a.utime) - Number(b.utime)).map((e) => this.formatEvent(e));
         editor.replaceRange(mdArray.join("\n").concat("\n"), editor.getCursor());
       }
     });
@@ -222,7 +245,7 @@ export default class ICSPlugin extends Plugin {
     return;
   }
 
-  excludeTransparentEvents(event: any, calendarSetting: Calendar): boolean {
+  excludeTransparentEvents(event: ProcessedEvent, calendarSetting: Calendar): boolean {
     // Check if transparent events should be shown for this calendar
     if (calendarSetting.format.showTransparentEvents) {
       return true;
@@ -233,36 +256,37 @@ export default class ICSPlugin extends Plugin {
       event.transparency &&
       event.transparency.toUpperCase() === "TRANSPARENT"
     ) {
-      console.debug(`Excluding transparent event: ${event.summary}`);
+      console.debug(`Excluding transparent event: ${textValue(event.summary)}`);
       return false;
     }
 
     return true;
   }
 
-  excludeDeclinedEvents(event: any, calendarSetting: Calendar): boolean {
-    if (!event.attendees) {
-      event.attendees = Array.isArray(event.attendee)
-        ? event.attendee
+  excludeDeclinedEvents(event: ProcessedEvent, calendarSetting: Calendar): boolean {
+    const attendees: (PersonValue | string)[] = event.attendees
+      ? (Array.isArray(event.attendees) ? event.attendees : [event.attendees]) as (PersonValue | string)[]
+      : Array.isArray(event.attendee)
+        ? event.attendee as (PersonValue | string)[]
         : event.attendee
-          ? [event.attendee]
+          ? [event.attendee as PersonValue | string]
           : [];
-    }
 
     // 3. Check if the user (calendar owner) declined
     const ownerEmail = calendarSetting.ownerEmail?.toLowerCase().trim();
     if (ownerEmail) {
-      const myAttendee = event.attendees.find((att: any) => {
-        const attEmail = att.val?.replace("mailto:", "").toLowerCase().trim();
+      const myAttendee = attendees.find((att) => {
+        const attValue = typeof att === 'string' ? undefined : att;
+        const attEmail = attValue?.val?.replace("mailto:", "").toLowerCase().trim();
         return attEmail === ownerEmail;
       });
 
-      if (myAttendee) {
+      if (myAttendee && typeof myAttendee !== 'string') {
         const partStat = myAttendee.params?.PARTSTAT?.toUpperCase();
         if (partStat === "DECLINED") {
           // The owner of this calendar has declined the event
           console.debug(
-            `Skipping event (“${event.summary}”) for ${ownerEmail} due to DECLINED`
+            `Skipping event (“${textValue(event.summary)}”) for ${ownerEmail} due to DECLINED`
           );
           return false;
         }
@@ -272,19 +296,24 @@ export default class ICSPlugin extends Plugin {
   }
 
   async loadSettings() {
-    this.data = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+    // Plugin.loadData() returns whatever was last saved, typed Promise<any>
+    // by Obsidian since it's arbitrary persisted JSON - our own assumption
+    // is that it's a (possibly legacy, possibly partial) ICSSettings.
+    const loadedData = await this.loadData() as Partial<LegacySettings> | null;
+    this.data = Object.assign({}, DEFAULT_SETTINGS, loadedData);
 
     // Migration: migrate from old videoCallExtraction to new fieldExtraction
     let needsSave = false;
 
     // If old videoCallExtraction exists, migrate it to fieldExtraction
-    if ((this.data as any).videoCallExtraction) {
-      const oldSettings = (this.data as any).videoCallExtraction;
+    const legacyData = this.data as LegacySettings;
+    if (legacyData.videoCallExtraction) {
+      const oldSettings = legacyData.videoCallExtraction;
       this.data.fieldExtraction = {
         enabled: oldSettings.enabled !== false,
         patterns: DEFAULT_FIELD_EXTRACTION_PATTERNS
       };
-      delete (this.data as any).videoCallExtraction;
+      delete legacyData.videoCallExtraction;
       needsSave = true;
     }
 

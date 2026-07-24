@@ -62,7 +62,7 @@ export class DateNormalizer {
    * @param dateInput - Input to validate
    * @returns true if the input type is supported, false otherwise
    */
-  static isSupportedType(dateInput: any): dateInput is FlexibleDateInput {
+  static isSupportedType(dateInput: unknown): dateInput is FlexibleDateInput {
     return (
       typeof dateInput === 'string' ||
       moment.isMoment(dateInput) ||
