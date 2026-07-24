@@ -165,6 +165,8 @@ export default class ICSPlugin extends Plugin {
             callType: callType,
             extractedFields: extractedFields,
             eventType: e.eventType,
+            uid: e.uid ? e.uid : null,
+            url: e.url ? e.url : null,
             organizer: { email: e.organizer?.val?.substring(7) || null, name: e.organizer?.params?.CN || null },
             attendees: e.attendee ? (Array.isArray(e.attendee) ? e.attendee : [e.attendee]).map(attendee => ({
               name: attendee.params?.CN,

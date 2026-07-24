@@ -201,6 +201,21 @@ See [advanced Templated usage example](https://github.com/open-horizon-labs/obsi
 
 You can see the available fields an the [Event interface](https://github.com/open-horizon-labs/obsidian-ics/blob/master/src/IEvent.ts).
 
+#### Date Ranges
+
+`getEvents()` accepts any number of date inputs, so you can pass a whole range at once instead of calling it once per day. For example, to pull events for the next 7 days starting from the current daily note:
+
+```javascript
+<%*
+const startDate = moment(tp.file.title, 'YYYY-MM-DD');
+const daysToInclude = Array.from({ length: 7 }, (_, i) => startDate.clone().add(i, 'days'));
+var events = await app.plugins.getPlugin('ics').getEvents(...daysToInclude);
+events.sort((a,b) => a.utime - b.utime).forEach((e) => {
+  tR+=`- [ ] ${e.time} ${e.summary} ${e.location? e.location : ''}\n`
+})
+%>
+```
+
 ### Full Calendar
 
 Or you can use [Full Calendar](https://github.com/obsidian-community/obsidian-full-calendar) to render a calendar view of your events. Here's an example of how you can use it:
