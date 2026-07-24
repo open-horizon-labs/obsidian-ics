@@ -106,7 +106,7 @@ function isExcluded(recurrenceDate: moment.Moment, exdateArray: moment.Moment[])
   return exdateArray.some(exDate => exDate.isSame(recurrenceDate, 'day'));
 }
 
-function processRecurrenceOverrides(event: any, sortedDaysToMatch: string[], excludedDates: moment.Moment[], matchingEvents: any[]) {
+function processRecurrenceOverrides(event: any, sortedDaysToMatch: string[], _excludedDates: moment.Moment[], matchingEvents: any[]) {
   for (const date in event.recurrences) {
     const recurrence = event.recurrences[date];
     const recurrenceMoment = moment(date).startOf('day');
@@ -308,7 +308,6 @@ export function parseIcs(ics: string) {
           vevents.push(data[i]);
         }
 
-        console.log('Successfully parsed ICS after preprocessing');
         return vevents;
       } catch (preprocessError) {
         console.error('Failed to parse ICS even after preprocessing:', preprocessError);

@@ -7,6 +7,7 @@ import {
   Modal,
   TextComponent,
   DropdownComponent,
+  moment,
 } from "obsidian";
 
 import {
@@ -15,8 +16,6 @@ import {
   FieldExtractionPattern,
   DEFAULT_FIELD_EXTRACTION_PATTERNS
 } from "./ICSSettings";
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-import moment = require("moment");
 
 export function getCalendarElement(
   icsName: string): HTMLElement {
@@ -24,8 +23,7 @@ export function getCalendarElement(
   const calendarElement = createDiv({
     cls: `calendar calendar-${icsName}`,
   });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const titleEl = calendarElement.createEl("summary", {
+  calendarElement.createEl("summary", {
     cls: `calendar-name ${icsName}`,
     text: icsName
   });
@@ -35,7 +33,7 @@ export function getCalendarElement(
 
 export default class ICSSettingsTab extends PluginSettingTab {
   plugin: ICSPlugin;
-  timeFormatExample = document.createElement('b');
+  timeFormatExample = createEl('b');
 
   constructor(app: App, plugin: ICSPlugin) {
     super(app, plugin);
@@ -46,13 +44,13 @@ export default class ICSSettingsTab extends PluginSettingTab {
   private timeFormattingDescription(): DocumentFragment {
     this.updateTimeFormatExample();
 
-    const descEl = document.createDocumentFragment();
+    const descEl = createFragment();
     descEl.appendText('Time format for events. HH:mm is 00:15. hh:mma is 12:15am.');
     descEl.appendText(' For more syntax, refer to ');
     descEl.appendChild(this.getMomentDocsLink());
     descEl.appendText('.');
 
-    descEl.appendChild(document.createElement('p'));
+    descEl.appendChild(createEl('p'));
     descEl.appendText('Your current time format syntax looks like this: ');
     descEl.appendChild(this.timeFormatExample);
     descEl.appendText('.');
@@ -60,7 +58,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
   }
 
   private getMomentDocsLink(): HTMLAnchorElement {
-    const a = document.createElement('a');
+    const a = createEl('a');
     a.href = 'https://momentjs.com/docs/#/displaying/format/';
     a.text = 'format reference';
     a.target = '_blank';
@@ -120,13 +118,13 @@ export default class ICSSettingsTab extends PluginSettingTab {
       if (!groupedPatterns.has(fieldName)) {
         groupedPatterns.set(fieldName, []);
       }
-      groupedPatterns.get(fieldName)!.push(pattern);
+      groupedPatterns.get(fieldName).push(pattern);
     });
 
     // Display each field section
     for (const [fieldName, fieldPatterns] of groupedPatterns) {
       // Field section header with management buttons
-      const fieldHeader = new Setting(patternsContainer)
+      new Setting(patternsContainer)
         .setName(`${fieldName} (${fieldPatterns.length} pattern${fieldPatterns.length === 1 ? '' : 's'})`)
         .setClass('field-section-header')
         .addExtraButton((b) => {
@@ -182,7 +180,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
         });
 
       // Display patterns in this field section
-      fieldPatterns.forEach((pattern, fieldIndex) => {
+      fieldPatterns.forEach((pattern) => {
         const globalIndex = sortedPatterns.findIndex(p => p === pattern);
         const setting = new Setting(patternsContainer);
 
@@ -275,7 +273,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
   }
 
   private dataViewSyntaxDescription(): DocumentFragment {
-    const descEl = document.createDocumentFragment();
+    const descEl = createFragment();
     descEl.appendText('Enable this option if you use the DataView plugin to query event start and end times.');
     return descEl;
   }
@@ -396,8 +394,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
       .setName("Output Format");
 
     let timeFormat: TextComponent;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const timeFormatSetting = new Setting(containerEl)
+    new Setting(containerEl)
       .setName("Time format")
       .setDesc(this.timeFormattingDescription())
       .addText((text) => {
@@ -409,8 +406,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
         });
       });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const dataViewSyntaxSetting = new Setting(containerEl)
+    new Setting(containerEl)
       .setName('DataView Metadata syntax for start and end times')
       .setDesc(this.dataViewSyntaxDescription())
       .addToggle(toggle => toggle
@@ -428,8 +424,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
       .setName("Field Extraction");
 
     // Enable/disable toggle
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const fieldExtractionEnabledSetting = new Setting(containerEl)
+    new Setting(containerEl)
       .setName('Enable Field Extraction')
       .setDesc('Extract custom fields from calendar events using patterns')
       .addToggle(toggle => toggle
@@ -464,12 +459,12 @@ export default class ICSSettingsTab extends PluginSettingTab {
         });
 
       // Add some whitespace below the usage area
-      containerEl.createDiv().style.marginBottom = '20px';
+      containerEl.createDiv('ics-spacer-bottom');
 
       this.displayFieldExtractionPatterns(containerEl);
 
       // Add visual separation and reset button
-      containerEl.createDiv().style.marginTop = '20px';
+      containerEl.createDiv('ics-spacer-top');
       this.displayFieldExtractionReset(containerEl);
     }
   }
@@ -531,8 +526,7 @@ class SettingsModal extends Modal {
     const settingDiv = contentEl.createDiv({ cls: 'ics-settings' });
 
     let nameText: TextComponent;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const nameSetting = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName("Calendar Name")
       .addText((text) => {
         nameText = text;
@@ -542,8 +536,7 @@ class SettingsModal extends Modal {
         });
       });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const ownerEmailSetting = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName('Calendar Owner Email (Optional)')
       .setDesc('Used to skip declined events')
       .addText(text => {
@@ -553,8 +546,7 @@ class SettingsModal extends Modal {
         });
       });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const calendarTypeSetting = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName('Calendar Type')
       .setDesc('Select the type of calendar (Remote URL or Vault Folder with ICS files, maintained manually or via automation like vdirsyncer)')
       .addDropdown(dropdown => {
@@ -562,7 +554,7 @@ class SettingsModal extends Modal {
         dropdown.addOption('vdir', 'Folder with ICS files');
         dropdown.setValue(this.calendarType)
           .onChange(value => {
-            this.calendarType = value as 'remote' | 'vdir';
+            this.calendarType = value;
             updateUrlSetting();
           });
       });
@@ -615,8 +607,7 @@ class SettingsModal extends Modal {
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const checkboxToggle = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName('Checkbox')
       .setDesc('Use a checkbox for each event (will be a bullet otherwise)')
       .addToggle(toggle => toggle
@@ -626,8 +617,7 @@ class SettingsModal extends Modal {
           this.hasChanges = true;
         }));
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const endTimeToggle = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName('End time')
       .setDesc('Include the event\'s end time')
       .addToggle(toggle => toggle
@@ -637,8 +627,7 @@ class SettingsModal extends Modal {
           this.hasChanges = true;
         }));
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const icsNameToggle = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName('Calendar name')
       .setDesc('Include the calendar name')
       .addToggle(toggle => toggle
@@ -648,8 +637,7 @@ class SettingsModal extends Modal {
           this.hasChanges = true;
         }));
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const summaryToggle = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName('Summary')
       .setDesc('Include the summary field')
       .addToggle(toggle => toggle
@@ -659,8 +647,7 @@ class SettingsModal extends Modal {
           this.hasChanges = true;
         }));
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const locationToggle = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName('Location')
       .setDesc('Include the location field')
       .addToggle(toggle => toggle
@@ -670,8 +657,7 @@ class SettingsModal extends Modal {
           this.hasChanges = true;
         }));
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const descriptionToggle = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName('Description')
       .setDesc('Include the description field ')
       .addToggle(toggle => toggle
@@ -681,8 +667,7 @@ class SettingsModal extends Modal {
           this.hasChanges = true;
         }));
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const showAttendeesToggle = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName('Show Attendees')
       .setDesc('Display attendees for the event')
       .addToggle(toggle => toggle
@@ -692,8 +677,7 @@ class SettingsModal extends Modal {
           this.hasChanges = true;
         }));
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const showOngoingToggle = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName('Show Ongoing')
       .setDesc('Display multi-day events that include target date')
       .addToggle(toggle => toggle
@@ -703,8 +687,7 @@ class SettingsModal extends Modal {
           this.hasChanges = true;
         }));
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const includeAvailableEventsToggle = new Setting(settingDiv)
+    new Setting(settingDiv)
       .setName("Include 'Available' Events")
       .setDesc("Display events marked as 'Available' (do not block time) in the calendar. These are also referred to as 'Transparent' events.")
       .addToggle(toggle => toggle
@@ -1176,12 +1159,7 @@ ${fieldDisplayCode}
 
     // Code display area
     const codeContainer = settingDiv.createDiv('compatibility-note');
-    const codeEl = codeContainer.createEl('pre');
-    codeEl.style.whiteSpace = 'pre-wrap';
-    codeEl.style.fontFamily = 'var(--font-monospace)';
-    codeEl.style.fontSize = '0.9em';
-    codeEl.style.maxHeight = '400px';
-    codeEl.style.overflow = 'auto';
+    const codeEl = codeContainer.createEl('pre', { cls: 'ics-templater-code' });
     codeEl.textContent = templaterCode;
 
     // Copy button
@@ -1193,7 +1171,7 @@ ${fieldDisplayCode}
           .onClick(async () => {
             await navigator.clipboard.writeText(templaterCode);
             button.setButtonText("Copied!");
-            setTimeout(() => {
+            window.setTimeout(() => {
               button.setButtonText("Copy to Clipboard");
             }, 2000);
           });

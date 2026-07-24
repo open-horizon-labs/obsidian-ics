@@ -1,6 +1,6 @@
 # Obsidian ICS Plugin
 
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/cloud-atlas-ai/obsidian-ics?style=for-the-badge&sort=semver) ![Obsidian Downloads](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22ics%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json&style=for-the-badge)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/open-horizon-labs/obsidian-ics?style=for-the-badge&sort=semver) ![Obsidian Downloads](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22ics%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json&style=for-the-badge)
 
 This is a plugin for [Obsidian](https://obsidian.md). It adds events from calendar/ics URLs to your Daily Note on demand.
 
@@ -53,7 +53,7 @@ This plugin is in the community plugin browser in Obsidian. Search for ICS and y
 5. On the main ICS page, select your time [format](https://momentjs.com/docs/#/displaying/) and whether to emit start and end times as Dataview Metadata. See the below screenshot.
 6. Once you've done all of this, use the `ICS: Import events` command. If it shows nothing, check to make sure your iCal URL is the secret URL as that commonly is the issue.
 
-![Settings Screenshot](https://github.com/cloud-atlas-ai/obsidian-ics/blob/master/docs/2023-09-03-settings.png?raw=true)
+![Settings Screenshot](https://github.com/open-horizon-labs/obsidian-ics/blob/master/docs/2023-09-03-settings.png?raw=true)
 
 ### Field Extraction
 
@@ -169,7 +169,7 @@ events.forEach((e) => {
 dv.list(dv.array(mdArray))
 ```
 
-You can see the available fields in the [Event interface](https://github.com/cloud-atlas-ai/obsidian-ics/blob/master/src/IEvent.ts).
+You can see the available fields in the [Event interface](https://github.com/open-horizon-labs/obsidian-ics/blob/master/src/IEvent.ts).
 
 ### Templater
 
@@ -197,9 +197,9 @@ events.sort((a,b) => a.utime - b.utime).forEach((e) => {
 %>
 ```
 
-See [advanced Templated usage example](https://github.com/cloud-atlas-ai/obsidian-ics/discussions/74#discussion-5779931) for an example that demonstrates more features.
+See [advanced Templated usage example](https://github.com/open-horizon-labs/obsidian-ics/discussions/74#discussion-5779931) for an example that demonstrates more features.
 
-You can see the available fields an the [Event interface](https://github.com/cloud-atlas-ai/obsidian-ics/blob/master/src/IEvent.ts).
+You can see the available fields an the [Event interface](https://github.com/open-horizon-labs/obsidian-ics/blob/master/src/IEvent.ts).
 
 ### Full Calendar
 
@@ -235,7 +235,7 @@ If you want to try out beta releases, you can use the [BRAT](https://github.com/
 2. Open BRAT settings (`Settings` -> `BRAT`)
     1. Scroll to the `Beta Plugin List` section
     2. `Add Beta Plugin`
-    3. Specify this repository: `cloud-atlas-ai/obsidian-ics`
+    3. Specify this repository: `open-horizon-labs/obsidian-ics`
 3. Enable the `Amazing Marvin` plugin (`Settings` -> `Community Plugins`)
 
 ## Support

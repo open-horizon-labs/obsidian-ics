@@ -202,7 +202,7 @@ export default class ICSPlugin extends Plugin {
 
         try {
           fileDate = getDateFromFile(view.file, "day").format("YYYY-MM-DD");
-        } catch (error) {
+        } catch {
           const message = "⚠️ Unable to get valid date from filename. ICS only works with daily notes."
           new Notice(message);
           return;
@@ -210,7 +210,7 @@ export default class ICSPlugin extends Plugin {
 
         const events: any[] = await this.getEvents(fileDate);
 
-        const mdArray = events.sort((a, b) => a.utime - b.utime).map(this.formatEvent, this);
+        const mdArray = events.sort((a, b) => a.utime - b.utime).map((e) => this.formatEvent(e));
         editor.replaceRange(mdArray.join("\n").concat("\n"), editor.getCursor());
       }
     });
