@@ -1,7 +1,25 @@
 import { parseIcs, filterMatchingEvents } from '../src/icalUtils';
 import * as ical from 'node-ical';
 
+// node-ical's parseICS export is no longer a configurable property, so
+// jest.spyOn(ical, 'parseICS') throws "Cannot redefine property". Mocking
+// the module instead keeps the real implementation as the default and lets
+// individual tests override it.
+jest.mock('node-ical', () => {
+  const actual = jest.requireActual('node-ical');
+  return {
+    ...actual,
+    parseICS: jest.fn(actual.parseICS),
+  };
+});
+
 describe('Microsoft Office 365 Timezone Parsing', () => {
+  afterEach(() => {
+    const actual = jest.requireActual('node-ical');
+    (ical.parseICS as jest.Mock).mockImplementation(actual.parseICS);
+  });
+
+
   it('should handle the specific tz.startsWith error scenario', () => {
     // Create a scenario that triggers the exact error from the issue report
     const problematicIcsContent = `BEGIN:VCALENDAR
@@ -37,12 +55,12 @@ END:VEVENT
 END:VCALENDAR`;
 
     // Mock the original parseICS to simulate the error
-    const originalParseICS = ical.parseICS;
+    const originalParseICS = jest.requireActual('node-ical').parseICS;
     const mockError = new TypeError('tz.startsWith is not a function');
 
     // First call throws the error, second call (after preprocessing) succeeds
     let callCount = 0;
-    jest.spyOn(ical, 'parseICS').mockImplementation((content: string) => {
+    (ical.parseICS as jest.Mock).mockImplementation((content: string) => {
       callCount++;
       if (callCount === 1) {
         // Simulate the original error
@@ -59,9 +77,6 @@ END:VCALENDAR`;
 
     expect(matchingEvents.length).toBeGreaterThanOrEqual(1);
     expect(ical.parseICS).toHaveBeenCalledTimes(2); // First call fails, second succeeds
-
-    // Restore the original implementation
-    jest.restoreAllMocks();
   });
 
   it('should handle edge case that might cause tz.startsWith error', () => {

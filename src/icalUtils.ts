@@ -107,9 +107,24 @@ function isExcluded(recurrenceDate: moment.Moment, exdateArray: moment.Moment[])
 }
 
 function processRecurrenceOverrides(event: any, sortedDaysToMatch: string[], _excludedDates: moment.Moment[], matchingEvents: any[]) {
+  // node-ical keys event.recurrences by both a date-only key and a full
+  // ISO-timestamp key for the same override, so the same override object
+  // can appear twice under different keys. Dedupe by recurrenceid.
+  const seenRecurrenceIds = new Set<number>();
+
   for (const date in event.recurrences) {
     const recurrence = event.recurrences[date];
     const recurrenceMoment = moment(date).startOf('day');
+
+    const recurrenceIdTime = recurrence.recurrenceid instanceof Date
+      ? recurrence.recurrenceid.getTime()
+      : undefined;
+    if (recurrenceIdTime !== undefined) {
+      if (seenRecurrenceIds.has(recurrenceIdTime)) {
+        continue;
+      }
+      seenRecurrenceIds.add(recurrenceIdTime);
+    }
 
     // Skip canceled overrides
     if (recurrence.status && recurrence.status.toUpperCase() === "CANCELLED") {
