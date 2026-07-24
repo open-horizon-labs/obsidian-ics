@@ -60,3 +60,56 @@ jobs:
             --title="$VERSION" \
             --notes "Automated release for version $VERSION" \
             dist/main.js dist/styles.css dist/manifest.json
+
+  beta-release:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'beta/')
+    permissions:
+      contents: write
+      attestations: write
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - name: Install dependencies
+        run: npm install
+      - name: Create and push a tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(jq -r .version package.json)
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "$VERSION"
+          git push origin "$VERSION"
+
+      - name: Build
+        run: |
+          npm run build --if-present
+          cp manifest-beta.json dist/manifest.json
+          cp styles.css dist/
+          ls dist/
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: |
+            dist/main.js
+            dist/manifest.json
+            dist/styles.css
+
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(jq -r .version package.json)
+          gh release create "$VERSION" \
+            --prerelease \
+            --title="$VERSION" \
+            --notes "Automated beta release for version $VERSION" \
+            dist/main.js dist/styles.css dist/manifest.json
