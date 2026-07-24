@@ -296,9 +296,22 @@ export default class ICSSettingsTab extends PluginSettingTab {
 
     // Sponsor link - Thank you!
     const divSponsor = containerEl.createDiv();
-    divSponsor.innerHTML = `<br/><hr/>A scratch my own itch project by <a href="https://muness.com/" target='_blank'>muness</a>.<br/>
-			<a href='https://www.buymeacoffee.com/muness' target='_blank'><img height="36" src='https://cdn.buymeacoffee.com/uploads/profile_pictures/default/79D6B5/MC.png' border='0' alt='Buy Me a Book' /></a>
-		`
+    divSponsor.createEl('br');
+    divSponsor.createEl('hr');
+    divSponsor.appendText('A scratch my own itch project by ');
+    const munessLink = divSponsor.createEl('a', { text: 'muness' });
+    munessLink.href = 'https://muness.com/';
+    munessLink.target = '_blank';
+    divSponsor.appendText('.');
+    divSponsor.createEl('br');
+    const coffeeLink = divSponsor.createEl('a');
+    coffeeLink.href = 'https://www.buymeacoffee.com/muness';
+    coffeeLink.target = '_blank';
+    const coffeeImg = coffeeLink.createEl('img');
+    coffeeImg.height = 36;
+    coffeeImg.src = 'https://cdn.buymeacoffee.com/uploads/profile_pictures/default/79D6B5/MC.png';
+    coffeeImg.setAttribute('border', '0');
+    coffeeImg.alt = 'Buy Me a Book';
   }
 
 
@@ -1012,10 +1025,17 @@ class FieldSectionModal extends Modal {
 
     // Add backward compatibility tip
     const tipEl = settingDiv.createDiv('field-name-tip');
-    tipEl.innerHTML = `
-      <p><strong>💡 Backward Compatibility Tip:</strong> The field name "Video Call URLs" automatically populates the legacy <code>callUrl</code> and <code>callType</code> properties for existing templates.</p>
-      <p>For new templates, use <code>event.extractedFields["Field Names"]</code> to access any field's extracted data.</p>
-    `;
+    const tipP1 = tipEl.createEl('p');
+    tipP1.createEl('strong', { text: '💡 Backward Compatibility Tip:' });
+    tipP1.appendText(' The field name "Video Call URLs" automatically populates the legacy ');
+    tipP1.createEl('code', { text: 'callUrl' });
+    tipP1.appendText(' and ');
+    tipP1.createEl('code', { text: 'callType' });
+    tipP1.appendText(' properties for existing templates.');
+    const tipP2 = tipEl.createEl('p');
+    tipP2.appendText('For new templates, use ');
+    tipP2.createEl('code', { text: 'event.extractedFields["Field Names"]' });
+    tipP2.appendText(" to access any field's extracted data.");
 
     // Footer buttons
     const footerEl = contentEl.createDiv();
@@ -1179,9 +1199,9 @@ ${fieldDisplayCode}
 
     // Usage note
     const usageNote = settingDiv.createDiv('field-name-tip');
-    usageNote.innerHTML = `
-      <p><strong>💡 Usage:</strong> Copy this code into your Templater template file. It will automatically use any field sections you've configured.</p>
-    `;
+    const usageP = usageNote.createEl('p');
+    usageP.createEl('strong', { text: '💡 Usage:' });
+    usageP.appendText(" Copy this code into your Templater template file. It will automatically use any field sections you've configured.");
 
     // Close button
     new Setting(settingDiv)
