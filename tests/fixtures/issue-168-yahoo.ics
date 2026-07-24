@@ -1,0 +1,2050 @@
+BEGIN:VCALENDAR
+CALSCALE:GREGORIAN
+PRODID:-//Apple Inc.//macOS 15.4//EN
+VERSION:2.0
+X-APPLE-CALENDAR-COLOR:#45A703
+X-WR-CALDESC:sdrohan's Calendar: Steve_Drohan
+X-WR-CALNAME:Steve_Drohan
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:DAYLIGHT
+DTSTART:20070311T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+TZNAME:CDT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+END:DAYLIGHT
+BEGIN:STANDARD
+DTSTART:20071104T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+TZNAME:CST
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VTIMEZONE
+TZID:America/New_York
+BEGIN:DAYLIGHT
+DTSTART:20070311T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+TZNAME:EDT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+END:DAYLIGHT
+BEGIN:STANDARD
+DTSTART:20071104T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+TZNAME:EST
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VTIMEZONE
+TZID:America/Detroit
+BEGIN:DAYLIGHT
+DTSTART:20070311T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+TZNAME:EDT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+END:DAYLIGHT
+BEGIN:STANDARD
+DTSTART:20071104T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+TZNAME:EST
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VTIMEZONE
+TZID:Etc/GMT
+BEGIN:STANDARD
+DTSTART:20010101T000000
+TZNAME:GMT
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VTIMEZONE
+TZID:America/Denver
+BEGIN:DAYLIGHT
+DTSTART:20070311T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+TZNAME:MDT
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0600
+END:DAYLIGHT
+BEGIN:STANDARD
+DTSTART:20071104T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+TZNAME:MST
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0700
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VTIMEZONE
+TZID:America/Phoenix
+BEGIN:DAYLIGHT
+DTSTART:19420209T020000
+RDATE:19420209T020000
+RDATE:19440401T000100
+RDATE:19670430T020000
+TZNAME:MDT
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0600
+END:DAYLIGHT
+BEGIN:STANDARD
+DTSTART:19440101T000100
+RDATE:19440101T000100
+RDATE:19441001T000100
+RDATE:19671029T020000
+TZNAME:MST
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0700
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VTIMEZONE
+TZID:Etc/UTC
+BEGIN:STANDARD
+DTSTART:20010101T000000
+TZNAME:UTC
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+CATEGORIES:Appointment
+CLASS:PUBLIC
+DESCRIPTION:0
+DTEND;VALUE=DATE:20010810
+DTSTAMP:20250319T180225Z
+DTSTART;VALUE=DATE:20010809
+LAST-MODIFIED:20110320T014458Z
+RRULE:FREQ=YEARLY
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Dylan's birthday
+TRANSP:OPAQUE
+UID:x5JuXzRWiMYuryEdiRsmACmItaRYa3yj8hU-@calendar.yahoo.com
+X-YAHOO-CALENDAR-ID:119
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+END:VEVENT
+BEGIN:VEVENT
+CATEGORIES:Appointment
+CLASS:PUBLIC
+DESCRIPTION:0
+DTEND;VALUE=DATE:19980303
+DTSTAMP:20250319T180225Z
+DTSTART;VALUE=DATE:19980302
+LAST-MODIFIED:20110320T014458Z
+RRULE:FREQ=YEARLY
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Mike Bebout's Birthday
+TRANSP:OPAQUE
+UID:0RcAdzRWiMahQvgIhYMcpnriwwgz1kYj9CY-@calendar.yahoo.com
+X-YAHOO-CALENDAR-ID:125
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+END:VEVENT
+BEGIN:VEVENT
+CATEGORIES:Appointment
+CLASS:PUBLIC
+DESCRIPTION:0
+DTEND;VALUE=DATE:20010328
+DTSTAMP:20250319T180225Z
+DTSTART;VALUE=DATE:20010327
+LAST-MODIFIED:20110320T014458Z
+RRULE:FREQ=YEARLY
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Lisa's birthday
+TRANSP:OPAQUE
+UID:raq9LjRWiMYDgn0c7oyCNOZj9iLsElaPpnI-@calendar.yahoo.com
+X-YAHOO-CALENDAR-ID:120
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+END:VEVENT
+BEGIN:VEVENT
+CATEGORIES:Appointment
+CLASS:PUBLIC
+DESCRIPTION:0
+DTEND;VALUE=DATE:20001025
+DTSTAMP:20250319T180225Z
+DTSTART;VALUE=DATE:20001024
+LAST-MODIFIED:20110320T014458Z
+RRULE:FREQ=YEARLY
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Angie Walker's Birthday
+TRANSP:OPAQUE
+UID:JnCbSzRWiMYlKKyJNtifniTylzTHP7B4gZ4-@calendar.yahoo.com
+X-YAHOO-CALENDAR-ID:122
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+END:VEVENT
+BEGIN:VEVENT
+CATEGORIES:Appointment
+CLASS:PUBLIC
+DESCRIPTION:0
+DTEND;VALUE=DATE:19990827
+DTSTAMP:20250319T180225Z
+DTSTART;VALUE=DATE:19990826
+LAST-MODIFIED:20110320T014458Z
+RRULE:FREQ=YEARLY
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Gaye Lockwood's Birthday
+TRANSP:OPAQUE
+UID:.gQrazRWiMaUTwPQaBPu0kpKHIHTMKxkbO0-@calendar.yahoo.com
+X-YAHOO-CALENDAR-ID:123
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+END:VEVENT
+BEGIN:VEVENT
+CATEGORIES:Appointment
+CLASS:PUBLIC
+DESCRIPTION:0
+DTEND;VALUE=DATE:20010125
+DTSTAMP:20250319T180225Z
+DTSTART;VALUE=DATE:20010124
+LAST-MODIFIED:20110320T014458Z
+RRULE:FREQ=YEARLY
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Amy's Birthday
+TRANSP:OPAQUE
+UID:3YN64DRWiMY.GAZmQc60sXLWrcvt0g1gDJU-@calendar.yahoo.com
+X-YAHOO-CALENDAR-ID:121
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;VALUE=DATE:20230424
+DTSTAMP:20250319T180225Z
+DTSTART;VALUE=DATE:20230423
+LAST-MODIFIED:20221109T220345Z
+RRULE:FREQ=YEARLY
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Jeremy’s Birthday
+TRANSP:OPAQUE
+UID:8BDA30FA-562D-4D28-9DB0-6DA13F97743F
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+END:VEVENT
+BEGIN:VEVENT
+CATEGORIES:Appointment
+CLASS:PUBLIC
+DESCRIPTION:0
+DTEND;VALUE=DATE:20020508
+DTSTAMP:20250319T180225Z
+DTSTART;VALUE=DATE:20020507
+LAST-MODIFIED:20110320T014458Z
+RRULE:FREQ=YEARLY
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Jessica's birthday
+TRANSP:OPAQUE
+UID:cQd_AzRWiMYEa7.qF4aqzHiqfGdfbNxGJ8w-@calendar.yahoo.com
+X-YAHOO-CALENDAR-ID:104
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20240919T160000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20240919T150000
+LAST-MODIFIED:20240916T171238Z
+LOCATION:https://app.discuss.io/331867/d\n
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Call
+TRANSP:OPAQUE
+UID:F0F9EA9B-3F33-485B-BDDB-83EEF0DB23DF
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:206D2614-872D-40D0-B9D4-5C3EC8CB1A0A
+X-WR-ALARMUID:206D2614-872D-40D0-B9D4-5C3EC8CB1A0A
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DESCRIPTION:Attendee: \nSteve Drohan (sdrohan@yahoo.com) \n\n\nMeeting t
+ ype \nNew Advisor Complimentary Onboarding \n\n\nTeam member: \nShania A
+ banto \n\n\nConferencing information: \nWhen it's time\, join the meetin
+ g from PC\, Mac\, Linux\, iOS or Android: \nhttps://meet.google.com/nba-
+ fjxg-reg \n\n\nPhone Numbers: \n US: +1 650-980-4087 \n PIN: 896483984# 
+ \nMore phone numbers: https://tel.meet/nba-fjxg-reg?pin=2033383739910 \n
+ \n\nCustomer's cancel/reschedule link:  \nhttps://go.oncehub.com/NewAdvi
+ sorComplimentaryOnboarding?Params=20F2DAE8191B67E41E70610BFF9E21C1B1CD4C
+ 350BB601602EF687FBB99364EE \n\n\n \n\n\nBooking ID: \nBKNG-396BN0UD1A8H 
+ \n\n\nCustomer's mobile phone: \n+1 (909) 720-7964 \n\n\n \nTo help us p
+ repare\, what you are most interested in learning about during this Onbo
+ arding Call?: \nProfile Optimization\, Personalized Board Matching\, Pla
+ tform Tour \n\n\nPlease attach your resume: \nAttachment file: https://a
+ pp.oncehub.com/scheduleonce/secureattachment.aspx?AttachmentName=i%2fYh9
+ abedmlyRHIqfonaQbUpva2PWPQRRt%2fncVP367Y9Sv3%2fWmgHQ8BXn6CHqAVB&CustomFi
+ eldInformationID=FzKDQ01xEoQ%3d&meetingId=h%2b9cwaoutmwlpMB5uXJKdg%3d%3d
+  \n\n\nPlease insert your LinkedIn link here: \nhttps://www.linkedin.com
+ /in/steve-drohan-63b6451b7/ \n\n\n
+DTEND;TZID=Etc/UTC:20240926T174500
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=Etc/UTC:20240926T170000
+LAST-MODIFIED:20240923T182924Z
+LOCATION:https://meet.google.com/nba-fjxg-reg
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Steve Drohan - New Advisor Complimentary Onboarding
+TRANSP:OPAQUE
+UID:5BF410DA-4E68-41BD-952A-3643C1E1BD14
+X-MICROSOFT-CDO-BUSYSTATUS:BUSY
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:CFEF9DBE-E9C1-4619-BB38-60592F33A2E6
+X-WR-ALARMUID:CFEF9DBE-E9C1-4619-BB38-60592F33A2E6
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20241007T100000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20241007T093000
+LAST-MODIFIED:20241006T172126Z
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Reporting
+TRANSP:OPAQUE
+UID:8A4D370D-2404-461D-983B-8430B5AA0BC2
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:5C2B6BF2-0F8F-4823-97FD-87AECE317211
+X-WR-ALARMUID:5C2B6BF2-0F8F-4823-97FD-87AECE317211
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DESCRIPTION:Event Name: Exclusive Executive Networking Event\nEvent Desc
+ ription: Click on any of the available dates and times to register.Kurt 
+ Phelps is the Founder of Global Network Recruiting and Phello LLC. Mr. P
+ helps has over 25 years of experience as an executive recruiter and has 
+ personally worked with over 10\,000 corporate executives in helping them
+  build their brand. As an Executive Recruiter\, Kurt has worked with com
+ panies like Google\, Microsoft\, and many other Fortune 500 Companies to
+  fill key leadership roles.\nDate & Time: 02:00pm - 03:00pm (Eastern Tim
+ e - US & Canada) on Wednesday\, November 6\, 2024\nLocation: This is a Z
+ oom web conference.\n\nYou can join this meeting from your computer\, ta
+ blet\, or smartphone.\nhttps://us02web.zoom.us/j/82736626994\n\nYou can 
+ also dial in using your phone.\nUS: +1 646 558 8656\, +1 646 931 3860\, 
+ +1 301 715 8592\, +1 305 224 1968\, +1 309 205 3325\, +1 312 626 6799\, 
+ +1 253 215 8782\, +1 346 248 7799\, +1 360 209 5623\, +1 386 347 5053\, 
+ +1 507 473 4847\, +1 564 217 2000\, +1 669 444 9171\, +1 669 900 6833\, 
+ +16892781000\, +1 719 359 4580\, +1 253 205 0468\nMeeting ID: 827-366-26
+ 994\n\nFind your local number: https://us02web.zoom.us/u/kbJaf11nDv\n\nM
+ obile Number: +1 909-720-7964\n\nLinkedIn Profile Link/URL: : linkedin.c
+ om/in/stesvedrohan\n\nNeed to make changes to this event?\nCancel: https
+ ://calendly.com/cancellations/5b74a26e-01d9-4cac-98a6-90581163190c\nResc
+ hedule: https://calendly.com/reschedulings/5b74a26e-01d9-4cac-98a6-90581
+ 163190c\n
+DTEND;TZID=Etc/UTC:20241106T200000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=Etc/UTC:20241106T190000
+LAST-MODIFIED:20241025T183217Z
+LOCATION:https://us02web.zoom.us/j/82736626994
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Exclusive Executive Networking Event with Kurt Phelps
+TRANSP:OPAQUE
+UID:calendly-1113797490
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:65FB3296-3537-4A9A-B3F4-48AA874B0BEE
+X-WR-ALARMUID:65FB3296-3537-4A9A-B3F4-48AA874B0BEE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CATEGORIES:general
+CLASS:PUBLIC
+DESCRIPTION:Even if you hate planning\, think goals are dumb\, and would
+  rather not be reminded that it's almost 2025.
+DTEND;TZID=Etc/GMT:20241113T150000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=Etc/GMT:20241113T140000
+LAST-MODIFIED:20241029T122615Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Plan Your Year 2025 Webinar
+TRANSP:OPAQUE
+UID:f33424d6-ee03-47c1-bc78-14109e94bed9
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20241114T210000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20241114T180000
+LAST-MODIFIED:20241108T155808Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Men's Stag Dinner
+TRANSP:OPAQUE
+UID:53E27CAF-0074-457B-8904-76A8871866A1
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:231F827B-588D-485B-ACFF-62CF5582477C
+X-WR-ALARMUID:231F827B-588D-485B-ACFF-62CF5582477C
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20241114T130000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20241114T123000
+LAST-MODIFIED:20241114T130548Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Call wit Mo Amdani
+TRANSP:OPAQUE
+UID:0FFC9314-55E5-457F-911B-1AA781395BE4
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:987A4872-33F2-416C-8AB1-A28E72D5447E
+X-WR-ALARMUID:987A4872-33F2-416C-8AB1-A28E72D5447E
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20241115T160000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20241115T153000
+LAST-MODIFIED:20241114T130308Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Purdue Class
+TRANSP:OPAQUE
+UID:076F1093-A688-4D3B-A402-6A4F0280AF25
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:E8C1CC6E-B7DD-4F94-94D8-D41A95322C33
+X-WR-ALARMUID:E8C1CC6E-B7DD-4F94-94D8-D41A95322C33
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="sdrohan@yahoo.com";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com"
+ ;PARTSTAT=ACCEPTED;RSVP=TRUE:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n__________________________________________________________
+ ______________________\nMicrosoft Teams Need help?<https://aka.ms/JoinTe
+ amsMeeting?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com
+ /l/meetup-join/19%3ameeting_NzcxMTY3ZDktODYzZC00YTI3LTg4NjUtMGZlZWVhZjM4
+ MzUx%40thread.v2/0?context=%7b%22Tid%22%3a%22ca9662ec-bf95-4fef-9876-bbb
+ 94b6c9663%22%2c%22Oid%22%3a%22c3a3772c-651d-42fd-86b9-7e09088230b7%22%7d
+ >\nMeeting ID: 243 174 832 354\nPasscode: Qf7gu2SG\n____________________
+ ____________\nFor organizers: Meeting options<https://teams.microsoft.co
+ m/meetingOptions/?organizerId=c3a3772c-651d-42fd-86b9-7e09088230b7&tenan
+ tId=ca9662ec-bf95-4fef-9876-bbb94b6c9663&threadId=19_meeting_NzcxMTY3ZDk
+ tODYzZC00YTI3LTg4NjUtMGZlZWVhZjM4MzUx@thread.v2&messageId=0&language=en-
+ US>\n___________________________________________________________________
+ _____________\n
+DTEND;TZID=Etc/UTC:20241125T183000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=Etc/UTC:20241125T180000
+LAST-MODIFIED:20241121T221038Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Marissa Withers";EMAIL="MWithers@strategicventures.com":ma
+ ilto:MWithers@strategicventures.com
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Marissa/Steve Intro Call
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E0080000000049A3F130623CDB01000000000000
+ 00001000000051320F3C0DFDCF42850907FDCD768FF5
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-OWNERAPPTID:2123081801
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONDISPLAYNAME:Microsoft Teams Meeting
+X-MICROSOFT-LOCATIONS:[{"DisplayName":"Microsoft Teams Meeting"\,"Locati
+ onAnnotation":""\,"LocationUri":""\,"LocationStreet":""\,"LocationCity":
+ ""\,"LocationState":""\,"LocationCountry":""\,"LocationPostalCode":""\,"
+ LocationFullAddress":""}]
+X-MICROSOFT-LOCATIONSOURCE:None
+X-MICROSOFT-ONLINEMEETINGINFORMATION:{"OnlineMeetingChannelId":null\,"On
+ lineMeetingProvider":3}
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/ca9662ec-bf95-4fef-9876-bbb94b6c9663/c3a3772c-651d-42fd-8
+ 6b9-7e09088230b7/19_meeting_NzcxMTY3ZDktODYzZC00YTI3LTg4NjUtMGZlZWVhZjM4
+ MzUx@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_NzcxMTY3ZDktODYzZC00YTI3LTg4NjUtMGZlZWVhZjM4MzUx%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22ca9662ec-bf95-4fef-9876-bbb94b6c9663%22
+ %2c%22Oid%22%3a%22c3a3772c-651d-42fd-86b9-7e09088230b7%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_NzcxMTY3ZDktODYzZC00
+ YTI3LTg4NjUtMGZlZWVhZjM4MzUx@thread.v2"\,"rid":0\,"mid":0\,"uid":null\,"
+ private":true\,"type":0}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:59CB35DD-14C5-4CF0-B080-BBB228FE53DE
+X-WR-ALARMUID:59CB35DD-14C5-4CF0-B080-BBB228FE53DE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20241126T110000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20241126T090000
+LAST-MODIFIED:20241124T235514Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:OnEngine Work Tuesday’s
+TRANSP:OPAQUE
+UID:C092652B-596A-47D7-9448-0DBBD9901DC0
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Steve Drohan";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com";PART
+ STAT=ACCEPTED;RSVP=TRUE:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:Hey Steve\,\n\nLet me know if this time works.\n\nThanks!\nM
+ ike\n\n_________________________________________________________________
+ _______________\nMicrosoft Teams Need help?<https://aka.ms/JoinTeamsMeet
+ ing?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com/l/meet
+ up-join/19%3ameeting_YzQ5YWIxYmYtZDZkYS00ODNkLWE0MTUtZTVkMDNkNmJlMzAx%40
+ thread.v2/0?context=%7b%22Tid%22%3a%22b9c218d5-d804-4bbb-94b3-7db0d25a56
+ 30%22%2c%22Oid%22%3a%228d525c3d-7339-4bff-bcc4-6a3874ead271%22%7d>\nMeet
+ ing ID: 267 971 899 836\nPasscode: KV3WM7Xf\n___________________________
+ _____\nDial in by phone\n+1 857-990-1033\,\,916597567#<tel:+18579901033\
+ ,\,916597567#> United States\, Boston\nFind a local number<https://diali
+ n.teams.microsoft.com/2c7b4722-2371-4aeb-b801-58ef26edbedc?id=916597567>
+ \nPhone conference ID: 916 597 567#\nFor organizers: Meeting options<htt
+ ps://teams.microsoft.com/meetingOptions/?organizerId=8d525c3d-7339-4bff-
+ bcc4-6a3874ead271&tenantId=b9c218d5-d804-4bbb-94b3-7db0d25a5630&threadId
+ =19_meeting_YzQ5YWIxYmYtZDZkYS00ODNkLWE0MTUtZTVkMDNkNmJlMzAx@thread.v2&m
+ essageId=0&language=en-US> | Reset dial-in PIN<https://dialin.teams.micr
+ osoft.com/usp/pstnconferencing>\n_______________________________________
+ _________________________________________\nThis e-mail message\, includi
+ ng any attachments\, is intended only for the use of the one or more ind
+ ividuals\, or entities\, to whom it is addressed. If the reader of this 
+ message is not the intended recipient\, or the employee or agent respons
+ ible for delivering the message to the intended recipient\, you are here
+ by notified that any dissemination\, distribution\, or copying of this m
+ essage is strictly prohibited. If you have received this communication i
+ n error\, please notify us immediately by contacting the sender\, by e-M
+ ail or by telephone\, and destroy all copies of the original.\n
+DTEND;TZID=Etc/GMT:20241127T204500
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=Etc/GMT:20241127T200000
+LAST-MODIFIED:20241125T193842Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Mike W. Donahue";EMAIL="mwdonahue@gocloudwave.com":mailto:
+ mwdonahue@gocloudwave.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Chat with CloudWave
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E008000000005E279493713FDB01000000000000
+ 0000100000000387E9E2F43DE44EBE8B178B207FAA9B
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:2123090370
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONDISPLAYNAME:Microsoft Teams Meeting
+X-MICROSOFT-LOCATIONS:[{"DisplayName":"Microsoft Teams Meeting"\,"Locati
+ onAnnotation":""\,"LocationUri":""\,"LocationStreet":""\,"LocationCity":
+ ""\,"LocationState":""\,"LocationCountry":""\,"LocationPostalCode":""\,"
+ LocationFullAddress":""}]
+X-MICROSOFT-LOCATIONSOURCE:None
+X-MICROSOFT-ONLINEMEETINGCONFERENCEID:916597567
+X-MICROSOFT-ONLINEMEETINGINFORMATION:{"OnlineMeetingChannelId":null\,"On
+ lineMeetingProvider":3}
+X-MICROSOFT-ONLINEMEETINGTOLLNUMBER:+1 857-990-1033
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/b9c218d5-d804-4bbb-94b3-7db0d25a5630/8d525c3d-7339-4bff-b
+ cc4-6a3874ead271/19_meeting_YzQ5YWIxYmYtZDZkYS00ODNkLWE0MTUtZTVkMDNkNmJl
+ MzAx@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_YzQ5YWIxYmYtZDZkYS00ODNkLWE0MTUtZTVkMDNkNmJlMzAx%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22b9c218d5-d804-4bbb-94b3-7db0d25a5630%22
+ %2c%22Oid%22%3a%228d525c3d-7339-4bff-bcc4-6a3874ead271%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_YzQ5YWIxYmYtZDZkYS00
+ ODNkLWE0MTUtZTVkMDNkNmJlMzAx@thread.v2"\,"rid":0\,"mid":0\,"uid":null\,"
+ private":true\,"type":0}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:2A8F8C15-9678-4F98-A7CE-98109C9AFAE6
+X-WR-ALARMUID:2A8F8C15-9678-4F98-A7CE-98109C9AFAE6
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Steve Drohan";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com";PART
+ STAT=ACCEPTED;RSVP=TRUE:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:Dial-in details:\nDial in to be confirmed\n-----------------
+ ----------------------------\n------------------------------------------
+ ---\nHi Steve\, \nBefore we can confirm your consultation concerning the
+  pen testing space [AS-3415]\, you must first confirm your interest here
+ :\nhttps://specialist.thirdbridge.com/engagement-terms/project/e2213dfeb
+ 13fb57b9710d476efcb5c37\nYour consultation concerning the pen testing sp
+ ace [AS-3415] has been scheduled.\nFor greater likelihood of additional 
+ consulting opportunities\, please update your availability here:  https:
+ //scheduler.thirdbridge.com/availability/564b3c85bd391aad2848df6f2bb28a5
+ 656cac134\nIf you have any questions\, please contact:\nLayne Meyer\nlay
+ ne.meyer@thirdbridge.com\n1 646 979 6209\n------------------------------
+ --------------\n<b>Please read the following reminders prior to joining 
+ the consultation:</b>\nThe use of Generative AI (GenAI) tools\, such as 
+ chatbots\, content generators\, or any other AI-powered solutions\, is s
+ trictly prohibited. Any specialist found using GenAI may face permanent 
+ exclusion from Third Bridge's network and further legal action.\nEnsure 
+ you do not disclose any confidential or material non-public information\
+ , provide investment\, legal\, financial\, accountancy\, or medical advi
+ ce\, share inside information or trade secrets\, or reveal any informati
+ on you are obligated to keep confidential by agreement or otherwise.\nYo
+ u may decline to answer any questions during the consultation for any re
+ ason and you should always do so if your answer would lead to a conflict
+  of interest\, breach of third-party obligations or disclosure of confid
+ ential or material non-public information.\nBy participating in this con
+ sultation\, you agree not to discuss any information related to your cur
+ rent employer or any company by which you are engaged if such informatio
+ n could reasonably be considered to be proprietary\, confidential\, or c
+ onstitute a trade secret and you warrant that your participation does no
+ t breach any existing agreements\, or legal duties\, or contravene any a
+ pplicable laws or regulations. \nIf you are a franchisee owner\, you may
+  discuss your own franchise or the general industry\, however\, you may 
+ not discuss information related to the franchisor's internal financial p
+ erformance\, strategic plans\, new product development\, or any other ma
+ tter which is likely to reveal confidential information about the franch
+ isor.\nIn addition\, you must not disclose or discuss (i) information re
+ lating to China’s national security and interests\,(ii) non-public stati
+ stical data related to the Chinese economy or market\,or (iii) other imp
+ ortant data related to the Chinese economy or market. \nYou are also obl
+ igated to maintain confidentiality by not disclosing to anythird party t
+ he client's identity\, any information provided by the client\,or the su
+ bject matter of the consultation.\nYou must not exchange contact details
+  with the client and must notify Third Bridge immediately if you areaske
+ d by a client to provide your contact details. \nShould you become aware
+  of any conflict of interest\, any breach of law\, regulation\, professi
+ onalconduct rules or confidentiality\, or any disclosure of material non
+ -publicinformation concerning a quoted company or instrument or any trad
+ e secret\,please terminate the consultation immediately and notify Third
+  Bridge Compliance at <a href="mailto:compliance@thirdbridge.com">compli
+ ance@thirdbridge.com</a>.\n<b>在正式参与访谈咨询前，请阅读以下提示：</b>\n严禁使用人工智能生成（GenAI）
+ 工具，如聊天机器人、内容生成器或任何其他人工智能驱动的解决方案。任何使用人工智能生成工具的专家可能会被永久排除在高临的网络之外，并面临进一步的法
+ 律诉讼。\n确保您不披露任何机密或重大非公开信息，不提供投资、法律、财务、会计或医疗建议，不分享内幕信息或商业秘密，不披露任何您根据协议或其他方
+ 式负有保密义务的信息。\n您可以在咨询期间以任何理由拒绝回答任何问题，如果您的回答会导致利益冲突、违反第三方义务、披露机密和重大非公开信息，您应
+ 该始终拒绝回应。\n通过参与本次咨询，您同意不讨论与您当前雇主或您所在的任何公司有关的任何信息，如果该信息被合理地视为专有、机密或构成商业秘密，
+ 请保证您的参与不会违反任何现有协议或法律义务，也不会违反任何适用的法律或法规。\n如果您是加盟商所有者，您可以讨论自己的特许经营权或行业，但不得
+ 讨论与特许人的内部财务业绩、战略计划、新产品研发或任何其他可能泄露特许人机密信息的相关信息。\n此外，您不得披露或讨论（i）与中国国家安全和利益
+ 有关的信息，（ii）与中国经济或市场有关的非公开统计数据，（iii）任何与中国经济和市场有关的重要数据。\n您还负有保密义务，即不向任何第三方披
+ 露客户的身份、客户提供的任何信息或咨询的主题。\n您不得与客户交换联系方式，如果客户向您索要联系方式，您必须立即通知高临。\n如果您发现任何利益
+ 冲突，任何违反法律、法规、职业行为准则或保密规定，任何披露有关上市公司或文书的重大非公开信息及任何商业秘密，请立即终止咨询，并向高临合规部门报告
+ <a
+DTEND;TZID=Etc/UTC:20241203T210000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=Etc/UTC:20241203T200000
+LAST-MODIFIED:20241203T145857Z
+LOCATION:Dial in to be confirmed
+ORGANIZER;CN="Third Bridge Scheduler";EMAIL="scheduler@thirdbridge.com":
+ mailto:scheduler@thirdbridge.com
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:PENDING YOUR ACCEPTANCE - Third Bridge Consultation - pen testin
+ g space [AS-3415]
+TRANSP:OPAQUE
+UID:dc52346b-688b-48c8-b701-a3f817682040
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:9B87F5FA-8834-4712-BCAF-186CA5F2FD28
+X-WR-ALARMUID:9B87F5FA-8834-4712-BCAF-186CA5F2FD28
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Steve Drohan";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com";PART
+ STAT=ACCEPTED;RSVP=TRUE:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n\n\n[https://us02st2.zoom.us/static/6.3.29057/image/new/Zo
+ omLogo_110_25.png]<https://zoom.us/>\nHi there\,\nDr. Jeb Hurley is invi
+ ting you to a scheduled Zoom meeting.\nJoin Zoom Meeting<https://us02web
+ .zoom.us/j/86565529412?pwd=8pvsncvwKmz0WtUm3cvjJdvs911KNZ.1&from=addon>\
+ nOne tap mobile:\nUS: +16699006833\,\,86565529412#\,\,\,\,*144911#<tel:+
+ 16699006833\,\,86565529412#\,\,\,\,*144911#> or +17193594580\,\,86565529
+ 412#\,\,\,\,*144911#<tel:+17193594580\,\,86565529412#\,\,\,\,*144911#>\n
+ Meeting URL:\nhttps://us02web.zoom.us/j/86565529412?pwd=8pvsncvwKmz0WtUm
+ 3cvjJdvs911KNZ.1&from=addon\nMeeting ID:\n865 6552 9412\nPasscode:\n1449
+ 11\nJoin by Telephone\nFor higher quality\, dial a number based on your 
+ current location.\nDial:\n+1 669 900 6833 US (San Jose)\n+1 719 359 4580
+  US\n+1 253 205 0468 US\n+1 253 215 8782 US (Tacoma)\n+1 346 248 7799 US
+  (Houston)\n+1 669 444 9171 US\n+1 305 224 1968 US\n+1 309 205 3325 US\n
+ +1 312 626 6799 US (Chicago)\n+1 360 209 5623 US\n+1 386 347 5053 US\n+1
+  507 473 4847 US\n+1 564 217 2000 US\n+1 646 931 3860 US\n+1 689 278 100
+ 0 US\n+1 929 436 2866 US (New York)\n+1 301 715 8592 US (Washington DC)\
+ nMeeting ID:\n865 6552 9412\nPasscode:\n144911\nInternational numbers<ht
+ tps://us02web.zoom.us/u/kl3dBPKP1>\n\n
+DTEND;TZID=America/Phoenix:20241220T093000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Phoenix:20241220T083000
+LAST-MODIFIED:20241217T175934Z
+LOCATION:https://us02web.zoom.us/j/86565529412?pwd=8pvsncvwKmz0WtUm3cvjJ
+ dvs911KNZ.1&from=addon
+ORGANIZER;CN="Jeb Hurley";EMAIL="jeb@brainware-partners.com":mailto:jeb@
+ brainware-partners.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve<>Jeb Intro Conversation
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E008000000009529A66CAD50DB01000000000000
+ 000010000000F034DBC3647B5141B1A1944B3D853055
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:2123139701
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONDISPLAYNAME:https://us02web.zoom.us/j/86565529412?pw
+ d=8pvsncvwKmz0WtUm3cvjJdvs911KNZ.1&from=addon
+X-MICROSOFT-LOCATIONS:[{"DisplayName":"https://us02web.zoom.us/j/8656552
+ 9412?pwd=8pvsncvwKmz0WtUm3cvjJdvs911KNZ.1&from=addon"\,"LocationAnnotati
+ on":""\,"LocationUri":""\,"LocationStreet":""\,"LocationCity":""\,"Locat
+ ionState":""\,"LocationCountry":""\,"LocationPostalCode":""\,"LocationFu
+ llAddress":""}]
+X-MICROSOFT-LOCATIONSOURCE:None
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:CB70EE24-E451-4253-B579-0A5050FDF958
+X-WR-ALARMUID:CB70EE24-E451-4253-B579-0A5050FDF958
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="sdrohan@yahoo.com";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com"
+ ;PARTSTAT=ACCEPTED;RSVP=TRUE:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n__________________________________________________________
+ ______________________\nMicrosoft Teams Need help?<https://aka.ms/JoinTe
+ amsMeeting?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com
+ /l/meetup-join/19%3ameeting_YTNiYmQyZTQtZjM3My00ODFhLWI4MjktMTMyMDFkMzVh
+ OTI1%40thread.v2/0?context=%7b%22Tid%22%3a%226d488710-c873-47c7-b6d1-75c
+ e5152dce0%22%2c%22Oid%22%3a%22306dc322-b311-424c-af86-79a9fc0377b8%22%7d
+ >\nMeeting ID: 233 005 870 270\nPasscode: kr3sp92L\n____________________
+ ____________\nDial in by phone\n+1 929-352-2213\,\,656328885#<tel:+19293
+ 522213\,\,656328885> United States\, New York City\nFind a local number<
+ https://dialin.teams.microsoft.com/006ff844-70a2-41ce-8b2a-2369d57db2cf?
+ id=656328885>\nPhone conference ID: 656 328 885#\nFor organizers: Meetin
+ g options<https://teams.microsoft.com/meetingOptions/?organizerId=306dc3
+ 22-b311-424c-af86-79a9fc0377b8&tenantId=6d488710-c873-47c7-b6d1-75ce5152
+ dce0&threadId=19_meeting_YTNiYmQyZTQtZjM3My00ODFhLWI4MjktMTMyMDFkMzVhOTI
+ 1@thread.v2&messageId=0&language=en-US> | Reset dial-in PIN<https://dial
+ in.teams.microsoft.com/usp/pstnconferencing>\n__________________________
+ ______________________________________________________\n\n\n\nThe inform
+ ation contained in this electronic message and any attachments to this m
+ essage are intended only for the individual(s) addressed in the message 
+ and may contain proprietary and confidential information. If you are not
+  the intended recipient\, you should not disseminate\, distribute or cop
+ y this e-mail. Please notify the sender and destroy this message.\nWARNI
+ NG: Computer viruses can be transmitted via email. The recipient should 
+ scan all emails before opening it.\n
+DTEND;TZID=America/Chicago:20241223T113000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Chicago:20241223T103000
+LAST-MODIFIED:20241218T153952Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Jim Crocco";EMAIL="Jim.Crocco@paranet.com":mailto:Jim.Croc
+ co@paranet.com
+SEQUENCE:5
+STATUS:CONFIRMED
+SUMMARY:Intro - Call w/Steve Drohan
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000408743AF3051DB01000000000000
+ 0000100000004106BEDA88F8C745BF850BCA55F3CDAB
+X-MICROSOFT-CDO-APPT-SEQUENCE:1
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:2087897064
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONS:[ { "DisplayName" : "Microsoft Teams Meeting"\, "L
+ ocationAnnotation" : ""\, "LocationSource" : 0\, "Unresolved" : false\, 
+ "LocationUri" : "" } ]
+X-MICROSOFT-ONLINEMEETINGINFORMATION:{"OnlineMeetingChannelId":null\,"On
+ lineMeetingProvider":3}
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/6d488710-c873-47c7-b6d1-75ce5152dce0/306dc322-b311-424c-a
+ f86-79a9fc0377b8/19_meeting_YTNiYmQyZTQtZjM3My00ODFhLWI4MjktMTMyMDFkMzVh
+ OTI1@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_YTNiYmQyZTQtZjM3My00ODFhLWI4MjktMTMyMDFkMzVhOTI1%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%226d488710-c873-47c7-b6d1-75ce5152dce0%22
+ %2c%22Oid%22%3a%22306dc322-b311-424c-af86-79a9fc0377b8%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_YTNiYmQyZTQtZjM3My00
+ ODFhLWI4MjktMTMyMDFkMzVhOTI1@thread.v2"\,"private":true\,"type":0\,"mid"
+ :0\,"rid":0\,"uid":null}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:567C99E9-0A6F-4541-B3ED-570C6980322E
+X-WR-ALARMUID:567C99E9-0A6F-4541-B3ED-570C6980322E
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Jeb Hurley";CUTYPE=UNKNOWN;EMAIL="jeb@brainware-partners.co
+ m";PARTSTAT=NEEDS-ACTION;RSVP=TRUE;X-COMMENT=:mailto:jeb@brainware-partn
+ ers.com
+ATTENDEE;CN="sdrohan@yahoo.com";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com"
+ ;PARTSTAT=ACCEPTED;RSVP=TRUE;X-COMMENT=:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n__________________________________________________________
+ ______________________\nMicrosoft Teams Need help?<https://aka.ms/JoinTe
+ amsMeeting?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com
+ /l/meetup-join/19%3ameeting_NTg0ODEwYTUtNmRiYy00Y2M4LWFmNTgtNWZiZGY3N2Uy
+ ZDVk%40thread.v2/0?context=%7b%22Tid%22%3a%226b8d9123-b83e-49e1-a517-98f
+ d699ae259%22%2c%22Oid%22%3a%224edfb6f4-851b-4912-ac82-819755ad0328%22%7d
+ >\nMeeting ID: 211 883 533 704\nPasscode: 2Yq2TL28\n____________________
+ ____________\nDial in by phone\n+1 385-419-4087\,\,622694861#<tel:+13854
+ 194087\,\,622694861#> United States\, Salt Lake City\nFind a local numbe
+ r<https://dialin.teams.microsoft.com/15099e75-80c0-4ee6-85fc-034979c3f19
+ 2?id=622694861>\nPhone conference ID: 622 694 861#\nFor organizers: Meet
+ ing options<https://teams.microsoft.com/meetingOptions/?organizerId=4edf
+ b6f4-851b-4912-ac82-819755ad0328&tenantId=6b8d9123-b83e-49e1-a517-98fd69
+ 9ae259&threadId=19_meeting_NTg0ODEwYTUtNmRiYy00Y2M4LWFmNTgtNWZiZGY3N2UyZ
+ DVk@thread.v2&messageId=0&language=en-US> | Reset dial-in PIN<https://di
+ alin.teams.microsoft.com/usp/pstnconferencing>\n________________________
+ ________________________________________________________\n
+DTEND;TZID=America/Denver:20250102T153000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Denver:20250102T143000
+LAST-MODIFIED:20241226T220035Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Earl Foote";EMAIL="earl@nexusitc.net":mailto:earl@nexusitc
+ .net
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve // Earl Ops Role Chat
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000BEA35695E157DB01000000000000
+ 00001000000060D6CC025993E04D98B0B4B986EB1DB6
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:2123157694
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONDISPLAYNAME:Microsoft Teams Meeting
+X-MICROSOFT-LOCATIONS:[{"DisplayName":"Microsoft Teams Meeting"\,"Locati
+ onAnnotation":""\,"LocationUri":""\,"LocationStreet":""\,"LocationCity":
+ ""\,"LocationState":""\,"LocationCountry":""\,"LocationPostalCode":""\,"
+ LocationFullAddress":""}]
+X-MICROSOFT-LOCATIONSOURCE:None
+X-MICROSOFT-ONLINEMEETINGCONFERENCEID:622694861
+X-MICROSOFT-ONLINEMEETINGINFORMATION:{"OnlineMeetingChannelId":null\,"On
+ lineMeetingProvider":3}
+X-MICROSOFT-ONLINEMEETINGTOLLNUMBER:+1 385-419-4087
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/6b8d9123-b83e-49e1-a517-98fd699ae259/4edfb6f4-851b-4912-a
+ c82-819755ad0328/19_meeting_NTg0ODEwYTUtNmRiYy00Y2M4LWFmNTgtNWZiZGY3N2Uy
+ ZDVk@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_NTg0ODEwYTUtNmRiYy00Y2M4LWFmNTgtNWZiZGY3N2UyZDVk%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%226b8d9123-b83e-49e1-a517-98fd699ae259%22
+ %2c%22Oid%22%3a%224edfb6f4-851b-4912-ac82-819755ad0328%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_NTg0ODEwYTUtNmRiYy00
+ Y2M4LWFmNTgtNWZiZGY3N2UyZDVk@thread.v2"\,"rid":0\,"mid":0\,"uid":null\,"
+ private":true\,"type":0}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:C02420F6-1790-4302-97A1-27CB6E8367F4
+X-WR-ALARMUID:C02420F6-1790-4302-97A1-27CB6E8367F4
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Steve Drohan";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com";PART
+ STAT=TENTATIVE;SCHEDULE-AGENT=NONE;X-COMMENT=:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n\n\n[https://us02st2.zoom.us/static/6.3.29842/image/new/Zo
+ omLogo_110_25.png]<https://zoom.com/>\nHi there\,\nDr. Jeb Hurley is inv
+ iting you to a scheduled Zoom meeting.\nJoin Zoom Meeting<https://us02we
+ b.zoom.us/j/88396116720?pwd=b0xS4BT0UB2zGxPivad4aKz0pFQycr.1&from=addon>
+ \nOne tap mobile:\nUS: +12532050468\,\,88396116720#\,\,\,\,*420411#<tel:
+ +12532050468\,\,88396116720#\,\,\,\,*420411#> or +12532158782\,\,8839611
+ 6720#\,\,\,\,*420411#<tel:+12532158782\,\,88396116720#\,\,\,\,*420411#>\
+ nMeeting URL:\nhttps://us02web.zoom.us/j/88396116720?pwd=b0xS4BT0UB2zGxP
+ ivad4aKz0pFQycr.1&from=addon\nMeeting ID:\n883 9611 6720\nPasscode:\n420
+ 411\nJoin by Telephone\nFor higher quality\, dial a number based on your
+  current location.\nDial:\n+1 253 205 0468 US\n+1 253 215 8782 US (Tacom
+ a)\n+1 346 248 7799 US (Houston)\n+1 669 444 9171 US\n+1 669 900 6833 US
+  (San Jose)\n+1 719 359 4580 US\n+1 305 224 1968 US\n+1 309 205 3325 US\
+ n+1 312 626 6799 US (Chicago)\n+1 360 209 5623 US\n+1 386 347 5053 US\n+
+ 1 507 473 4847 US\n+1 564 217 2000 US\n+1 646 931 3860 US\n+1 689 278 10
+ 00 US\n+1 929 436 2866 US (New York)\n+1 301 715 8592 US (Washington DC)
+ \nMeeting ID:\n883 9611 6720\nPasscode:\n420411\nInternational numbers<h
+ ttps://us02web.zoom.us/u/kQRDeMYF9>\n\n
+DTEND;TZID=America/Phoenix:20250114T120000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Phoenix:20250114T110000
+LAST-MODIFIED:20250108T013650Z
+LOCATION:https://us02web.zoom.us/j/88396116720?pwd=b0xS4BT0UB2zGxPivad4a
+ Kz0pFQycr.1&from=addon
+ORGANIZER;CN="Jeb Hurley";EMAIL="jeb@brainware-partners.com":mailto:jeb@
+ brainware-partners.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve<>Jeb Nexus Opportunitiy Continued
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000A3E97B6D6D61DB01000000000000
+ 00001000000098C14CCA3C218B47A0DF893EE9A33FCD
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:2123447445
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONDISPLAYNAME:https://us02web.zoom.us/j/88396116720?pw
+ d=b0xS4BT0UB2zGxPivad4aKz0pFQycr.1&from=addon
+X-MICROSOFT-LOCATIONS:[{"DisplayName":"https://us02web.zoom.us/j/8839611
+ 6720?pwd=b0xS4BT0UB2zGxPivad4aKz0pFQycr.1&from=addon"\,"LocationAnnotati
+ on":""\,"LocationUri":""\,"LocationStreet":""\,"LocationCity":""\,"Locat
+ ionState":""\,"LocationCountry":""\,"LocationPostalCode":""\,"LocationFu
+ llAddress":""}]
+X-MICROSOFT-LOCATIONSOURCE:None
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:8F6CEF74-1B3F-4ACA-A57F-FEBA5E9BF902
+X-WR-ALARMUID:8F6CEF74-1B3F-4ACA-A57F-FEBA5E9BF902
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20250109T163000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20250109T153000
+LAST-MODIFIED:20250108T204601Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Khiro Mishra Call
+TRANSP:OPAQUE
+UID:792E30EE-8DFB-4A00-965E-E068F246C675
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="sdrohan@yahoo.com";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com"
+ ;PARTSTAT=ACCEPTED;RSVP=TRUE:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n__________________________________________________________
+ ______________________\nMicrosoft Teams Need help?<https://aka.ms/JoinTe
+ amsMeeting?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com
+ /l/meetup-join/19%3ameeting_ODEwZTFiNWMtNGNhZC00NWVhLThmNzctZWFmZDMzZGQ1
+ NmQ5%40thread.v2/0?context=%7b%22Tid%22%3a%22b9c218d5-d804-4bbb-94b3-7db
+ 0d25a5630%22%2c%22Oid%22%3a%228d525c3d-7339-4bff-bcc4-6a3874ead271%22%7d
+ >\nMeeting ID: 236 100 684 595\nPasscode: Fg7Dw7e7\n____________________
+ ____________\nDial in by phone\n+1 857-990-1033\,\,739518176#<tel:+18579
+ 901033\,\,739518176#> United States\, Boston\nFind a local number<https:
+ //dialin.teams.microsoft.com/2c7b4722-2371-4aeb-b801-58ef26edbedc?id=739
+ 518176>\nPhone conference ID: 739 518 176#\nFor organizers: Meeting opti
+ ons<https://teams.microsoft.com/meetingOptions/?organizerId=8d525c3d-733
+ 9-4bff-bcc4-6a3874ead271&tenantId=b9c218d5-d804-4bbb-94b3-7db0d25a5630&t
+ hreadId=19_meeting_ODEwZTFiNWMtNGNhZC00NWVhLThmNzctZWFmZDMzZGQ1NmQ5@thre
+ ad.v2&messageId=0&language=en-US> | Reset dial-in PIN<https://dialin.tea
+ ms.microsoft.com/usp/pstnconferencing>\n________________________________
+ ________________________________________________\nThis e-mail message\, 
+ including any attachments\, is intended only for the use of the one or m
+ ore individuals\, or entities\, to whom it is addressed. If the reader o
+ f this message is not the intended recipient\, or the employee or agent 
+ responsible for delivering the message to the intended recipient\, you a
+ re hereby notified that any dissemination\, distribution\, or copying of
+  this message is strictly prohibited. If you have received this communic
+ ation in error\, please notify us immediately by contacting the sender\,
+  by e-Mail or by telephone\, and destroy all copies of the original.\n
+DTEND;TZID=America/New_York:20250203T120000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/New_York:20250203T113000
+LAST-MODIFIED:20250128T112905Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Mike W. Donahue";EMAIL="mwdonahue@gocloudwave.com":mailto:
+ mwdonahue@gocloudwave.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Mike and Steve- catch up
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E008000000005DA588D47771DB01000000000000
+ 0000100000004C1ED46D49E5F04F94A5F6F96185F96C
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:2123491215
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONDISPLAYNAME:Microsoft Teams Meeting
+X-MICROSOFT-LOCATIONS:[{"DisplayName":"Microsoft Teams Meeting"\,"Locati
+ onAnnotation":""\,"LocationUri":""\,"LocationStreet":""\,"LocationCity":
+ ""\,"LocationState":""\,"LocationCountry":""\,"LocationPostalCode":""\,"
+ LocationFullAddress":""}]
+X-MICROSOFT-LOCATIONSOURCE:None
+X-MICROSOFT-ONLINEMEETINGCONFERENCEID:739518176
+X-MICROSOFT-ONLINEMEETINGINFORMATION:{"OnlineMeetingChannelId":null\,"On
+ lineMeetingProvider":3}
+X-MICROSOFT-ONLINEMEETINGTOLLNUMBER:+1 857-990-1033
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/b9c218d5-d804-4bbb-94b3-7db0d25a5630/8d525c3d-7339-4bff-b
+ cc4-6a3874ead271/19_meeting_ODEwZTFiNWMtNGNhZC00NWVhLThmNzctZWFmZDMzZGQ1
+ NmQ5@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_ODEwZTFiNWMtNGNhZC00NWVhLThmNzctZWFmZDMzZGQ1NmQ5%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22b9c218d5-d804-4bbb-94b3-7db0d25a5630%22
+ %2c%22Oid%22%3a%228d525c3d-7339-4bff-bcc4-6a3874ead271%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_ODEwZTFiNWMtNGNhZC00
+ NWVhLThmNzctZWFmZDMzZGQ1NmQ5@thread.v2"\,"rid":0\,"mid":0\,"uid":null\,"
+ private":true\,"type":0}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:0F5EAE94-12ED-4710-80A8-A2C1676445B0
+X-WR-ALARMUID:0F5EAE94-12ED-4710-80A8-A2C1676445B0
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="sdrohan@yahoo.com";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com"
+ ;PARTSTAT=ACCEPTED;RSVP=TRUE;X-COMMENT=:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n
+DTEND;TZID=America/Denver:20250207T090000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Denver:20250207T083000
+LAST-MODIFIED:20250206T145007Z
+LOCATION:909 720 7964
+ORGANIZER;CN="Austin Reed";EMAIL="austin@bexpartners.com":mailto:austin@
+ bexpartners.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve Drohan / Austin Reed - Netgain
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000BF06BF69A678DB01000000000000
+ 000010000000B54F8A88C3955B4DB59DBF613B8DB725
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:2123510719
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONDISPLAYNAME:909 720 7964
+X-MICROSOFT-LOCATIONS:[{"DisplayName":"909 720 7964"\,"LocationAnnotatio
+ n":""\,"LocationUri":""\,"LocationStreet":""\,"LocationCity":""\,"Locati
+ onState":""\,"LocationCountry":""\,"LocationPostalCode":""\,"LocationFul
+ lAddress":""}]
+X-MICROSOFT-LOCATIONSOURCE:None
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:BE188F52-AD29-4C5B-9D70-22D86DBAA951
+X-WR-ALARMUID:BE188F52-AD29-4C5B-9D70-22D86DBAA951
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20250210T143000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20250210T133000
+LAST-MODIFIED:20250207T182836Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Nathan Boone Call
+TRANSP:OPAQUE
+UID:4DB7A437-97DB-4105-8ADD-A1C5C9FC5FCA
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="sdrohan@yahoo.com";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com"
+ ;PARTSTAT=ACCEPTED;RSVP=TRUE;X-COMMENT=:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n__________________________________________________________
+ ______________________\nMicrosoft Teams Need help?<https://aka.ms/JoinTe
+ amsMeeting?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com
+ /l/meetup-join/19%3ameeting_Y2M0YzU3NzItYzY0NC00ZmZhLWIwYmQtNmMxZGJmZjQ4
+ Yjlm%40thread.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8
+ e97b0c4a0%22%2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+ >\nMeeting ID: 283 004 447 689\nPasscode: wN6Th6NE\n____________________
+ ____________\nDial in by phone\n+1 218-464-9827\,\,260427127#<tel:+12184
+ 649827\,\,260427127> United States\, Duluth\nFind a local number<https:/
+ /dialin.teams.microsoft.com/03f48d7e-3b6e-4bcd-8cac-b9b12520c7d9?id=2604
+ 27127>\nPhone conference ID: 260 427 127#\nFor organizers: Meeting optio
+ ns<https://teams.microsoft.com/meetingOptions/?organizerId=9231050d-6317
+ -4345-8ffd-9a6bea8447fa&tenantId=761d01a2-62fa-421c-a48c-0b8e97b0c4a0&th
+ readId=19_meeting_Y2M0YzU3NzItYzY0NC00ZmZhLWIwYmQtNmMxZGJmZjQ4Yjlm@threa
+ d.v2&messageId=0&language=en-US> | Reset dial-in PIN<https://dialin.team
+ s.microsoft.com/usp/pstnconferencing>\n_________________________________
+ _______________________________________________\n\n
+DTEND;TZID=America/New_York:20250218T130000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/New_York:20250218T120000
+LAST-MODIFIED:20250212T170416Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Sumeet Sabharwal";EMAIL="Sumeet@netgaincloud.com":mailto:S
+ umeet@netgaincloud.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve/Sumeet - Netgain
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E0080000000050D5B835467DDB01000000000000
+ 000010000000B972C3CD69484A4BB1EF90478B0B50BD
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:-292804631
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONS:[ { "DisplayName" : "Microsoft Teams Meeting"\, "L
+ ocationAnnotation" : ""\, "LocationSource" : 0\, "Unresolved" : false\, 
+ "LocationUri" : "" } ]
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/761d01a2-62fa-421c-a48c-0b8e97b0c4a0/9231050d-6317-4345-8
+ ffd-9a6bea8447fa/19_meeting_Y2M0YzU3NzItYzY0NC00ZmZhLWIwYmQtNmMxZGJmZjQ4
+ Yjlm@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_Y2M0YzU3NzItYzY0NC00ZmZhLWIwYmQtNmMxZGJmZjQ4Yjlm%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8e97b0c4a0%22
+ %2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_Y2M0YzU3NzItYzY0NC00
+ ZmZhLWIwYmQtNmMxZGJmZjQ4Yjlm@thread.v2"\,"private":true\,"type":0\,"mid"
+ :0\,"rid":0\,"uid":null}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:89241F7D-9D99-43BA-B34A-91A0C161D11E
+X-WR-ALARMUID:89241F7D-9D99-43BA-B34A-91A0C161D11E
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Austin Reed";CUTYPE=UNKNOWN;EMAIL="austin@bexpartners.com";
+ PARTSTAT=NEEDS-ACTION;RSVP=TRUE;X-COMMENT=:mailto:austin@bexpartners.com
+ATTENDEE;CN="sdrohan@yahoo.com";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com"
+ ;PARTSTAT=ACCEPTED;RSVP=TRUE;X-COMMENT=:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:Steve\n\nIts very nice to meet you virtually.   Looking forw
+ ard to speaking with you.\n\nThanks\nFrank\n\n\n\n--\nFrank Mariello\nVP
+ \, Legal Services | Afinety\np: 724.395.3810\ne: fmariello@afinety.com <
+ mailto:fmariello@afinety.com>\nafinety.com<https://www.afinety.com/>\n \
+ n[Shape  Description automatically generated with medium confidence]\n\n
+ \n______________________________________________________________________
+ __________\nMicrosoft Teams Need help?<https://aka.ms/JoinTeamsMeeting?o
+ mkt=en-US>\nJoin the meeting now<https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_MDQwYjA5ODUtODQ3ZC00ODQ1LWE1YTEtMzM3MmI3ZDdiYTEx%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%2210150db4-65b0-4a35-94b6-3e8217ca9479%22
+ %2c%22Oid%22%3a%22d01fda68-f94e-44f2-a938-60ea4233a1e6%22%7d>\nMeeting I
+ D: 245 047 918 733\nPasscode: uE6Gv3ix\n________________________________
+ \nDial in by phone\n+1 661-621-2390\,\,184337579#<tel:+16616212390\,\,18
+ 4337579> United States\, Santa Clara\nFind a local number<https://dialin
+ .teams.microsoft.com/43b6810f-651b-4162-b8eb-123571b9face?id=184337579>\
+ nPhone conference ID: 184 337 579#\nFor organizers: Meeting options<http
+ s://teams.microsoft.com/meetingOptions/?organizerId=d01fda68-f94e-44f2-a
+ 938-60ea4233a1e6&tenantId=10150db4-65b0-4a35-94b6-3e8217ca9479&threadId=
+ 19_meeting_MDQwYjA5ODUtODQ3ZC00ODQ1LWE1YTEtMzM3MmI3ZDdiYTEx@thread.v2&me
+ ssageId=0&language=en-US> | Reset dial-in PIN<https://dialin.teams.micro
+ soft.com/usp/pstnconferencing>\n________________________________________
+ ________________________________________\n\n
+DTEND;TZID=America/New_York:20250221T140000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/New_York:20250221T130000
+LAST-MODIFIED:20250219T170950Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Frank Mariello";EMAIL="fmariello@afinety.com":mailto:fmari
+ ello@afinety.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve Drohan
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000F07DC5FFC682DB01000000000000
+ 000010000000722FD9AEA370544FB50C2B50FEAB5625
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:-617404439
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONS:[ { "DisplayName" : "Microsoft Teams Meeting"\, "L
+ ocationAnnotation" : ""\, "LocationSource" : 0\, "Unresolved" : false\, 
+ "LocationUri" : "" } ]
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/10150db4-65b0-4a35-94b6-3e8217ca9479/d01fda68-f94e-44f2-a
+ 938-60ea4233a1e6/19_meeting_MDQwYjA5ODUtODQ3ZC00ODQ1LWE1YTEtMzM3MmI3ZDdi
+ YTEx@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_MDQwYjA5ODUtODQ3ZC00ODQ1LWE1YTEtMzM3MmI3ZDdiYTEx%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%2210150db4-65b0-4a35-94b6-3e8217ca9479%22
+ %2c%22Oid%22%3a%22d01fda68-f94e-44f2-a938-60ea4233a1e6%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_MDQwYjA5ODUtODQ3ZC00
+ ODQ1LWE1YTEtMzM3MmI3ZDdiYTEx@thread.v2"\,"private":true\,"type":0\,"mid"
+ :0\,"rid":0\,"uid":null}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:E225D57A-9E5E-4F28-B4AB-DF9CB78F862A
+X-WR-ALARMUID:E225D57A-9E5E-4F28-B4AB-DF9CB78F862A
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Austin Reed";CUTYPE=UNKNOWN;EMAIL="austin@bexpartners.com";
+ PARTSTAT=NEEDS-ACTION;RSVP=TRUE;X-COMMENT=:mailto:austin@bexpartners.com
+ATTENDEE;CN="sdrohan@yahoo.com";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com"
+ ;PARTSTAT=ACCEPTED;RSVP=TRUE;X-COMMENT=:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n__________________________________________________________
+ ______________________\nMicrosoft Teams Need help?<https://aka.ms/JoinTe
+ amsMeeting?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com
+ /l/meetup-join/19%3ameeting_NTMwNDk4YjktZGE2ZS00NzI4LTkwNmMtODZlMWI2ZGY2
+ MjNi%40thread.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8
+ e97b0c4a0%22%2c%22Oid%22%3a%2210006e29-afd0-4f62-9fd4-36e616b2540d%22%7d
+ >\nMeeting ID: 296 581 911 020\nPasscode: AV6ZS26a\n____________________
+ ____________\nDial in by phone\n+1 218-464-9827\,\,971841347#<tel:+12184
+ 649827\,\,971841347> United States\, Duluth\nFind a local number<https:/
+ /dialin.teams.microsoft.com/03f48d7e-3b6e-4bcd-8cac-b9b12520c7d9?id=9718
+ 41347>\nPhone conference ID: 971 841 347#\nFor organizers: Meeting optio
+ ns<https://teams.microsoft.com/meetingOptions/?organizerId=10006e29-afd0
+ -4f62-9fd4-36e616b2540d&tenantId=761d01a2-62fa-421c-a48c-0b8e97b0c4a0&th
+ readId=19_meeting_NTMwNDk4YjktZGE2ZS00NzI4LTkwNmMtODZlMWI2ZGY2MjNi@threa
+ d.v2&messageId=0&language=en-US> | Reset dial-in PIN<https://dialin.team
+ s.microsoft.com/usp/pstnconferencing>\n_________________________________
+ _______________________________________________\n\n
+DTEND;TZID=America/Chicago:20250221T150000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Chicago:20250221T140000
+LAST-MODIFIED:20250220T183252Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Todd Slawson";EMAIL="todd.slawson@netgaincloud.com":mailto
+ :todd.slawson@netgaincloud.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve | Todd Connect
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000907D2F6A9383DB01000000000000
+ 000010000000718E1DE2177F3648A54748FAB8E54EFD
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:-1844172823
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONS:[ { "DisplayName" : "Microsoft Teams Meeting"\, "L
+ ocationAnnotation" : ""\, "LocationSource" : 0\, "Unresolved" : false\, 
+ "LocationUri" : "" } ]
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/761d01a2-62fa-421c-a48c-0b8e97b0c4a0/10006e29-afd0-4f62-9
+ fd4-36e616b2540d/19_meeting_NTMwNDk4YjktZGE2ZS00NzI4LTkwNmMtODZlMWI2ZGY2
+ MjNi@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_NTMwNDk4YjktZGE2ZS00NzI4LTkwNmMtODZlMWI2ZGY2MjNi%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8e97b0c4a0%22
+ %2c%22Oid%22%3a%2210006e29-afd0-4f62-9fd4-36e616b2540d%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_NTMwNDk4YjktZGE2ZS00
+ NzI4LTkwNmMtODZlMWI2ZGY2MjNi@thread.v2"\,"private":true\,"type":0\,"mid"
+ :0\,"rid":0\,"uid":null}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:DCF44AE3-0C63-4BA5-8B41-BF24CE376630
+X-WR-ALARMUID:DCF44AE3-0C63-4BA5-8B41-BF24CE376630
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20250409T121300
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20250409T105900
+LAST-MODIFIED:20250221T190358Z
+LOCATION:Lutheran High School Westland\n33300 Cowan Rd\nWestland MI 4818
+ 5
+SEQUENCE:1
+STATUS:CONFIRMED
+SUMMARY:Lutheran Westland
+TRANSP:OPAQUE
+UID:F3643376-1D04-4060-A672-E7A1CA893659
+X-APPLE-STRUCTURED-LOCATION;VALUE=URI;X-ADDRESS=33300 Cowan Rd\\nWestlan
+ d MI 48185;X-APPLE-MAPKIT-HANDLE=CAES3gIIrk0Q6vPNxsri8cgzGhIJKplSTf8rRUA
+ R0QfL2NDXVMAiggEKDVVuaXRlZCBTdGF0ZXMSAlVTGghNaWNoaWdhbiICTUkqDFdheW5lIEN
+ vdW50eTIIV2VzdGxhbmQ6BTQ4MTg1Qg5Ob3J0aCBXZXN0bGFuZFIIQ293YW4gUmRaBTMzMzA
+ wYg4zMzMwMCBDb3dhbiBSZIoBDk5vcnRoIFdlc3RsYW5kKh1MdXRoZXJhbiBIaWdoIFNjaG9
+ vbCBXZXN0bGFuZDIOMzMzMDAgQ293YW4gUmQyE1dlc3RsYW5kLCBNSSAgNDgxODUyDVVuaXR
+ lZCBTdGF0ZXM4L1ABWl8KJwjq883GyuLxyDMSEgkqmVJN/ytFQBHRB8vY0NdUwBiuTZADAZg
+ DAaIfMwjq883GyuLxyDMaJwodTHV0aGVyYW4gSGlnaCBTY2hvb2wgV2VzdGxhbmQQACoCZW5
+ A;X-APPLE-RADIUS=276.3139669812964;X-TITLE=Lutheran High School Westland
+ :geo:42.343729,-83.372122
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="sdrohan@yahoo.com";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com"
+ ;PARTSTAT=ACCEPTED;RSVP=TRUE;X-COMMENT=:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n__________________________________________________________
+ ______________________\nMicrosoft Teams Need help?<https://aka.ms/JoinTe
+ amsMeeting?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com
+ /l/meetup-join/19%3ameeting_ZGM4N2VkOTQtMDAyMy00NjcwLTg3ZDAtOTI5MjQ5NWU0
+ YjEw%40thread.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8
+ e97b0c4a0%22%2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+ >\nMeeting ID: 275 297 889 105\nPasscode: KK3HL2Dr\n____________________
+ ____________\nDial in by phone\n+1 218-464-9827\,\,487770387#<tel:+12184
+ 649827\,\,487770387#> United States\, Duluth\nFind a local number<https:
+ //dialin.teams.microsoft.com/03f48d7e-3b6e-4bcd-8cac-b9b12520c7d9?id=487
+ 770387>\nPhone conference ID: 487 770 387#\nFor organizers: Meeting opti
+ ons<https://teams.microsoft.com/meetingOptions/?organizerId=9231050d-631
+ 7-4345-8ffd-9a6bea8447fa&tenantId=761d01a2-62fa-421c-a48c-0b8e97b0c4a0&t
+ hreadId=19_meeting_ZGM4N2VkOTQtMDAyMy00NjcwLTg3ZDAtOTI5MjQ5NWU0YjEw@thre
+ ad.v2&messageId=0&language=en-US> | Reset dial-in PIN<https://dialin.tea
+ ms.microsoft.com/usp/pstnconferencing>\n________________________________
+ ________________________________________________\n
+DTEND;TZID=America/New_York:20250224T130000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/New_York:20250224T120000
+LAST-MODIFIED:20250222T234226Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Sumeet Sabharwal";EMAIL="Sumeet@netgaincloud.com":mailto:S
+ umeet@netgaincloud.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve/Sumeet Discussion
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000A3038A6B8385DB01000000000000
+ 000010000000DED14D3EC9C9A048B2BE6BC2CDBBABA3
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:2123544062
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONDISPLAYNAME:Microsoft Teams Meeting
+X-MICROSOFT-LOCATIONS:[{"DisplayName":"Microsoft Teams Meeting"\,"Locati
+ onAnnotation":""\,"LocationUri":""\,"LocationStreet":""\,"LocationCity":
+ ""\,"LocationState":""\,"LocationCountry":""\,"LocationPostalCode":""\,"
+ LocationFullAddress":""}]
+X-MICROSOFT-LOCATIONSOURCE:None
+X-MICROSOFT-ONLINEMEETINGCONFERENCEID:487770387
+X-MICROSOFT-ONLINEMEETINGINFORMATION:{"OnlineMeetingChannelId":null\,"On
+ lineMeetingProvider":3}
+X-MICROSOFT-ONLINEMEETINGTOLLNUMBER:+1 218-464-9827
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/761d01a2-62fa-421c-a48c-0b8e97b0c4a0/9231050d-6317-4345-8
+ ffd-9a6bea8447fa/19_meeting_ZGM4N2VkOTQtMDAyMy00NjcwLTg3ZDAtOTI5MjQ5NWU0
+ YjEw@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_ZGM4N2VkOTQtMDAyMy00NjcwLTg3ZDAtOTI5MjQ5NWU0YjEw%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8e97b0c4a0%22
+ %2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_ZGM4N2VkOTQtMDAyMy00
+ NjcwLTg3ZDAtOTI5MjQ5NWU0YjEw@thread.v2"\,"rid":0\,"mid":0\,"uid":null\,"
+ private":true\,"type":0}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:44909D2D-1970-4BD6-B0FD-9B64A55596C7
+X-WR-ALARMUID:44909D2D-1970-4BD6-B0FD-9B64A55596C7
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20250224T101500
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20250224T091500
+LAST-MODIFIED:20250223T235912Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Urgent Care
+TRANSP:OPAQUE
+UID:25BE926E-5726-4161-804F-482BB1779D5F
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Kate Krupey";CUTYPE=UNKNOWN;EMAIL="kate.krupey@netgaincloud
+ .com";PARTSTAT=NEEDS-ACTION;RSVP=TRUE;X-COMMENT=:mailto:kate.krupey@netg
+ aincloud.com
+ATTENDEE;CN="Steve Drohan";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com";PART
+ STAT=ACCEPTED;RSVP=TRUE;X-COMMENT=:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n__________________________________________________________
+ ______________________\nMicrosoft Teams Need help?<https://aka.ms/JoinTe
+ amsMeeting?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com
+ /l/meetup-join/19%3ameeting_ZDYyNGEyMDEtNTFiZC00Y2YyLWI4OTAtMzY5NDY1ODRk
+ NDQw%40thread.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8
+ e97b0c4a0%22%2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+ >\nMeeting ID: 238 737 132 907\nPasscode: YK6yW3WF\n____________________
+ ____________\nDial in by phone\n+1 218-464-9827\,\,598681791#<tel:+12184
+ 649827\,\,598681791> United States\, Duluth\nFind a local number<https:/
+ /dialin.teams.microsoft.com/03f48d7e-3b6e-4bcd-8cac-b9b12520c7d9?id=5986
+ 81791>\nPhone conference ID: 598 681 791#\nFor organizers: Meeting optio
+ ns<https://teams.microsoft.com/meetingOptions/?organizerId=9231050d-6317
+ -4345-8ffd-9a6bea8447fa&tenantId=761d01a2-62fa-421c-a48c-0b8e97b0c4a0&th
+ readId=19_meeting_ZDYyNGEyMDEtNTFiZC00Y2YyLWI4OTAtMzY5NDY1ODRkNDQw@threa
+ d.v2&messageId=0&language=en-US> | Reset dial-in PIN<https://dialin.team
+ s.microsoft.com/usp/pstnconferencing>\n_________________________________
+ _______________________________________________\n\n
+DTEND;TZID=America/New_York:20250224T170000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/New_York:20250224T160000
+LAST-MODIFIED:20250224T173849Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Sumeet Sabharwal";EMAIL="Sumeet@netgaincloud.com":mailto:S
+ umeet@netgaincloud.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Kate/Steve - Netgain VP\, Client Experience Role
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E0080000000050651BEAB886DB01000000000000
+ 000010000000CD645D2AE2782542940DBAD62347AC7A
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:1658333161
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONS:[ { "DisplayName" : "Microsoft Teams Meeting"\, "L
+ ocationAnnotation" : ""\, "LocationSource" : 0\, "Unresolved" : false\, 
+ "LocationUri" : "" } ]
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/761d01a2-62fa-421c-a48c-0b8e97b0c4a0/9231050d-6317-4345-8
+ ffd-9a6bea8447fa/19_meeting_ZDYyNGEyMDEtNTFiZC00Y2YyLWI4OTAtMzY5NDY1ODRk
+ NDQw@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_ZDYyNGEyMDEtNTFiZC00Y2YyLWI4OTAtMzY5NDY1ODRkNDQw%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8e97b0c4a0%22
+ %2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_ZDYyNGEyMDEtNTFiZC00
+ Y2YyLWI4OTAtMzY5NDY1ODRkNDQw@thread.v2"\,"private":true\,"type":0\,"mid"
+ :0\,"rid":0\,"uid":null}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:2323EBBD-2ABA-4626-9246-7509CD10210D
+X-WR-ALARMUID:2323EBBD-2ABA-4626-9246-7509CD10210D
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Steve Drohan";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com";PART
+ STAT=ACCEPTED;RSVP=TRUE;X-COMMENT=:mailto:sdrohan@yahoo.com
+ATTENDEE;CN="Todd Slawson";CUTYPE=UNKNOWN;EMAIL="todd.slawson@netgainclo
+ ud.com";PARTSTAT=NEEDS-ACTION;RSVP=TRUE;X-COMMENT=:mailto:todd.slawson@n
+ etgaincloud.com
+CLASS:PUBLIC
+DESCRIPTION:\n\n\n
+DTEND;TZID=America/New_York:20250226T150000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/New_York:20250226T133000
+LAST-MODIFIED:20250224T201323Z
+LOCATION:Netgain Office\, 12301 Whitewater Drive Suite 50\, Minnetonka\,
+  MN
+ORGANIZER;CN="Sumeet Sabharwal";EMAIL="Sumeet@netgaincloud.com":mailto:S
+ umeet@netgaincloud.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve/Todd
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000B0C9778BCE86DB01000000000000
+ 00001000000080E15C463419CE46A8818C574678D775
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:1983391721
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONS:[ { "DisplayName" : "Netgain Office\, 12301 Whitew
+ ater Drive Suite 50\, Minnetonka\, MN"\, "LocationAnnotation" : ""\, "Lo
+ cationSource" : 0\, "Unresolved" : true\, "LocationUri" : "" } ]
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:552FE6F6-895C-4222-A0C4-C1E2B3EE92CE
+X-WR-ALARMUID:552FE6F6-895C-4222-A0C4-C1E2B3EE92CE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Steve Drohan";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com";PART
+ STAT=ACCEPTED;RSVP=TRUE;X-COMMENT=:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n\n\n
+DTEND;TZID=America/New_York:20250226T170000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/New_York:20250226T153000
+LAST-MODIFIED:20250224T201451Z
+LOCATION:Netgain Office
+ORGANIZER;CN="Sumeet Sabharwal";EMAIL="Sumeet@netgaincloud.com":mailto:S
+ umeet@netgaincloud.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve/Sumeet
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E0080000000070F691CACE86DB01000000000000
+ 000010000000F47733971F358A4AA7AC400F0FBD5C11
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:1985488873
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONS:[ { "DisplayName" : "Netgain Office"\, "LocationAn
+ notation" : ""\, "LocationSource" : 0\, "Unresolved" : true\, "LocationU
+ ri" : "" } ]
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:4FD83824-6DC3-4AB5-89DD-5B60337993FE
+X-WR-ALARMUID:4FD83824-6DC3-4AB5-89DD-5B60337993FE
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="sdrohan@yahoo.com";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com"
+ ;PARTSTAT=ACCEPTED;RSVP=TRUE:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:Hello Steve\,\n\nPlease let me know if this time does not wo
+ rk for you.\n\nI'm excited to connect!\n\nJustin\n\nAll the best\,\n\n\n
+ \n______________________________________________________________________
+ __________\nMicrosoft Teams Need help?<https://aka.ms/JoinTeamsMeeting?o
+ mkt=en-US>\nJoin the meeting now<https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_OTQwOTM3YzMtZjEyYi00M2FhLTk3MTItZWQ2ZTA2M2I2NDI4%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8e97b0c4a0%22
+ %2c%22Oid%22%3a%222f619d28-babe-4503-9a07-81cd3d7b8d24%22%7d>\nMeeting I
+ D: 219 540 285 898\nPasscode: 8F9Xs3tk\n________________________________
+ \nDial in by phone\n+1 218-464-9827\,\,396158554#<tel:+12184649827\,\,39
+ 6158554#> United States\, Duluth\nFind a local number<https://dialin.tea
+ ms.microsoft.com/03f48d7e-3b6e-4bcd-8cac-b9b12520c7d9?id=396158554>\nPho
+ ne conference ID: 396 158 554#\nFor organizers: Meeting options<https://
+ teams.microsoft.com/meetingOptions/?organizerId=2f619d28-babe-4503-9a07-
+ 81cd3d7b8d24&tenantId=761d01a2-62fa-421c-a48c-0b8e97b0c4a0&threadId=19_m
+ eeting_OTQwOTM3YzMtZjEyYi00M2FhLTk3MTItZWQ2ZTA2M2I2NDI4@thread.v2&messag
+ eId=0&language=en-US> | Reset dial-in PIN<https://dialin.teams.microsoft
+ .com/usp/pstnconferencing>\n____________________________________________
+ ____________________________________\n
+DTEND;TZID=America/Chicago:20250225T150000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Chicago:20250225T140000
+LAST-MODIFIED:20250225T155228Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Justin Taylor";EMAIL="justin.taylor@netgaincloud.com":mail
+ to:justin.taylor@netgaincloud.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Netgain Discussion
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000311C8F449D87DB01000000000000
+ 000010000000C97368A116FA184DA8D0B37DC369EB46
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:2123548977
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONDISPLAYNAME:Microsoft Teams Meeting
+X-MICROSOFT-LOCATIONS:[{"DisplayName":"Microsoft Teams Meeting"\,"Locati
+ onAnnotation":""\,"LocationUri":""\,"LocationStreet":""\,"LocationCity":
+ ""\,"LocationState":""\,"LocationCountry":""\,"LocationPostalCode":""\,"
+ LocationFullAddress":""}]
+X-MICROSOFT-LOCATIONSOURCE:None
+X-MICROSOFT-ONLINEMEETINGCONFERENCEID:396158554
+X-MICROSOFT-ONLINEMEETINGINFORMATION:{"OnlineMeetingChannelId":null\,"On
+ lineMeetingProvider":3}
+X-MICROSOFT-ONLINEMEETINGTOLLNUMBER:+1 218-464-9827
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/761d01a2-62fa-421c-a48c-0b8e97b0c4a0/2f619d28-babe-4503-9
+ a07-81cd3d7b8d24/19_meeting_OTQwOTM3YzMtZjEyYi00M2FhLTk3MTItZWQ2ZTA2M2I2
+ NDI4@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_OTQwOTM3YzMtZjEyYi00M2FhLTk3MTItZWQ2ZTA2M2I2NDI4%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8e97b0c4a0%22
+ %2c%22Oid%22%3a%222f619d28-babe-4503-9a07-81cd3d7b8d24%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_OTQwOTM3YzMtZjEyYi00
+ M2FhLTk3MTItZWQ2ZTA2M2I2NDI4@thread.v2"\,"rid":0\,"mid":0\,"uid":null\,"
+ private":true\,"type":0}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:FD92BE5D-22FE-4B4F-B03A-AF81BFBA7AFF
+X-WR-ALARMUID:FD92BE5D-22FE-4B4F-B03A-AF81BFBA7AFF
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20250227T190000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20250227T180000
+LAST-MODIFIED:20250228T003536Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:She Shooters
+TRANSP:OPAQUE
+UID:EE17BB30-B83C-45A3-8163-59F7CE525FD2
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT10M
+UID:BADD2C9B-3CF5-45F6-828B-5DA4F70819DA
+X-WR-ALARMUID:BADD2C9B-3CF5-45F6-828B-5DA4F70819DA
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Steve Drohan";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com";PART
+ STAT=ACCEPTED;RSVP=TRUE:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n__________________________________________________________
+ ______________________\nMicrosoft Teams Need help?<https://aka.ms/JoinTe
+ amsMeeting?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com
+ /l/meetup-join/19%3ameeting_ZTUxMjlhMmYtYmQ1Yi00YzkzLTliOTUtNmM1ZmNhYWMz
+ Y2Uy%40thread.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8
+ e97b0c4a0%22%2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+ >\nMeeting ID: 228 975 120 065\nPasscode: MU6sw98o\n____________________
+ ____________\nDial in by phone\n+1 218-464-9827\,\,371669295#<tel:+12184
+ 649827\,\,371669295> United States\, Duluth\nFind a local number<https:/
+ /dialin.teams.microsoft.com/03f48d7e-3b6e-4bcd-8cac-b9b12520c7d9?id=3716
+ 69295>\nPhone conference ID: 371 669 295#\nFor organizers: Meeting optio
+ ns<https://teams.microsoft.com/meetingOptions/?organizerId=9231050d-6317
+ -4345-8ffd-9a6bea8447fa&tenantId=761d01a2-62fa-421c-a48c-0b8e97b0c4a0&th
+ readId=19_meeting_ZTUxMjlhMmYtYmQ1Yi00YzkzLTliOTUtNmM1ZmNhYWMzY2Uy@threa
+ d.v2&messageId=0&language=en-US> | Reset dial-in PIN<https://dialin.team
+ s.microsoft.com/usp/pstnconferencing>\n_________________________________
+ _______________________________________________\n\n
+DTEND;TZID=America/New_York:20250228T140000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/New_York:20250228T133000
+LAST-MODIFIED:20250228T023443Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Sumeet Sabharwal";EMAIL="Sumeet@netgaincloud.com":mailto:S
+ umeet@netgaincloud.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve/Sumeet
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000C09A78665F89DB01000000000000
+ 00001000000058C8CE40FD51814499818855B146C7A4
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:-1042602007
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONS:[ { "DisplayName" : "Microsoft Teams Meeting"\, "L
+ ocationAnnotation" : ""\, "LocationSource" : 0\, "Unresolved" : false\, 
+ "LocationUri" : "" } ]
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/761d01a2-62fa-421c-a48c-0b8e97b0c4a0/9231050d-6317-4345-8
+ ffd-9a6bea8447fa/19_meeting_ZTUxMjlhMmYtYmQ1Yi00YzkzLTliOTUtNmM1ZmNhYWMz
+ Y2Uy@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_ZTUxMjlhMmYtYmQ1Yi00YzkzLTliOTUtNmM1ZmNhYWMzY2Uy%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8e97b0c4a0%22
+ %2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_ZTUxMjlhMmYtYmQ1Yi00
+ YzkzLTliOTUtNmM1ZmNhYWMzY2Uy@thread.v2"\,"private":true\,"type":0\,"mid"
+ :0\,"rid":0\,"uid":null}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:ACB85A31-CCB5-4E10-AF4C-C9CF4A213930
+X-WR-ALARMUID:ACB85A31-CCB5-4E10-AF4C-C9CF4A213930
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20250306T133000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20250306T120000
+LAST-MODIFIED:20250304T222727Z
+LOCATION:The South Lyon Hotel\n201 N Lafayette St\nSouth Lyon MI 48178
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Lunch Thursday 12N
+TRANSP:OPAQUE
+UID:105083D8-390A-4194-8B5A-B3AE023B54C6
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Steve Drohan";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com";PART
+ STAT=ACCEPTED;RSVP=TRUE:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n__________________________________________________________
+ ______________________\nMicrosoft Teams Need help?<https://aka.ms/JoinTe
+ amsMeeting?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com
+ /l/meetup-join/19%3ameeting_Y2RkOTk2NmYtMGM3OS00N2ZmLWJiYWQtYmVhNDQ4OGQ0
+ YmFm%40thread.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8
+ e97b0c4a0%22%2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+ >\nMeeting ID: 278 711 190 484\nPasscode: tC65mF3M\n____________________
+ ____________\nDial in by phone\n+1 218-464-9827\,\,508009892#<tel:+12184
+ 649827\,\,508009892> United States\, Duluth\nFind a local number<https:/
+ /dialin.teams.microsoft.com/03f48d7e-3b6e-4bcd-8cac-b9b12520c7d9?id=5080
+ 09892>\nPhone conference ID: 508 009 892#\nFor organizers: Meeting optio
+ ns<https://teams.microsoft.com/meetingOptions/?organizerId=9231050d-6317
+ -4345-8ffd-9a6bea8447fa&tenantId=761d01a2-62fa-421c-a48c-0b8e97b0c4a0&th
+ readId=19_meeting_Y2RkOTk2NmYtMGM3OS00N2ZmLWJiYWQtYmVhNDQ4OGQ0YmFm@threa
+ d.v2&messageId=0&language=en-US> | Reset dial-in PIN<https://dialin.team
+ s.microsoft.com/usp/pstnconferencing>\n_________________________________
+ _______________________________________________\n\n
+DTEND;TZID=Etc/GMT:20250306T210000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=Etc/GMT:20250306T203000
+LAST-MODIFIED:20250305T185656Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Sumeet Sabharwal";EMAIL="Sumeet@netgaincloud.com":mailto:S
+ umeet@netgaincloud.com
+SEQUENCE:0
+STATUS:TENTATIVE
+SUMMARY:Steve/Sumeet
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000E0E4916CD68DDB01000000000000
+ 000010000000035D1356FEFA45418C88879D0EBB47BC
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:-1065011223
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONS:[ { "DisplayName" : "Microsoft Teams Meeting"\, "L
+ ocationAnnotation" : ""\, "LocationSource" : 0\, "Unresolved" : false\, 
+ "LocationUri" : "" } ]
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/761d01a2-62fa-421c-a48c-0b8e97b0c4a0/9231050d-6317-4345-8
+ ffd-9a6bea8447fa/19_meeting_Y2RkOTk2NmYtMGM3OS00N2ZmLWJiYWQtYmVhNDQ4OGQ0
+ YmFm@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_Y2RkOTk2NmYtMGM3OS00N2ZmLWJiYWQtYmVhNDQ4OGQ0YmFm%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8e97b0c4a0%22
+ %2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_Y2RkOTk2NmYtMGM3OS00
+ N2ZmLWJiYWQtYmVhNDQ4OGQ0YmFm@thread.v2"\,"private":true\,"type":0\,"mid"
+ :0\,"rid":0\,"uid":null}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:EF0CFC6A-B325-4F8B-92A8-35EBDE78B4D9
+X-WR-ALARMUID:EF0CFC6A-B325-4F8B-92A8-35EBDE78B4D9
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DESCRIPTION:Courtyard Minneapolis West
+DTEND;TZID=Etc/UTC:20250416T120000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=Etc/UTC:20250414T150000
+LAST-MODIFIED:20250311T183308Z
+LOCATION:9980 Wayzata Boulevard  St. Louis Park\, Minnesota\, USA
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Reservation at Courtyard Minneapolis West\, Starts:04/14/25\, En
+ ds:04/16/25
+TRANSP:OPAQUE
+UID:09024204-eaf1-4cab-b17b-9eb407977a53
+X-LIC-ERROR;X-LIC-ERRORTYPE=COMPONENT-PARSE-ERROR:Got a data line\, but 
+ could not find a property name or component begin tag: 9980 Wayzata Boul
+ evard
+X-LIC-ERROR;X-LIC-ERRORTYPE=COMPONENT-PARSE-ERROR:Got a data line\, but 
+ could not find a property name or component begin tag: St. Louis Park\, 
+ Minnesota\, USA55426
+X-LIC-ERROR;X-LIC-ERRORTYPE=PROPERTY-PARSE-ERROR:Parse error in property
+  name: Confirmation Number
+X-LIC-ERROR;X-LIC-ERRORTYPE=PROPERTY-PARSE-ERROR:Parse error in property
+  name: Starts
+X-LIC-ERROR;X-LIC-ERRORTYPE=PROPERTY-PARSE-ERROR:Parse error in property
+  name: Tel
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+END:VEVENT
+BEGIN:VEVENT
+ATTENDEE;CN="Steve Drohan";CUTYPE=UNKNOWN;EMAIL="sdrohan@yahoo.com";PART
+ STAT=ACCEPTED;RSVP=TRUE;X-COMMENT=:mailto:sdrohan@yahoo.com
+CLASS:PUBLIC
+DESCRIPTION:\n__________________________________________________________
+ ______________________\nMicrosoft Teams Need help?<https://aka.ms/JoinTe
+ amsMeeting?omkt=en-US>\nJoin the meeting now<https://teams.microsoft.com
+ /l/meetup-join/19%3ameeting_NDZjNDRkZjctZTZmMC00MjlmLWJmMWYtOWUxYTVkMzA3
+ ZGY0%40thread.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8
+ e97b0c4a0%22%2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+ >\nMeeting ID: 295 442 778 37\nPasscode: MZ68gk7c\n_____________________
+ ___________\nDial in by phone\n+1 218-464-9827\,\,564445036#<tel:+121846
+ 49827\,\,564445036> United States\, Duluth\nFind a local number<https://
+ dialin.teams.microsoft.com/03f48d7e-3b6e-4bcd-8cac-b9b12520c7d9?id=56444
+ 5036>\nPhone conference ID: 564 445 036#\nFor organizers: Meeting option
+ s<https://teams.microsoft.com/meetingOptions/?organizerId=9231050d-6317-
+ 4345-8ffd-9a6bea8447fa&tenantId=761d01a2-62fa-421c-a48c-0b8e97b0c4a0&thr
+ eadId=19_meeting_NDZjNDRkZjctZTZmMC00MjlmLWJmMWYtOWUxYTVkMzA3ZGY0@thread
+ .v2&messageId=0&language=en-US> | Reset dial-in PIN<https://dialin.teams
+ .microsoft.com/usp/pstnconferencing>\n__________________________________
+ ______________________________________________\n\n
+DTEND;TZID=America/New_York:20250318T170000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/New_York:20250318T160000
+LAST-MODIFIED:20250313T210918Z
+LOCATION:Microsoft Teams Meeting
+ORGANIZER;CN="Sumeet Sabharwal";EMAIL="Sumeet@netgaincloud.com":mailto:S
+ umeet@netgaincloud.com
+SEQUENCE:1
+STATUS:TENTATIVE
+SUMMARY:Steve/Sumeet
+TRANSP:OPAQUE
+UID:040000008200E00074C5B7101A82E00800000000F03702A23A94DB01000000000000
+ 00001000000091400F82D2A11443A75BCED1C5133AF1
+X-MICROSOFT-CDO-APPT-SEQUENCE:0
+X-MICROSOFT-CDO-BUSYSTATUS:TENTATIVE
+X-MICROSOFT-CDO-IMPORTANCE:1
+X-MICROSOFT-CDO-INSTTYPE:0
+X-MICROSOFT-CDO-INTENDEDSTATUS:BUSY
+X-MICROSOFT-CDO-OWNERAPPTID:2024617961
+X-MICROSOFT-DISALLOW-COUNTER:FALSE
+X-MICROSOFT-DONOTFORWARDMEETING:FALSE
+X-MICROSOFT-ISRESPONSEREQUESTED:TRUE
+X-MICROSOFT-LOCATIONS:[ { "DisplayName" : "Microsoft Teams Meeting"\, "L
+ ocationAnnotation" : ""\, "LocationSource" : 0\, "Unresolved" : false\, 
+ "LocationUri" : "" } ]
+X-MICROSOFT-REQUESTEDATTENDANCEMODE:DEFAULT
+X-MICROSOFT-SCHEDULINGSERVICEUPDATEURL:https://api.scheduler.teams.micro
+ soft.com/teams/761d01a2-62fa-421c-a48c-0b8e97b0c4a0/9231050d-6317-4345-8
+ ffd-9a6bea8447fa/19_meeting_NDZjNDRkZjctZTZmMC00MjlmLWJmMWYtOWUxYTVkMzA3
+ ZGY0@thread.v2/0
+X-MICROSOFT-SKYPETEAMSMEETINGURL:https://teams.microsoft.com/l/meetup-jo
+ in/19%3ameeting_NDZjNDRkZjctZTZmMC00MjlmLWJmMWYtOWUxYTVkMzA3ZGY0%40threa
+ d.v2/0?context=%7b%22Tid%22%3a%22761d01a2-62fa-421c-a48c-0b8e97b0c4a0%22
+ %2c%22Oid%22%3a%229231050d-6317-4345-8ffd-9a6bea8447fa%22%7d
+X-MICROSOFT-SKYPETEAMSPROPERTIES:{"cid":"19:meeting_NDZjNDRkZjctZTZmMC00
+ MjlmLWJmMWYtOWUxYTVkMzA3ZGY0@thread.v2"\,"private":true\,"type":0\,"mid"
+ :0\,"rid":0\,"uid":null}
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:TENTATIVE
+X-YAHOO-YID:sdrohan
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:
+TRIGGER:-PT15M
+UID:A3252C77-DB93-4AA6-BD43-137A69E3AAC5
+X-WR-ALARMUID:A3252C77-DB93-4AA6-BD43-137A69E3AAC5
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20250502T090000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20250502T080000
+LAST-MODIFIED:20250318T234410Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Personal QBR
+TRANSP:OPAQUE
+UID:83B6FBA2-6BF6-4962-A8FE-C4C644742E29
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+END:VEVENT
+BEGIN:VEVENT
+CLASS:PUBLIC
+DTEND;TZID=America/Detroit:20250425T090000
+DTSTAMP:20250319T180225Z
+DTSTART;TZID=America/Detroit:20250425T080000
+LAST-MODIFIED:20250318T234507Z
+SEQUENCE:0
+STATUS:CONFIRMED
+SUMMARY:Personal Retreat
+TRANSP:OPAQUE
+UID:A2641C48-FCAD-4CB6-A212-C245CF24368F
+X-YAHOO-EVENT-STATUS:BUSY
+X-YAHOO-USER-STATUS:BUSY
+X-YAHOO-YID:sdrohan
+END:VEVENT
+END:VCALENDAR
