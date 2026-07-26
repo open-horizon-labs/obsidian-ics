@@ -416,8 +416,19 @@ export default class ICSSettingsTab extends PluginSettingTab {
           b.setIcon("trash")
             .setTooltip("Delete")
             .onClick(() => {
-              void this.plugin.removeCalendar(calendar);
-              this.display();
+              new ConfirmModal(
+                this.app,
+                `Are you sure you want to delete the calendar "${calendar.icsName}"? This cannot be undone.`,
+                (confirmed) => {
+                  if (!confirmed) {
+                    return;
+                  }
+                  void (async () => {
+                    await this.plugin.removeCalendar(calendar);
+                    this.display();
+                  })();
+                }
+              ).open();
             });
         });
     }
@@ -548,9 +559,11 @@ class SettingsModal extends Modal {
   icsName: string = "";
   icsUrl: string = "";
   urlSetting: Setting;
+  nameText: TextComponent;
   urlText: TextComponent;
   urlDropdown: DropdownComponent;
   ownerEmail: string = "";
+  private originalIcsName: string = "";
 
   saved: boolean = false;
   error: boolean = false;
@@ -573,6 +586,7 @@ class SettingsModal extends Modal {
     this.plugin = plugin;
     if (setting) {
       this.icsName = setting.icsName;
+      this.originalIcsName = setting.icsName;
       this.icsUrl = setting.icsUrl;
       this.ownerEmail = setting.ownerEmail;
       this.format = setting.format;
@@ -596,14 +610,14 @@ class SettingsModal extends Modal {
 
     const settingDiv = contentEl.createDiv({ cls: 'ics-settings' });
 
-    let nameText: TextComponent;
     new Setting(settingDiv)
       .setName("Calendar Name")
       .addText((text) => {
-        nameText = text;
-        nameText.setValue(this.icsName).onChange(async (v) => {
+        this.nameText = text;
+        text.setValue(this.icsName).onChange((v) => {
           this.icsName = v;
           this.hasChanges = true;
+          this.validateName(text);
         });
       });
 
@@ -776,9 +790,12 @@ class SettingsModal extends Modal {
       b.setTooltip("Save")
         .setIcon("save")
         .onClick(async () => {
-          if (!this.validateUrl(this.calendarType === 'vdir' ? undefined : this.urlText)) {
+          const nameValid = this.validateName(this.nameText);
+          const urlValid = this.validateUrl(this.calendarType === 'vdir' ? undefined : this.urlText);
+          if (!nameValid || !urlValid) {
             return;
           }
+          this.icsName = this.icsName.trim();
           await this.plugin.saveSettings();
           this.saved = true;
           this.hasChanges = false;
@@ -795,6 +812,32 @@ class SettingsModal extends Modal {
         });
       return b;
     });
+  }
+
+  private validateName(textInput?: TextComponent): boolean {
+    const trimmed = this.icsName.trim();
+
+    if (!trimmed) {
+      if (textInput) {
+        SettingsModal.setValidationError(textInput, "Calendar name is required");
+      }
+      return false;
+    }
+
+    const isDuplicate = Object.keys(this.plugin.data.calendars).some(
+      key => key !== this.originalIcsName && key === trimmed
+    );
+    if (isDuplicate) {
+      if (textInput) {
+        SettingsModal.setValidationError(textInput, "A calendar with this name already exists");
+      }
+      return false;
+    }
+
+    if (textInput) {
+      SettingsModal.removeValidationError(textInput);
+    }
+    return true;
   }
 
   private validateUrl(textInput?: TextComponent): boolean {
@@ -850,7 +893,7 @@ class SettingsModal extends Modal {
         "unset-align-items"
       ]);
       textInput.inputEl.parentElement.parentElement.addClass(
-        ".unset-align-items"
+        "unset-align-items"
       );
       let mDiv = textInput.inputEl.parentElement.querySelector(
         ".invalid-feedback"
@@ -872,7 +915,7 @@ class SettingsModal extends Modal {
       "unset-align-items"
     ]);
     textInput.inputEl.parentElement.parentElement.removeClass(
-      ".unset-align-items"
+      "unset-align-items"
     );
 
     if (textInput.inputEl.parentElement.children[1]) {
@@ -888,6 +931,9 @@ class FieldExtractionPatternModal extends Modal {
   pattern: FieldExtractionPattern;
   saved: boolean = false;
   private hasChanges: boolean = false;
+  private nameText: TextComponent;
+  private patternText: TextComponent;
+  private priorityHasError: boolean = false;
 
   constructor(app: App, plugin: ICSPlugin, pattern?: FieldExtractionPattern, defaultFieldName?: string) {
     super(app);
@@ -924,15 +970,15 @@ class FieldExtractionPatternModal extends Modal {
     });
 
     // Pattern name
-    let nameText: TextComponent;
     new Setting(settingDiv)
       .setName("Pattern Name")
       .setDesc("Descriptive name for this pattern")
       .addText((text) => {
-        nameText = text;
-        nameText.setValue(this.pattern.name).onChange((v) => {
+        this.nameText = text;
+        text.setValue(this.pattern.name).onChange((v) => {
           this.pattern.name = v;
           this.hasChanges = true;
+          this.validateName();
         });
       });
 
@@ -952,34 +998,43 @@ class FieldExtractionPatternModal extends Modal {
       });
 
     // Pattern
-    let patternText: TextComponent;
     new Setting(settingDiv)
       .setName("Pattern")
       .setDesc("The text or regex pattern to match in event location/description")
       .addText((text) => {
-        patternText = text;
-        patternText.setValue(this.pattern.pattern).onChange((v) => {
+        this.patternText = text;
+        text.setValue(this.pattern.pattern).onChange((v) => {
           this.pattern.pattern = v;
           this.hasChanges = true;
-          this.validatePattern(patternText);
+          this.validatePattern();
         });
       });
 
     // Priority
-    let priorityText: TextComponent;
     new Setting(settingDiv)
       .setName("Priority")
       .setDesc("Lower numbers have higher priority (checked first)")
       .addText((text) => {
-        priorityText = text;
-        priorityText.setValue(this.pattern.priority.toString()).onChange((v) => {
+        text.setValue(this.pattern.priority.toString()).onChange((v) => {
+          this.hasChanges = true;
           const priority = parseInt(v);
-          if (!isNaN(priority)) {
-            this.pattern.priority = priority;
-            this.hasChanges = true;
+          if (isNaN(priority)) {
+            this.priorityHasError = true;
+            SettingsModal.setValidationError(text, "Priority must be a number");
+            return;
           }
+          this.priorityHasError = false;
+          SettingsModal.removeValidationError(text);
+          this.pattern.priority = priority;
         });
-        priorityText.inputEl.addEventListener('keydown', (e) => {
+        text.inputEl.addEventListener('blur', () => {
+          // Invalid input never made it into this.pattern.priority, so
+          // resync the displayed text to what's actually saved.
+          text.setValue(this.pattern.priority.toString());
+          this.priorityHasError = false;
+          SettingsModal.removeValidationError(text);
+        });
+        text.inputEl.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
             e.preventDefault();
             if (this.validateForm()) {
@@ -999,6 +1054,7 @@ class FieldExtractionPatternModal extends Modal {
         .setIcon("save")
         .onClick(async () => {
           if (this.validateForm()) {
+            this.pattern.name = this.pattern.name.trim();
             this.saved = true;
             this.hasChanges = false;
             this.close();
@@ -1017,36 +1073,46 @@ class FieldExtractionPatternModal extends Modal {
     });
   }
 
-  private validatePattern(textInput: TextComponent): boolean {
+  private validateName(): boolean {
+    if (!this.pattern.name.trim()) {
+      if (this.nameText) {
+        SettingsModal.setValidationError(this.nameText, "Pattern name is required");
+      }
+      return false;
+    }
+    if (this.nameText) {
+      SettingsModal.removeValidationError(this.nameText);
+    }
+    return true;
+  }
+
+  private validatePattern(): boolean {
+    if (!this.pattern.pattern.trim()) {
+      if (this.patternText) {
+        SettingsModal.setValidationError(this.patternText, "Pattern is required");
+      }
+      return false;
+    }
     if (this.pattern.matchType === 'regex') {
       try {
         new RegExp(this.pattern.pattern);
-        SettingsModal.removeValidationError(textInput);
-        return true;
       } catch {
-        SettingsModal.setValidationError(textInput, "Invalid regular expression");
+        if (this.patternText) {
+          SettingsModal.setValidationError(this.patternText, "Invalid regular expression");
+        }
         return false;
       }
     }
-    SettingsModal.removeValidationError(textInput);
+    if (this.patternText) {
+      SettingsModal.removeValidationError(this.patternText);
+    }
     return true;
   }
 
   private validateForm(): boolean {
-    if (!this.pattern.name.trim()) {
-      return false;
-    }
-    if (!this.pattern.pattern.trim()) {
-      return false;
-    }
-    if (this.pattern.matchType === 'regex') {
-      try {
-        new RegExp(this.pattern.pattern);
-      } catch {
-        return false;
-      }
-    }
-    return true;
+    const nameValid = this.validateName();
+    const patternValid = this.validatePattern();
+    return nameValid && patternValid && !this.priorityHasError;
   }
 
   onOpen() {
@@ -1073,6 +1139,7 @@ class FieldSectionModal extends Modal {
   private hasChanges: boolean = false;
   private isEditing: boolean = false;
   private originalFieldName: string = "";
+  private fieldNameText: TextComponent;
 
   constructor(app: App, plugin: ICSPlugin, existingFieldName?: string) {
     super(app);
@@ -1104,17 +1171,17 @@ class FieldSectionModal extends Modal {
     const settingDiv = contentEl.createDiv({ cls: 'field-section-settings' });
 
     // Field name input
-    let fieldNameText: TextComponent;
     new Setting(settingDiv)
       .setName("Field Name")
       .setDesc(this.isEditing
         ? `Rename this field section. All patterns will be updated to use the new name.`
         : "Name for the field section (e.g., 'Phone Numbers', 'Meeting IDs', 'Video Call URLs').")
       .addText((text) => {
-        fieldNameText = text;
-        fieldNameText.setValue(this.fieldName).onChange((v) => {
+        this.fieldNameText = text;
+        text.setValue(this.fieldName).onChange((v) => {
           this.fieldName = v;
           this.hasChanges = true;
+          this.validateFieldName();
         });
       });
 
@@ -1143,6 +1210,7 @@ class FieldSectionModal extends Modal {
         .setIcon(buttonIcon)
         .onClick(async () => {
           if (this.validateForm()) {
+            this.fieldName = this.fieldName.trim();
             if (this.isEditing) {
               // Just save - the calling code will handle updating patterns
               this.saved = true;
@@ -1181,11 +1249,21 @@ class FieldSectionModal extends Modal {
     });
   }
 
-  private validateForm(): boolean {
+  private validateFieldName(): boolean {
     if (!this.fieldName.trim()) {
+      if (this.fieldNameText) {
+        SettingsModal.setValidationError(this.fieldNameText, "Field name is required");
+      }
       return false;
     }
+    if (this.fieldNameText) {
+      SettingsModal.removeValidationError(this.fieldNameText);
+    }
     return true;
+  }
+
+  private validateForm(): boolean {
+    return this.validateFieldName();
   }
 
   onOpen() {
