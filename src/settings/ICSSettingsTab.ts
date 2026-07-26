@@ -903,9 +903,14 @@ class SettingsModal extends Modal {
         mDiv = createDiv({
           cls: "invalid-feedback"
         });
+        // insertAfter(node, child) inserts `node` into the element it's
+        // called on, positioned after `child`. Must be called on the
+        // parent, not on mDiv itself - calling it on mDiv would move
+        // textInput.inputEl into this (detached) div instead of placing
+        // mDiv after the input in the actual settings row.
+        textInput.inputEl.parentElement.insertAfter(mDiv, textInput.inputEl);
       }
       mDiv.innerText = message;
-      mDiv.insertAfter(textInput.inputEl, null);
     }
   }
   static removeValidationError(textInput: TextComponent) {
