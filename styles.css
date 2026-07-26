@@ -4,6 +4,33 @@
 padding-top: 2em;
 }
 
+/* Inline field validation (SettingsModal.setValidationError) - these
+   classes were applied in ICSSettingsTab.ts with no matching CSS at
+   all, so an error message rendered as unstyled full-size text shoved
+   into the control column instead of a small caption under the input,
+   distorting that row's whole layout. */
+.setting-item-control.has-invalid-message {
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.setting-item.unset-align-items,
+.setting-item-control.unset-align-items {
+	align-items: flex-start;
+}
+
+.invalid-feedback {
+	width: 100%;
+	margin-top: 4px;
+	font-size: var(--font-ui-smaller);
+	color: var(--text-error);
+	text-align: left;
+}
+
+input.is-invalid {
+	border-color: var(--text-error);
+}
+
 
 /* Field section headers - smaller than main headings */
 .field-extraction-patterns .field-section-header {

@@ -24,7 +24,7 @@ export function getCalendarElement(
   const calendarElement = createDiv({
     cls: `calendar calendar-${icsName}`,
   });
-  calendarElement.createEl("summary", {
+  calendarElement.createDiv({
     cls: `calendar-name ${icsName}`,
     text: icsName
   });
