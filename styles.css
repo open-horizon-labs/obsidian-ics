@@ -4,6 +4,21 @@
 padding-top: 2em;
 }
 
+/* The "Output Format" heading (Setting.setHeading()) rendered indented
+   relative to every other row in this modal, on every fix attempted
+   so far for the validation-message layout (neither of which ever
+   actually targeted the heading itself). No local CSS applies any
+   left offset to it, so whatever the source is lives in Obsidian's
+   own styling for a heading row inside a plugin-defined container -
+   overriding directly rather than guessing at the cause again. */
+.ics-settings .setting-item-heading,
+.ics-settings .setting-item-heading .setting-item-info,
+.ics-settings .setting-item-heading .setting-item-name {
+	margin-left: 0 !important;
+	padding-left: 0 !important;
+	text-indent: 0 !important;
+}
+
 /* Inline field validation (SettingsModal.setValidationError). Renders
    as its own full-width row right after the field's setting-item,
    rather than inside Obsidian's setting-item-control column - that

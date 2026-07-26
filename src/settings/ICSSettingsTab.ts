@@ -795,6 +795,8 @@ class SettingsModal extends Modal {
           const nameValid = this.validateName(this.nameText);
           const urlValid = this.validateUrl(this.calendarType === 'vdir' ? undefined : this.urlText);
           if (!nameValid || !urlValid) {
+            new Notice("Fix the highlighted errors before saving.");
+            (!nameValid ? this.nameText : this.urlText)?.inputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
           }
           this.icsName = this.icsName.trim();
@@ -1048,6 +1050,10 @@ class FieldExtractionPatternModal extends Modal {
             this.saved = true;
             this.hasChanges = false;
             this.close();
+          } else {
+            new Notice("Fix the highlighted errors before saving.");
+            (this.nameText?.inputEl.hasClass("is-invalid") ? this.nameText : this.patternText)
+              ?.inputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }
         });
       return b;
@@ -1224,6 +1230,9 @@ class FieldSectionModal extends Modal {
               this.hasChanges = false;
               this.close();
             }
+          } else {
+            new Notice("Fix the highlighted errors before saving.");
+            this.fieldNameText?.inputEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }
         });
       return b;
