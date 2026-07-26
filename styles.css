@@ -48,24 +48,6 @@ input.is-invalid {
 	font-size: var(--font-ui-medium);
 }
 
-/* Legacy field extraction pattern grouping (keeping for compatibility) */
-.field-extraction-patterns .setting-item.mod-heading {
-	margin-top: 20px;
-	margin-bottom: 8px;
-	border-bottom: 1px solid var(--background-modifier-border);
-	padding-bottom: 4px;
-}
-
-.field-extraction-patterns .setting-item.mod-heading:first-child {
-	margin-top: 10px;
-}
-
-.field-extraction-patterns .setting-item.mod-heading .setting-item-name {
-	color: var(--text-accent);
-	font-weight: var(--font-semibold);
-	font-size: var(--font-ui-medium);
-}
-
 /* Compatibility note styling */
 .compatibility-note {
 	margin-top: 24px;

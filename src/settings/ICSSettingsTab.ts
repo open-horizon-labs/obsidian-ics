@@ -310,16 +310,18 @@ export default class ICSSettingsTab extends PluginSettingTab {
 
     // Calendars Section
     this.displayCalendarsSection(containerEl);
+    containerEl.createDiv('ics-spacer-bottom');
 
     // Output Format Section
     this.displayFormatSection(containerEl);
+    containerEl.createDiv('ics-spacer-bottom');
 
     // Field Extraction Section
     this.displayFieldExtractionSection(containerEl);
+    containerEl.createDiv('ics-spacer-bottom');
 
     // Sponsor link - Thank you!
     const divSponsor = containerEl.createDiv();
-    divSponsor.createEl('br');
     divSponsor.createEl('hr');
     divSponsor.appendText('A scratch my own itch project by ');
     const munessLink = divSponsor.createEl('a', { text: 'muness' });
