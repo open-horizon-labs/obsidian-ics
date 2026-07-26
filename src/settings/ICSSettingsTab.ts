@@ -7,6 +7,7 @@ import {
   Modal,
   TextComponent,
   DropdownComponent,
+  Notice,
   moment,
 } from "obsidian";
 
@@ -656,9 +657,11 @@ class SettingsModal extends Modal {
       } else {
         // If remote, add a text input
         urlSetting.addText(text => {
+          this.urlText = text;
           text.setValue(this.icsUrl).onChange(value => {
             this.icsUrl = value;
             this.hasChanges = true
+            this.validateUrl(text);
           });
         });
       }
@@ -773,6 +776,9 @@ class SettingsModal extends Modal {
       b.setTooltip("Save")
         .setIcon("save")
         .onClick(async () => {
+          if (!this.validateUrl(this.calendarType === 'vdir' ? undefined : this.urlText)) {
+            return;
+          }
           await this.plugin.saveSettings();
           this.saved = true;
           this.hasChanges = false;
@@ -789,6 +795,31 @@ class SettingsModal extends Modal {
         });
       return b;
     });
+  }
+
+  private validateUrl(textInput?: TextComponent): boolean {
+    const value = this.icsUrl.trim();
+
+    if (this.calendarType === 'vdir') {
+      const isValid = value !== '';
+      if (!isValid) {
+        new Notice("Select a vault folder for this calendar.");
+      }
+      return isValid;
+    }
+
+    const isValid = /^https?:\/\/.+/i.test(value);
+    if (textInput) {
+      if (isValid) {
+        SettingsModal.removeValidationError(textInput);
+      } else {
+        SettingsModal.setValidationError(
+          textInput,
+          "Calendar URL is required and must start with http:// or https://"
+        );
+      }
+    }
+    return isValid;
   }
 
   onOpen() {
