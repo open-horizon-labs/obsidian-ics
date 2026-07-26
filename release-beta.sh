@@ -23,76 +23,51 @@ if [ "$#" -ne 2 ]; then
     echo "stable release, once betas are done, must ship higher than"
     echo "X.Y.Z (bump at least the patch). See CONTRIBUTING.md for"
     echo "details."
-    echo "Exiting."
-
     exit 1
-fi
-
-if [[ $(git status --porcelain) ]]; then
-  echo "Changes in the git repo."
-  echo "Exiting."
-
-  exit 1
 fi
 
 NEW_VERSION=$1
 MINIMUM_OBSIDIAN_VERSION=$2
 BRANCH_NAME="beta/${NEW_VERSION}"
 
-echo "Updating to version ${NEW_VERSION} with minimum obsidian version ${MINIMUM_OBSIDIAN_VERSION}"
-
-read -p "Continue? [y/N] " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-  # master is a protected branch - commits must land via PR, not a direct push.
-  echo "Creating branch ${BRANCH_NAME}"
-  git checkout -b "${BRANCH_NAME}"
-
-  echo "Updating package.json"
-  TEMP_FILE=$(mktemp)
-  jq ".version |= \"${NEW_VERSION}\"" package.json > "$TEMP_FILE" || exit 1
-  mv "$TEMP_FILE" package.json
-
-  echo "Updating manifest-beta.json"
-  TEMP_FILE=$(mktemp)
-  jq ".version |= \"${NEW_VERSION}\" | .minAppVersion |= \"${MINIMUM_OBSIDIAN_VERSION}\"" manifest-beta.json > "$TEMP_FILE" || exit 1
-  mv "$TEMP_FILE" manifest-beta.json
-
-  echo "Updating versions.json"
-  TEMP_FILE=$(mktemp)
-  jq ". += {\"${NEW_VERSION}\": \"${MINIMUM_OBSIDIAN_VERSION}\"}" versions.json > "$TEMP_FILE" || exit 1
-  mv "$TEMP_FILE" versions.json
-
-  echo "Updating package-lock.json"
-  npm install
-
-  read -p "Create git commit, push, and open a pull request? [y/N] " -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]
-  then
-    git add package.json package-lock.json manifest-beta.json versions.json
-    git commit -m "Update to version ${NEW_VERSION}"
-    git push --set-upstream origin "${BRANCH_NAME}"
-
-    echo "Creating a pull request..."
-    gh pr create \
-      --title "Update to version ${NEW_VERSION}" \
-      --body "Beta version bump to ${NEW_VERSION} (minimum Obsidian version ${MINIMUM_OBSIDIAN_VERSION})." \
-      --base master \
-      --head "${BRANCH_NAME}"
-
-    echo ""
-    echo "Pull request created. Review and merge it, then build and publish the beta release from master:"
-    echo ""
-    echo "  git checkout master && git pull"
-    echo "  npm run build"
-    echo "  cp manifest-beta.json /tmp/manifest.json"
-    echo "  gh release create \"${NEW_VERSION}\" --prerelease --title \"${NEW_VERSION}\" \\"
-    echo "    --notes \"<release notes>\" \\"
-    echo "    dist/main.js /tmp/manifest.json styles.css"
-  fi
-else
-  echo "Exiting."
+# Ensure no uncommitted changes
+if [[ $(git status --porcelain) ]]; then
+  echo "Uncommitted changes detected. Please commit or stash them before running the release script."
   exit 1
 fi
+
+echo "Preparing beta ${NEW_VERSION} with minimum Obsidian version ${MINIMUM_OBSIDIAN_VERSION}"
+
+# master is a protected branch - commits must land via PR, not a direct push.
+git checkout -b "${BRANCH_NAME}"
+
+echo "Updating package.json..."
+jq ".version = \"${NEW_VERSION}\"" package.json > package.json.tmp && mv package.json.tmp package.json
+
+echo "Updating manifest-beta.json..."
+jq ".version = \"${NEW_VERSION}\" | .minAppVersion = \"${MINIMUM_OBSIDIAN_VERSION}\"" manifest-beta.json > manifest-beta.json.tmp && mv manifest-beta.json.tmp manifest-beta.json
+
+echo "Updating versions.json..."
+jq ". += {\"${NEW_VERSION}\": \"${MINIMUM_OBSIDIAN_VERSION}\"}" versions.json > versions.json.tmp && mv versions.json.tmp versions.json
+
+echo "Updating package-lock.json..."
+npm install
+
+# Commit changes
+git add package.json package-lock.json manifest-beta.json versions.json
+git commit -m "Update to version ${NEW_VERSION}"
+
+# Push branch to remote
+git push --set-upstream origin "${BRANCH_NAME}"
+
+# Create a pull request
+echo "Creating a pull request..."
+gh pr create \
+  --title "Update to version ${NEW_VERSION}" \
+  --body "Beta version bump to ${NEW_VERSION} (minimum Obsidian version ${MINIMUM_OBSIDIAN_VERSION})." \
+  --base master \
+  --head "${BRANCH_NAME}"
+
+echo "Pull request created. Please review and merge it to trigger the automated beta release."
+echo "Once merged, draft real release notes with:"
+echo "  ./scripts/draft-release-notes.sh ${NEW_VERSION} <previous-version>"
