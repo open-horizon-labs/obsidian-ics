@@ -887,48 +887,31 @@ class SettingsModal extends Modal {
     super.close();
   }
 
+  // The message renders as an independent full-width row placed right
+  // after the setting's own row, rather than nested inside Obsidian's
+  // setting-item-control column. Reaching into that column and
+  // restyling its flex layout previously fought Obsidian's own
+  // right-aligned control layout (and distorted surrounding rows) in
+  // ways this plugin doesn't have solid ground truth on - this design
+  // never touches it, so it can't conflict with it.
   static setValidationError(textInput: TextComponent, message?: string) {
     textInput.inputEl.addClass("is-invalid");
     if (message) {
-      textInput.inputEl.parentElement.addClasses([
-        "has-invalid-message",
-        "unset-align-items"
-      ]);
-      textInput.inputEl.parentElement.parentElement.addClass(
-        "unset-align-items"
-      );
-      let mDiv = textInput.inputEl.parentElement.querySelector(
-        ".invalid-feedback"
-      ) as HTMLDivElement;
-
-      if (!mDiv) {
-        mDiv = createDiv({
-          cls: "invalid-feedback"
-        });
-        // insertAfter(node, child) inserts `node` into the element it's
-        // called on, positioned after `child`. Must be called on the
-        // parent, not on mDiv itself - calling it on mDiv would move
-        // textInput.inputEl into this (detached) div instead of placing
-        // mDiv after the input in the actual settings row.
-        textInput.inputEl.parentElement.insertAfter(mDiv, textInput.inputEl);
+      const settingEl = textInput.inputEl.parentElement.parentElement;
+      let mDiv = settingEl.nextElementSibling as HTMLElement;
+      if (!mDiv || !mDiv.hasClass("invalid-feedback")) {
+        mDiv = createDiv({ cls: "invalid-feedback" });
+        settingEl.parentElement.insertAfter(mDiv, settingEl);
       }
       mDiv.innerText = message;
     }
   }
   static removeValidationError(textInput: TextComponent) {
     textInput.inputEl.removeClass("is-invalid");
-    textInput.inputEl.parentElement.removeClasses([
-      "has-invalid-message",
-      "unset-align-items"
-    ]);
-    textInput.inputEl.parentElement.parentElement.removeClass(
-      "unset-align-items"
-    );
-
-    if (textInput.inputEl.parentElement.children[1]) {
-      textInput.inputEl.parentElement.removeChild(
-        textInput.inputEl.parentElement.children[1]
-      );
+    const settingEl = textInput.inputEl.parentElement.parentElement;
+    const mDiv = settingEl.nextElementSibling as HTMLElement;
+    if (mDiv && mDiv.hasClass("invalid-feedback")) {
+      mDiv.remove();
     }
   }
 }

@@ -4,27 +4,16 @@
 padding-top: 2em;
 }
 
-/* Inline field validation (SettingsModal.setValidationError) - these
-   classes were applied in ICSSettingsTab.ts with no matching CSS at
-   all, so an error message rendered as unstyled full-size text shoved
-   into the control column instead of a small caption under the input,
-   distorting that row's whole layout. */
-.setting-item-control.has-invalid-message {
-	flex-direction: column;
-	align-items: flex-start;
-}
-
-.setting-item.unset-align-items,
-.setting-item-control.unset-align-items {
-	align-items: flex-start;
-}
-
+/* Inline field validation (SettingsModal.setValidationError). Renders
+   as its own full-width row right after the field's setting-item,
+   rather than inside Obsidian's setting-item-control column - that
+   column has its own right-aligned flex layout this plugin doesn't
+   fully control, and reaching into it previously distorted both that
+   row and the ones after it. */
 .invalid-feedback {
-	width: 100%;
-	margin-top: 4px;
+	margin: -4px 0 12px;
 	font-size: var(--font-ui-smaller);
 	color: var(--text-error);
-	text-align: left;
 }
 
 input.is-invalid {
