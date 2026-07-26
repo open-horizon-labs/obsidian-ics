@@ -1,6 +1,6 @@
 {
   "name": "obsidian-ics",
-  "version": "1.13.0-beta1",
+  "version": "1.14.0",
   "description": "Adds events from calendar ics published on the web to daily note on demand. Daily Note or Periodic Notes plugins: specifically it gets the date to search for events during from the currently open daily note.",
   "main": "dist/main.js",
   "scripts": {
