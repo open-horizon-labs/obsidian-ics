@@ -40,6 +40,15 @@ Maintainers cut releases from a clean `master` checkout:
   `beta/<version>` PR. Merging it builds and publishes a pre-release
   **automatically**.
 
+### Iterate betas under the same base version
+
+While still testing one round of changes, keep `X.Y.Z` fixed and only bump
+the `-betaN` suffix (`-beta1`, `-beta2`, `-beta3`, ...) for each fix -
+`1.12.1-beta1` through `1.12.1-beta4` in `versions.json` is the precedent.
+Bumping `X.Y.Z` itself on every beta fix burns a new base version each time
+(see below) for no reason - reserve that for starting a genuinely new beta
+cycle.
+
 ### Beta version numbers are one-way
 
 Obsidian's stock "Check for updates" does not support the full semver spec -
