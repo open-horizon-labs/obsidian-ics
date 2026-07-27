@@ -96,17 +96,17 @@ describe('DateNormalizer', () => {
 
     describe('error handling', () => {
       it('should throw error for null input', () => {
-        expect(() => DateNormalizer.normalizeDateInput(null as any))
+        expect(() => DateNormalizer.normalizeDateInput(null))
           .toThrow('Date input cannot be null or undefined');
       });
 
       it('should throw error for undefined input', () => {
-        expect(() => DateNormalizer.normalizeDateInput(undefined as any))
+        expect(() => DateNormalizer.normalizeDateInput(undefined))
           .toThrow('Date input cannot be null or undefined');
       });
 
       it('should throw error for unsupported input types', () => {
-        const unsupportedInputs = [
+        const unsupportedInputs: unknown[] = [
           123,
           true,
           false,
@@ -116,7 +116,7 @@ describe('DateNormalizer', () => {
         ];
 
         unsupportedInputs.forEach(input => {
-          expect(() => DateNormalizer.normalizeDateInput(input as any))
+          expect(() => DateNormalizer.normalizeDateInput(input as FlexibleDateInput))
             .toThrow(`Unsupported date input type: ${typeof input}`);
         });
       });
@@ -176,7 +176,7 @@ describe('DateNormalizer', () => {
     });
 
     it('should return false for unsupported types', () => {
-      const unsupportedInputs = [
+      const unsupportedInputs: unknown[] = [
         123,
         true,
         null,

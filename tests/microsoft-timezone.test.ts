@@ -1,4 +1,5 @@
-import { parseIcs, filterMatchingEvents } from '../src/icalUtils';
+import { parseIcs, filterMatchingEvents, textValue } from '../src/icalUtils';
+import { WINDOWS_TO_IANA_TIMEZONES } from '../src/generated/windowsTimezones';
 import * as ical from 'node-ical';
 
 // node-ical's parseICS export is no longer a configurable property, so
@@ -6,7 +7,7 @@ import * as ical from 'node-ical';
 // the module instead keeps the real implementation as the default and lets
 // individual tests override it.
 jest.mock('node-ical', () => {
-  const actual = jest.requireActual('node-ical');
+  const actual = jest.requireActual<typeof ical>('node-ical');
   return {
     ...actual,
     parseICS: jest.fn(actual.parseICS),
@@ -15,7 +16,7 @@ jest.mock('node-ical', () => {
 
 describe('Microsoft Office 365 Timezone Parsing', () => {
   afterEach(() => {
-    const actual = jest.requireActual('node-ical');
+    const actual = jest.requireActual<typeof ical>('node-ical');
     (ical.parseICS as jest.Mock).mockImplementation(actual.parseICS);
   });
 
@@ -55,7 +56,7 @@ END:VEVENT
 END:VCALENDAR`;
 
     // Mock the original parseICS to simulate the error
-    const originalParseICS = jest.requireActual('node-ical').parseICS;
+    const originalParseICS = jest.requireActual<typeof ical>('node-ical').parseICS;
     const mockError = new TypeError('tz.startsWith is not a function');
 
     // First call throws the error, second call (after preprocessing) succeeds
@@ -206,7 +207,7 @@ END:VCALENDAR`;
 
     // Should return the recurring override event
     expect(matchingEvents.length).toBeGreaterThanOrEqual(1);
-    const rescheduledEvent = matchingEvents.find((e: any) => e.summary.includes('Rescheduled'));
+    const rescheduledEvent = matchingEvents.find(e => textValue(e.summary).includes('Rescheduled'));
     expect(rescheduledEvent).toBeDefined();
     expect(rescheduledEvent?.summary).toBe('Microsoft Meeting Working (Rescheduled)');
   });
@@ -256,8 +257,8 @@ END:VCALENDAR`;
     const matchingEvents = filterMatchingEvents(parsedEvents, ['2024-09-24'], false);
 
     expect(matchingEvents).toHaveLength(2);
-    expect(matchingEvents.find((e: any) => e.summary === 'Eastern Meeting')).toBeDefined();
-    expect(matchingEvents.find((e: any) => e.summary === 'Pacific Meeting')).toBeDefined();
+    expect(matchingEvents.find(e => textValue(e.summary) === 'Eastern Meeting')).toBeDefined();
+    expect(matchingEvents.find(e => textValue(e.summary) === 'Pacific Meeting')).toBeDefined();
   });
 
   it('should specifically handle RECURRENCE-ID with Microsoft timezone format', () => {
@@ -301,11 +302,11 @@ END:VCALENDAR`;
 
     // Should find the modified instance (recurrence override)
     expect(matchingEvents.length).toBeGreaterThanOrEqual(1);
-    const modifiedInstance = matchingEvents.find((e: any) =>
-      e.summary === 'Modified Instance - RECURRENCE-ID Test'
+    const modifiedInstance = matchingEvents.find(
+      e => textValue(e.summary) === 'Modified Instance - RECURRENCE-ID Test'
     );
     expect(modifiedInstance).toBeDefined();
-    expect(modifiedInstance.eventType).toBe('recurring override');
+    expect(modifiedInstance?.eventType).toBe('recurring override');
   });
 
   it('should handle comprehensive Microsoft timezone mappings', () => {
@@ -356,7 +357,7 @@ END:VCALENDAR`;
 
     // Should successfully parse the timezone mappings and find the Mumbai meeting
     expect(matchingEvents.length).toBeGreaterThanOrEqual(1);
-    expect(matchingEvents.find((e: any) => e.summary === 'Mumbai Meeting')).toBeDefined();
+    expect(matchingEvents.find(e => textValue(e.summary) === 'Mumbai Meeting')).toBeDefined();
 
     // Note: Sydney meeting (10:00 AM Sydney time) might be filtered out as it converts to
     // 2024-09-23 in UTC, which is correct timezone behavior
@@ -395,8 +396,6 @@ END:VCALENDAR`;
   it('should handle all 139 CLDR timezone mappings', () => {
     // Verify that we're using the comprehensive CLDR mappings (139 total as of generation)
     // This ensures we have significantly more coverage than our original hardcoded list
-    const { WINDOWS_TO_IANA_TIMEZONES } = require('../src/generated/windowsTimezones');
-
     // Should have comprehensive coverage from Unicode CLDR
     expect(Object.keys(WINDOWS_TO_IANA_TIMEZONES).length).toBeGreaterThanOrEqual(139);
 

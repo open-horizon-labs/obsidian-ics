@@ -571,20 +571,10 @@ class SettingsModal extends Modal {
   error: boolean = false;
   private hasChanges: boolean = false;
 
-  format: {
-    checkbox: boolean,
-    includeEventEndTime: boolean,
-    icsName: boolean,
-    summary: boolean,
-    location: boolean,
-    description: boolean,
-    showAttendees: boolean,
-    showOngoing: boolean,
-    showTransparentEvents: boolean,
-    // Copied, not aliased: the toggles below assign straight into this.format,
-    // so sharing the object would let a dialog mutate the module-level default
-    // (or a saved calendar's settings) for every calendar that follows.
-  } = { ...DEFAULT_CALENDAR_FORMAT };
+  // Copied, not aliased: the toggles below assign straight into this.format,
+  // so sharing the object would let a dialog mutate the module-level default
+  // (or a saved calendar's settings) for every calendar that follows.
+  format: Calendar["format"] = { ...DEFAULT_CALENDAR_FORMAT };
   calendarType: string;
   constructor(app: App, plugin: ICSPlugin, setting?: Calendar) {
     super(app);
@@ -692,10 +682,13 @@ class SettingsModal extends Modal {
     new Setting(settingDiv)
       .setHeading().setName("Output Format");
 
-    // set each of the calendar format settings to the default if it's undefined
-    for (const f in DEFAULT_CALENDAR_FORMAT) {
-      if (this.format[f] == undefined) {
-        this.format[f] = DEFAULT_CALENDAR_FORMAT[f];
+    // Hydrate any format setting a calendar saved before that setting existed.
+    // Keyed off this.format rather than DEFAULT_CALENDAR_FORMAT, which also
+    // carries a calendarType that isn't part of the format at all.
+    const formatDefaults: Calendar["format"] = { ...DEFAULT_CALENDAR_FORMAT };
+    for (const key of Object.keys(formatDefaults) as (keyof Calendar["format"])[]) {
+      if (this.format[key] === undefined) {
+        this.format[key] = formatDefaults[key];
       }
     }
 
@@ -825,7 +818,7 @@ class SettingsModal extends Modal {
     const trimmed = this.icsName.trim();
 
     if (!trimmed) {
-      if (textInput) {
+      if (textInput !== undefined) {
         SettingsModal.setValidationError(textInput, "Calendar name is required");
       }
       return false;
@@ -835,13 +828,13 @@ class SettingsModal extends Modal {
       key => key !== this.originalIcsName && key === trimmed
     );
     if (isDuplicate) {
-      if (textInput) {
+      if (textInput !== undefined) {
         SettingsModal.setValidationError(textInput, "A calendar with this name already exists");
       }
       return false;
     }
 
-    if (textInput) {
+    if (textInput !== undefined) {
       SettingsModal.removeValidationError(textInput);
     }
     return true;
@@ -859,7 +852,7 @@ class SettingsModal extends Modal {
     }
 
     const isValid = /^https?:\/\/.+/i.test(value);
-    if (textInput) {
+    if (textInput !== undefined) {
       if (isValid) {
         SettingsModal.removeValidationError(textInput);
       } else {
@@ -1074,12 +1067,12 @@ class FieldExtractionPatternModal extends Modal {
 
   private validateName(): boolean {
     if (!this.pattern.name.trim()) {
-      if (this.nameText) {
+      if (this.nameText !== undefined) {
         SettingsModal.setValidationError(this.nameText, "Pattern name is required");
       }
       return false;
     }
-    if (this.nameText) {
+    if (this.nameText !== undefined) {
       SettingsModal.removeValidationError(this.nameText);
     }
     return true;
@@ -1087,7 +1080,7 @@ class FieldExtractionPatternModal extends Modal {
 
   private validatePattern(): boolean {
     if (!this.pattern.pattern.trim()) {
-      if (this.patternText) {
+      if (this.patternText !== undefined) {
         SettingsModal.setValidationError(this.patternText, "Pattern is required");
       }
       return false;
@@ -1096,13 +1089,13 @@ class FieldExtractionPatternModal extends Modal {
       try {
         new RegExp(this.pattern.pattern);
       } catch {
-        if (this.patternText) {
+        if (this.patternText !== undefined) {
           SettingsModal.setValidationError(this.patternText, "Invalid regular expression");
         }
         return false;
       }
     }
-    if (this.patternText) {
+    if (this.patternText !== undefined) {
       SettingsModal.removeValidationError(this.patternText);
     }
     return true;
@@ -1253,12 +1246,12 @@ class FieldSectionModal extends Modal {
 
   private validateFieldName(): boolean {
     if (!this.fieldName.trim()) {
-      if (this.fieldNameText) {
+      if (this.fieldNameText !== undefined) {
         SettingsModal.setValidationError(this.fieldNameText, "Field name is required");
       }
       return false;
     }
-    if (this.fieldNameText) {
+    if (this.fieldNameText !== undefined) {
       SettingsModal.removeValidationError(this.fieldNameText);
     }
     return true;
