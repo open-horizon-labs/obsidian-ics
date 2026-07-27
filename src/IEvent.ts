@@ -2,8 +2,19 @@ import { Calendar } from "./settings/ICSSettings";
 
 export interface IEvent {
 	utime: string; // Unix timestamp representing the event start time
+	endUtime: string; // Unix timestamp representing the event end time
 	time: string; // Human-readable representation of the event start time
 	endTime: string; // Human-readable representation of the event end time
+	// Full ISO 8601 start/end (with UTC offset), unlike time/endTime which are
+	// clock times only and so can't express a multi-day event. These are
+	// normalized: the timezone is resolved, a DURATION is expanded into an end,
+	// and an absent DTEND/DURATION falls back to the RFC 5545 default.
+	startDateTime: string;
+	endDateTime: string;
+	// True when DTSTART/DTEND are VALUE=DATE (an all-day event). DTEND is
+	// exclusive for these, so a holiday running through Sep 14 has an
+	// endDateTime of Sep 15 00:00 - subtract a day to display the last day.
+	allDay: boolean;
 	created: string; // Unix timestamp representation of the creation timestamp of the event
 	sequence: number; // The revision sequence number of the calendar component within a sequence of revisions.
 	lastModified: string; // Unix timestamp representation of when the event was last revised
