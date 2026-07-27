@@ -23,6 +23,7 @@ import {
 import { parseIcs, filterMatchingEvents, extractFields, textValue, ProcessedEvent } from './icalUtils';
 import { IEvent } from './IEvent';
 import { DateNormalizer, FlexibleDateInput } from './DateNormalizer';
+import { eventDateFields } from './eventDates';
 
 // Organizer/Attendee are ICS "TEXT with parameters" properties, typed by
 // node-ical as `string | { val, params }`. This plugin has only ever handled
@@ -168,9 +169,7 @@ export default class ICSPlugin extends Plugin {
           const locationText = textValue(e.location);
 
           const event: IEvent = {
-            utime: moment(e.start).format('X'),
-            time: moment(e.start).format(this.data.format.timeFormat),
-            endTime: moment(e.end).format(this.data.format.timeFormat),
+            ...eventDateFields(e, this.data.format.timeFormat),
             created: moment(e.created).format('X'),
             sequence: e.sequence || 0,
             recurrent: e.recurrent ? true : false,

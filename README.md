@@ -201,6 +201,27 @@ See [advanced Templated usage example](https://github.com/open-horizon-labs/obsi
 
 You can see the available fields an the [Event interface](https://github.com/open-horizon-labs/obsidian-ics/blob/master/src/IEvent.ts).
 
+#### Multi-day events
+
+`time` and `endTime` are clock times, so they can't tell you that an event runs past midnight. Use `startDateTime`/`endDateTime` (ISO 8601) or `utime`/`endUtime` (Unix timestamps) when you need the full extent of an event:
+
+```javascript
+<%*
+var events = await app.plugins.getPlugin('ics').getEvents(moment(tp.file.title,'YYYY-MM-DD'));
+events.forEach((e) => {
+  // For all-day events DTEND is exclusive, so the last day is one day earlier.
+  const lastDay = moment(e.endDateTime).subtract(e.allDay ? 1 : 0, 'day');
+  const spansDays = !moment(e.startDateTime).isSame(lastDay, 'day');
+  const when = spansDays
+    ? `${moment(e.startDateTime).format('MMM D')} – ${lastDay.format('MMM D')}`
+    : e.time;
+  tR += `- ${when} ${e.summary}\n`
+})
+%>
+```
+
+Note that an event only appears on days after its start day if **Show ongoing** is enabled for that calendar.
+
 #### Date Ranges
 
 `getEvents()` accepts any number of date inputs, so you can pass a whole range at once instead of calling it once per day. For example, to pull events for the next 7 days starting from the current daily note:
@@ -225,15 +246,12 @@ const { renderCalendar } = app.plugins.getPlugin("obsidian-full-calendar");
 const thisWeek = Array.from({length: 7}).map((_, weekday) => moment().set({weekday}).format("YYYY-MM-DD"))
 const icsPlugin = app.plugins.getPlugin('ics')
 const events = (await icsPlugin.getEvents(...thisWeek))
-    .map(event => {
-	  const start = moment.unix(event.utime)
-	  const [endHours, endMinutes] = event.endTime.split(":")
-	  return {
-	      start: start.toDate(),
-	      end: start.set({hour: endHours, minute: endMinutes}).toDate(),
-	      title: event.summary,
-	    }
-	}
+    .map(event => ({
+	    start: moment.unix(event.utime).toDate(),
+	    end: moment.unix(event.endUtime).toDate(),
+	    allDay: event.allDay,
+	    title: event.summary,
+	})
 )
 renderCalendar(this.container, {events}).render()
 ```
