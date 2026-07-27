@@ -51,7 +51,10 @@ export const DEFAULT_CALENDAR_FORMAT = {
     description: false,
     calendarType: 'remote',
     showAttendees: false,
-    showOngoing: false,
+    // On by default: a multi-day event showing up only on its start day reads
+    // as a bug to anyone who didn't know this toggle existed. Only affects
+    // newly added calendars - existing ones keep whatever they saved.
+    showOngoing: true,
     showTransparentEvents: false
 };
 
