@@ -581,7 +581,10 @@ class SettingsModal extends Modal {
     showAttendees: boolean,
     showOngoing: boolean,
     showTransparentEvents: boolean,
-  } = DEFAULT_CALENDAR_FORMAT;
+    // Copied, not aliased: the toggles below assign straight into this.format,
+    // so sharing the object would let a dialog mutate the module-level default
+    // (or a saved calendar's settings) for every calendar that follows.
+  } = { ...DEFAULT_CALENDAR_FORMAT };
   calendarType: string;
   constructor(app: App, plugin: ICSPlugin, setting?: Calendar) {
     super(app);
@@ -591,7 +594,7 @@ class SettingsModal extends Modal {
       this.originalIcsName = setting.icsName;
       this.icsUrl = setting.icsUrl;
       this.ownerEmail = setting.ownerEmail;
-      this.format = setting.format;
+      this.format = { ...setting.format };
       this.calendarType = setting.calendarType || 'remote';
     }
   }
