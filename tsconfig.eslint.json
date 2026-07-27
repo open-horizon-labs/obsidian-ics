@@ -1,0 +1,7 @@
+{
+  // tsconfig.json covers only what ships (src + types), but eslint's type-aware
+  // rules need every file they lint to belong to a project - without this, tests
+  // fail to parse rather than being checked.
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*.ts", "tests/**/*.ts", "types.d.ts"]
+}

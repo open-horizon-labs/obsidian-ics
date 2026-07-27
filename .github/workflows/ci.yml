@@ -27,19 +27,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      # eslint exits 1 for lint findings and 2 for a crash or config failure.
-      # There's an existing backlog of findings (mostly in ICSSettingsTab.ts), so
-      # gating on exit 1 would mean a permanently red CI. Gating on exit 2 still
-      # catches the failure mode that shipped undetected in #225: a dependency
-      # change that makes eslint itself blow up.
-      - name: Lint (fail only if eslint cannot run)
-        run: |
-          set +e
-          npx eslint .
-          code=$?
-          set -e
-          if [ "$code" -gt 1 ]; then
-            echo "::error::eslint exited ${code} - it could not run at all (crash or config failure), which is a broken toolchain rather than lint findings"
-            exit 1
-          fi
-          echo "eslint exited ${code}; findings are not gated yet"
+      # Errors are gated; warnings are not (there are 57 left). eslint exits 0
+      # with warnings only, 1 on any error, and 2 when it can't run at all - so
+      # this also catches the failure mode that shipped undetected in #225, a
+      # dependency change that makes eslint itself blow up.
+      - name: Lint
+        run: npx eslint .
