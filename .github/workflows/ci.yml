@@ -27,9 +27,9 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Errors are gated; warnings are not (there are 57 left). eslint exits 0
-      # with warnings only, 1 on any error, and 2 when it can't run at all - so
-      # this also catches the failure mode that shipped undetected in #225, a
-      # dependency change that makes eslint itself blow up.
+      # The tree is clean, so warnings are gated too - anything new fails here
+      # rather than accumulating. This also catches the failure mode that shipped
+      # undetected in #225: eslint exits 2 when a dependency change stops it
+      # running at all.
       - name: Lint
-        run: npx eslint .
+        run: npx eslint . --max-warnings 0

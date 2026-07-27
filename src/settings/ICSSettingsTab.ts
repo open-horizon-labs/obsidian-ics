@@ -93,7 +93,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
       .setDesc("Add a new field section")
       .addButton((button: ButtonComponent): ButtonComponent => {
         const b = button
-          .setTooltip("Add Additional")
+          .setTooltip("Add additional")
           .setButtonText("+")
           .onClick(async () => {
             const modal = new FieldSectionModal(this.app, this.plugin);
@@ -130,7 +130,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
         .setClass('field-section-header')
         .addExtraButton((b) => {
           b.setIcon("plus")
-            .setTooltip("Add Pattern to this Field")
+            .setTooltip("Add pattern to this field")
             .onClick(async () => {
               const modal = new FieldExtractionPatternModal(this.app, this.plugin, undefined, fieldName);
               modal.onClose = () => {
@@ -147,7 +147,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
         })
         .addExtraButton((b) => {
           b.setIcon("pencil")
-            .setTooltip("Edit Field Name")
+            .setTooltip("Edit field name")
             .onClick(async () => {
               const modal = new FieldSectionModal(this.app, this.plugin, fieldName);
               modal.onClose = () => {
@@ -167,7 +167,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
         })
         .addExtraButton((b) => {
           b.setIcon("trash")
-            .setTooltip("Delete Field Section")
+            .setTooltip("Delete field section")
             .onClick(() => {
               new ConfirmModal(
                 this.app,
@@ -201,7 +201,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
           .setDesc(`${pattern.matchType === 'regex' ? 'Regex' : 'Contains'}: ${pattern.pattern} (Priority: ${pattern.priority})`)
           .addExtraButton((b) => {
             b.setIcon("chevron-up")
-              .setTooltip("Move Up (Higher Priority)")
+              .setTooltip("Move up (higher priority)")
               .setDisabled(globalIndex === 0)
               .onClick(async () => {
                 if (globalIndex > 0) {
@@ -217,7 +217,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
           })
           .addExtraButton((b) => {
             b.setIcon("chevron-down")
-              .setTooltip("Move Down (Lower Priority)")
+              .setTooltip("Move down (lower priority)")
               .setDisabled(globalIndex === sortedPatterns.length - 1)
               .onClick(async () => {
                 if (globalIndex < sortedPatterns.length - 1) {
@@ -270,11 +270,11 @@ export default class ICSSettingsTab extends PluginSettingTab {
   private displayFieldExtractionReset(containerEl: HTMLElement) {
     // Reset to defaults button - positioned outside patterns to show it affects all patterns
     new Setting(containerEl)
-      .setName("Reset to Defaults")
+      .setName("Reset to defaults")
       .setDesc("Reset all field extraction patterns to default video call providers")
       .addButton((button: ButtonComponent): ButtonComponent => {
         return button
-          .setButtonText("Reset All")
+          .setButtonText("Reset all")
           .setWarning()
           .onClick(() => {
             new ConfirmModal(
@@ -355,7 +355,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
       .setDesc("Add a new calendar")
       .addButton((button: ButtonComponent): ButtonComponent => {
         const b = button
-          .setTooltip("Add Additional")
+          .setTooltip("Add additional")
           .setButtonText("+")
           .onClick(async () => {
             const modal = new SettingsModal(this.app, this.plugin);
@@ -440,7 +440,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
     // Section heading
     new Setting(containerEl)
       .setHeading()
-      .setName("Output Format");
+      .setName("Output format");
 
     let timeFormat: TextComponent;
     new Setting(containerEl)
@@ -456,7 +456,7 @@ export default class ICSSettingsTab extends PluginSettingTab {
       });
 
     new Setting(containerEl)
-      .setName('DataView Metadata syntax for start and end times')
+      .setName('Dataview metadata syntax for start and end times')
       .setDesc(this.dataViewSyntaxDescription())
       .addToggle(toggle => toggle
         .setValue(this.plugin.data.format.dataViewSyntax || false)
@@ -470,11 +470,11 @@ export default class ICSSettingsTab extends PluginSettingTab {
     // Section heading
     new Setting(containerEl)
       .setHeading()
-      .setName("Field Extraction");
+      .setName("Field extraction");
 
     // Enable/disable toggle
     new Setting(containerEl)
-      .setName('Enable Field Extraction')
+      .setName('Enable field extraction')
       .setDesc('Extract custom fields from calendar events using patterns')
       .addToggle(toggle => toggle
         .setValue(this.plugin.data.fieldExtraction?.enabled ?? true)
@@ -495,11 +495,11 @@ export default class ICSSettingsTab extends PluginSettingTab {
     if (this.plugin.data.fieldExtraction?.enabled !== false) {
       // Add Templater example button
       new Setting(containerEl)
-        .setName("Templater Example")
+        .setName("Templater example")
         .setDesc("Show example code for using extracted fields with Templater")
         .addButton((button: ButtonComponent): ButtonComponent => {
           return button
-            .setButtonText("Show Example")
+            .setButtonText("Show example")
             .setIcon("code")
             .onClick(() => {
               const modal = new TemplaterExampleModal(this.app, this.plugin);
@@ -606,7 +606,7 @@ class SettingsModal extends Modal {
     const settingDiv = contentEl.createDiv({ cls: 'ics-settings' });
 
     new Setting(settingDiv)
-      .setName("Calendar Name")
+      .setName("Calendar name")
       .addText((text) => {
         this.nameText = text;
         text.setValue(this.icsName).onChange((v) => {
@@ -617,7 +617,7 @@ class SettingsModal extends Modal {
       });
 
     new Setting(settingDiv)
-      .setName('Calendar Owner Email (Optional)')
+      .setName('Calendar owner email (optional)')
       .setDesc('Used to skip declined events')
       .addText(text => {
         text.setValue(this.ownerEmail).onChange(value => {
@@ -627,8 +627,8 @@ class SettingsModal extends Modal {
       });
 
     new Setting(settingDiv)
-      .setName('Calendar Type')
-      .setDesc('Select the type of calendar (Remote URL or Vault Folder with ICS files, maintained manually or via automation like vdirsyncer)')
+      .setName('Calendar type')
+      .setDesc('Select the type of calendar (remote URL or vault folder with ICS files, maintained manually or via automation like vdirsyncer)')
       .addDropdown(dropdown => {
         dropdown.addOption('remote', 'Remote URL');
         dropdown.addOption('vdir', 'Folder with ICS files');
@@ -680,7 +680,7 @@ class SettingsModal extends Modal {
     updateUrlSetting();
 
     new Setting(settingDiv)
-      .setHeading().setName("Output Format");
+      .setHeading().setName("Output format");
 
     // Hydrate any format setting a calendar saved before that setting existed.
     // Keyed off this.format rather than DEFAULT_CALENDAR_FORMAT, which also
@@ -753,7 +753,7 @@ class SettingsModal extends Modal {
         }));
 
     new Setting(settingDiv)
-      .setName('Show Attendees')
+      .setName('Show attendees')
       .setDesc('Display attendees for the event')
       .addToggle(toggle => toggle
         .setValue(this.format.showAttendees)
@@ -763,7 +763,7 @@ class SettingsModal extends Modal {
         }));
 
     new Setting(settingDiv)
-      .setName('Show Ongoing')
+      .setName('Show ongoing')
       .setDesc('Display multi-day events that include target date')
       .addToggle(toggle => toggle
         .setValue(this.format.showOngoing)
@@ -773,7 +773,7 @@ class SettingsModal extends Modal {
         }));
 
     new Setting(settingDiv)
-      .setName("Include 'Available' Events")
+      .setName("Include 'Available' events")
       .setDesc("Display events marked as 'Available' (do not block time) in the calendar. These are also referred to as 'Transparent' events.")
       .addToggle(toggle => toggle
         .setValue(this.format.showTransparentEvents)
@@ -959,7 +959,7 @@ class FieldExtractionPatternModal extends Modal {
 
     // Pattern name
     new Setting(settingDiv)
-      .setName("Pattern Name")
+      .setName("Pattern name")
       .setDesc("Descriptive name for this pattern")
       .addText((text) => {
         this.nameText = text;
@@ -973,11 +973,11 @@ class FieldExtractionPatternModal extends Modal {
 
     // Match type
     new Setting(settingDiv)
-      .setName("Match Type")
+      .setName("Match type")
       .setDesc("How to match the pattern")
       .addDropdown(dropdown => {
         dropdown.addOption('contains', 'Contains');
-        dropdown.addOption('regex', 'Regular Expression');
+        dropdown.addOption('regex', 'Regular expression');
         dropdown.setValue(this.pattern.matchType)
           .onChange(value => {
             this.pattern.matchType = value as 'regex' | 'contains';
@@ -1164,7 +1164,7 @@ class FieldSectionModal extends Modal {
 
     // Field name input
     new Setting(settingDiv)
-      .setName("Field Name")
+      .setName("Field name")
       .setDesc(this.isEditing
         ? `Rename this field section. All patterns will be updated to use the new name.`
         : "Name for the field section (e.g., 'Phone Numbers', 'Meeting IDs', 'Video Call URLs').")
@@ -1180,7 +1180,7 @@ class FieldSectionModal extends Modal {
     // Add backward compatibility tip
     const tipEl = settingDiv.createDiv('field-name-tip');
     const tipP1 = tipEl.createEl('p');
-    tipP1.createEl('strong', { text: '💡 Backward Compatibility Tip:' });
+    tipP1.createEl('strong', { text: '💡 Backward compatibility tip:' });
     tipP1.appendText(' The field name "Video Call URLs" automatically populates the legacy ');
     tipP1.createEl('code', { text: 'callUrl' });
     tipP1.appendText(' and ');
@@ -1296,7 +1296,7 @@ class TemplaterExampleModal extends Modal {
 
     // Modal title
     const titleEl = contentEl.createEl('h3', { cls: 'modal-title' });
-    titleEl.textContent = 'Templater Example';
+    titleEl.textContent = 'Templater example';
 
     const settingDiv = contentEl.createDiv({ cls: 'field-section-settings' });
 
@@ -1356,13 +1356,13 @@ ${fieldDisplayCode}
     new Setting(settingDiv)
       .addButton((button: ButtonComponent): ButtonComponent => {
         return button
-          .setButtonText("Copy to Clipboard")
+          .setButtonText("Copy to clipboard")
           .setIcon("copy")
           .onClick(async () => {
             await navigator.clipboard.writeText(templaterCode);
             button.setButtonText("Copied!");
             window.setTimeout(() => {
-              button.setButtonText("Copy to Clipboard");
+              button.setButtonText("Copy to clipboard");
             }, 2000);
           });
       });

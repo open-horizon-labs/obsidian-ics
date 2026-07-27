@@ -162,7 +162,7 @@ END:VCALENDAR`;
     // TypeError: tz.startsWith is not a function
     expect(() => {
       const parsedEvents = parseIcs(microsoftIcsContent);
-      const matchingEvents = filterMatchingEvents(parsedEvents, ['2024-09-24'], false);
+      filterMatchingEvents(parsedEvents, ['2024-09-24'], false);
     }).toThrow('tz.startsWith is not a function');
   });
 
