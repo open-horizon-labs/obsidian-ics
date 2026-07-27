@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      # eslint exits 1 for lint findings and 2 for a crash or config failure.
+      # There's an existing backlog of findings (mostly in ICSSettingsTab.ts), so
+      # gating on exit 1 would mean a permanently red CI. Gating on exit 2 still
+      # catches the failure mode that shipped undetected in #225: a dependency
+      # change that makes eslint itself blow up.
+      - name: Lint (fail only if eslint cannot run)
+        run: |
+          set +e
+          npx eslint .
+          code=$?
+          set -e
+          if [ "$code" -gt 1 ]; then
+            echo "::error::eslint exited ${code} - it could not run at all (crash or config failure), which is a broken toolchain rather than lint findings"
+            exit 1
+          fi
+          echo "eslint exited ${code}; findings are not gated yet"
