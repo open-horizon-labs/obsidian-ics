@@ -199,7 +199,7 @@ events.sort((a,b) => a.utime - b.utime).forEach((e) => {
 
 See [advanced Templated usage example](https://github.com/open-horizon-labs/obsidian-ics/discussions/74#discussion-5779931) for an example that demonstrates more features.
 
-You can see the available fields an the [Event interface](https://github.com/open-horizon-labs/obsidian-ics/blob/master/src/IEvent.ts).
+You can see the available fields in the [Event interface](https://github.com/open-horizon-labs/obsidian-ics/blob/master/src/IEvent.ts).
 
 #### Multi-day events
 
