@@ -35,5 +35,11 @@
     "tslib": "2.8.1",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
+  },
+  "overrides": {
+    "@eslint/config-array": "^0.23.5",
+    "eslint-plugin-json-schema-validator": "^6.3.0",
+    "eslint-plugin-n": "^18.2.2",
+    "glob": "^11.1.0"
   }
 }
