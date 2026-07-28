@@ -6,6 +6,7 @@ import {
   type Issue198PluginCtor,
   type Issue198PluginLike,
 } from './helpers/issue198Suite';
+import { registerOccurrenceContractSuite } from './helpers/occurrenceContractSuite';
 
 // Regression coverage for https://github.com/open-horizon-labs/obsidian-ics/issues/198,
 // one layer below tests/issue-198-getEvents-fields.test.ts.
@@ -166,10 +167,22 @@ describe('issue #198 - compiled artifact identity', () => {
 
 registerIssue198GetEventsSuite('compiled dist/main.js (direct require)', requireDistMainJs());
 
+// Occurrence identity and determinism are contracts a Dataview/Templater script
+// depends on just as much as the #198 date fields, so they run against the
+// shipped bundle too rather than only against TypeScript source.
+registerOccurrenceContractSuite(
+  'compiled dist/main.js (direct require)',
+  requireDistMainJs(),
+);
+
 {
   const { pluginDir, manifest } = buildIsolatedPluginFolder();
   const CopiedPluginCtor = requireCopiedPlugin(pluginDir);
   registerIssue198GetEventsSuite(
+    `compiled dist/main.js (isolated plugin folder copy, manifest v${manifest.version})`,
+    CopiedPluginCtor,
+  );
+  registerOccurrenceContractSuite(
     `compiled dist/main.js (isolated plugin folder copy, manifest v${manifest.version})`,
     CopiedPluginCtor,
   );

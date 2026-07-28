@@ -130,13 +130,20 @@ export default class ICSPlugin extends Plugin {
           .filter(e => this.excludeTransparentEvents(e, calendarSetting))
           .filter(e => this.excludeDeclinedEvents(e, calendarSetting));
 
-          // Deduplicate events based on title, start, and end time (this
-          // already runs per-calendar, so calendar identity isn't part of
-          // the key - every event here is already known to be from the
-          // same calendar)
+          // Deduplicate by occurrence identity: the UID, which instance of it
+          // this is (RECURRENCE-ID), and the instance's own start/end. This
+          // runs per-calendar, so calendar identity isn't part of the key.
+          //
+          // Keyed on the summary instead, two genuinely different events that
+          // happened to share a title and a time slot - different UIDs - would
+          // collapse into one and the second would silently disappear. Summary
+          // is still the fallback for feeds that omit UID, which RFC 5545
+          // requires but not every provider supplies.
           const uniqueEventSet = new Set<string>();
           dateEvents = dateEvents.filter(e => {
-            const uniqueKey = `${textValue(e.summary)}-${e.start?.toISOString()}-${e.end?.toISOString()}`;
+            const identity = e.uid ? `uid:${e.uid}` : `summary:${textValue(e.summary)}`;
+            const instance = e.recurrenceid instanceof Date ? e.recurrenceid.toISOString() : '';
+            const uniqueKey = `${identity}-${instance}-${e.start?.toISOString()}-${e.end?.toISOString()}`;
             if (uniqueEventSet.has(uniqueKey)) {
               return false;
             } else {
@@ -168,12 +175,20 @@ export default class ICSPlugin extends Plugin {
           const organizerValue = typeof organizer === 'string' ? undefined : organizer;
           const locationText = textValue(e.location);
 
+          // CREATED and LAST-MODIFIED are both optional. Falling back to
+          // moment(undefined) - i.e. now - made these fields change on every
+          // call, so an unchanged event looked freshly edited each refresh.
+          // DTSTAMP is mandatory per RFC 5545 and is the nearest stable stand-in;
+          // if even that is missing, report nothing rather than a made-up time.
+          const createdSource = e.created ?? e.dtstamp;
+          const created = createdSource ? moment(createdSource).format('X') : '';
+
           const event: IEvent = {
             ...eventDateFields(e, this.data.format.timeFormat),
-            created: moment(e.created).format('X'),
+            created: created,
             sequence: e.sequence || 0,
             recurrent: e.recurrent ? true : false,
-            lastModified: e.lastmodified ? moment(e.lastmodified).format('X') : moment(e.created).format('X'),
+            lastModified: e.lastmodified ? moment(e.lastmodified).format('X') : created,
             icsName: calendarSetting.icsName,
             summary: textValue(e.summary),
             description: textValue(e.description),
