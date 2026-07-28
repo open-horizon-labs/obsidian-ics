@@ -70,4 +70,16 @@ export default [
       "obsidianmd/rule-custom-message": "off",
     },
   },
+  // This suite require()s a build artifact from a path computed at test time
+  // (dist/main.js, and a copy of it in a temp plugin folder) - that's the
+  // point of the test, not something to route through a static import.
+  // Configured here rather than suppressed inline, which
+  // eslint-comments/no-restricted-disable forbids anyway (see the other
+  // file-scoped overrides above).
+  {
+    files: ["tests/issue-198-dist-artifact.test.ts"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  },
 ];

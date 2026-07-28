@@ -132,7 +132,12 @@ export function textValue(value: ical.ParameterValue<string, Record<string, stri
   return typeof value === 'string' ? value : value?.val ?? '';
 }
 
-function processRecurrenceOverrides(event: ProcessedEvent, sortedDaysToMatch: string[], _excludedDates: moment.Moment[], matchingEvents: ProcessedEvent[]) {
+function processRecurrenceOverrides(
+  event: ProcessedEvent,
+  sortedDaysToMatch: string[],
+  matchingEvents: ProcessedEvent[],
+  showOngoing: boolean,
+) {
   // node-ical keys event.recurrences by both a date-only key and a full
   // ISO-timestamp key for the same override, so the same override object
   // can appear twice under different keys. Dedupe by recurrenceid.
@@ -160,8 +165,17 @@ function processRecurrenceOverrides(event: ProcessedEvent, sortedDaysToMatch: st
 
     recurrence.recurrent = true;
 
-    // Check if this override matches the dayToMatch
-    if (moment(recurrence.start).isBetween(sortedDaysToMatch[0], sortedDaysToMatch[sortedDaysToMatch.length - 1], "day", "[]")) {
+    const startsInRange = moment(recurrence.start).isBetween(
+      sortedDaysToMatch[0],
+      sortedDaysToMatch[sortedDaysToMatch.length - 1],
+      "day",
+      "[]",
+    );
+    const continuesIntoRange = showOngoing && sortedDaysToMatch.some(
+      dayToMatch => shouldIncludeOngoing(recurrence, dayToMatch),
+    );
+
+    if (startsInRange || continuesIntoRange) {
       console.debug(`Adding recurring event with override: ${textValue(recurrence.summary)} on ${recurrenceMoment.format('YYYY-MM-DD')}`);
       recurrence.eventType = "recurring override";
       matchingEvents.push(recurrence);
@@ -260,7 +274,7 @@ export function filterMatchingEvents(icsArray: ProcessedEvent[], daysToMatch: st
 
     // Process recurrence overrides to populate matching events and excluded dates
     if (event.recurrences) {
-      processRecurrenceOverrides(event, sortedDaysToMatch, excludedDates, matchingEvents);
+      processRecurrenceOverrides(event, sortedDaysToMatch, matchingEvents, showOngoing);
     }
 
     // Process recurring rules, skipping overridden dates
@@ -282,7 +296,15 @@ export function filterMatchingEvents(icsArray: ProcessedEvent[], daysToMatch: st
     }
 
     // Include ongoing events
-    if (showOngoing && daysToMatch.some(dayToMatch => shouldIncludeOngoing(event, dayToMatch))) {
+    const eventStartDay = moment(event.start).startOf('day');
+    const originalOccurrenceExcluded = excludedDates.some(
+      excludedDate => excludedDate.isSame(eventStartDay, 'day'),
+    );
+    if (
+      showOngoing
+      && !originalOccurrenceExcluded
+      && daysToMatch.some(dayToMatch => shouldIncludeOngoing(event, dayToMatch))
+    ) {
       matchingEvents.push(event);
     }
 

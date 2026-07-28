@@ -42,6 +42,14 @@ jobs:
           cp styles.css dist/
           ls dist/
 
+      # Loads this exact dist/main.js (the one about to be attested and
+      # uploaded) and a copy of it in an isolated plugin-folder shape, and
+      # calls its real public getEvents() API - not the TypeScript source.
+      # Guards against the class of bug in #198, where the source and its
+      # unit tests were correct but the shipped build was never checked.
+      - name: Compiled artifact contract test
+        run: npm run test:dist-artifact
+
       - name: Attest build provenance
         uses: actions/attest-build-provenance@v1
         with:
@@ -94,6 +102,14 @@ jobs:
           cp manifest-beta.json dist/manifest.json
           cp styles.css dist/
           ls dist/
+
+      # Loads this exact dist/main.js (the one about to be attested and
+      # uploaded) and a copy of it in an isolated plugin-folder shape, and
+      # calls its real public getEvents() API - not the TypeScript source.
+      # Guards against the class of bug in #198, where the source and its
+      # unit tests were correct but the shipped build was never checked.
+      - name: Compiled artifact contract test
+        run: npm run test:dist-artifact
 
       - name: Attest build provenance
         uses: actions/attest-build-provenance@v1
