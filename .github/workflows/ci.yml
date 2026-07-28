@@ -27,6 +27,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Loads the actual compiled dist/main.js (and a copy of it in an isolated
+      # plugin-folder shape) and calls its real public getEvents() API - not the
+      # TypeScript source. Catches the class of bug in #198 where the source and
+      # its unit tests were correct but nothing had ever verified the shipped
+      # build behaves the same way.
+      - name: Compiled artifact contract test
+        run: npm run test:dist-artifact
+
       # The tree is clean, so warnings are gated too - anything new fails here
       # rather than accumulating. This also catches the failure mode that shipped
       # undetected in #225: eslint exits 2 when a dependency change stops it
