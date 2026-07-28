@@ -1,4 +1,12 @@
+import { moment } from 'obsidian';
 import { parseIcs, filterMatchingEvents } from '../src/icalUtils';
+
+// A timed occurrence belongs to the host's local day for that instant, the same
+// day the daily note asking for it is named after. These tests are about
+// recurrence expansion, not day attribution, so they derive the day they ask
+// for from the occurrence's real instant - hard-coding the organiser's date
+// would make them pass only on a host in the organiser's timezone.
+const hostDay = (instant: string): string => moment(instant).format('YYYY-MM-DD');
 
 describe('Recurring Events', () => {
   describe('Broken Examples (should be fixed)', () => {
@@ -39,7 +47,7 @@ END:VCALENDAR`;
       expect(parsedEvents).toHaveLength(1);
 
       // Test that the event shows up on a Wednesday it should appear on
-      const testDate = '2025-02-26'; // A Wednesday that should have the event
+      const testDate = hostDay('2025-02-26T19:00:00.000Z'); // 11:00 PST on that Wednesday
       const matchingEvents = filterMatchingEvents(parsedEvents, [testDate], false);
       
       // This should find the recurring event but currently fails due to the bug
@@ -85,9 +93,9 @@ END:VCALENDAR`;
       expect(parsedEvents).toHaveLength(1);
 
       // Test that the event shows up on a Tuesday it should appear on (bi-weekly from 2025-04-15)
-      const testDate = '2025-04-29'; // A Tuesday that should have the event but is excluded
-      const testDate2 = '2025-05-13'; // Another Tuesday that should have the event but is excluded  
-      const testDate3 = '2025-05-27'; // A Tuesday that should have the event and is not excluded
+      const testDate = hostDay('2025-04-29T17:00:00.000Z'); // excluded Tuesday, 13:00 EDT
+      const testDate2 = hostDay('2025-05-13T17:00:00.000Z'); // excluded Tuesday, 13:00 EDT
+      const testDate3 = hostDay('2025-05-27T17:00:00.000Z'); // not excluded, 13:00 EDT
 
       const matchingEvents = filterMatchingEvents(parsedEvents, [testDate], false);
       const matchingEvents2 = filterMatchingEvents(parsedEvents, [testDate2], false);
@@ -139,7 +147,7 @@ END:VCALENDAR`;
       expect(parsedEvents).toHaveLength(1);
 
       // Test that the event shows up on the specific date
-      const testDate = '2025-06-10'; // The date of the event
+      const testDate = hostDay('2025-06-10T20:30:00.000Z'); // 16:30 EDT, the date of the event
       const matchingEvents = filterMatchingEvents(parsedEvents, [testDate], false);
       
       // This should continue to work
@@ -184,8 +192,8 @@ END:VCALENDAR`;
       expect(parsedEvents).toHaveLength(1);
 
       // Test dates that span the DST transition (March 9, 2025 is when DST starts)
-      const beforeDST = '2025-03-09'; // Before DST
-      const afterDST = '2025-03-16';  // After DST
+      const beforeDST = hostDay('2025-03-09T18:00:00.000Z'); // 14:00 EDT
+      const afterDST = hostDay('2025-03-16T18:00:00.000Z');  // 14:00 EDT
 
       const eventsBefore = filterMatchingEvents(parsedEvents, [beforeDST], false);
       const eventsAfter = filterMatchingEvents(parsedEvents, [afterDST], false);
@@ -215,9 +223,9 @@ END:VCALENDAR`;
       const parsedEvents = parseIcs(icsContent);
       expect(parsedEvents).toHaveLength(1);
 
-      const testDate = '2025-03-01';
+      const testDate = hostDay('2025-03-01T12:00:00.000Z');
       const matchingEvents = filterMatchingEvents(parsedEvents, [testDate], false);
-      
+
       expect(matchingEvents).toHaveLength(1);
       expect(matchingEvents[0].summary).toBe('UTC Event');
       expect(matchingEvents[0].recurrent).toBe(true);

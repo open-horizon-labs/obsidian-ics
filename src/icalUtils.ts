@@ -1,10 +1,10 @@
 import * as ical from 'node-ical';
 import type { VEvent } from 'node-ical';
-import { tz } from 'moment-timezone';
-import { moment } from "obsidian";
 import { WINDOWS_TO_IANA_TIMEZONES } from './generated/windowsTimezones';
 
 import { FieldExtractionPattern } from './settings/ICSSettings';
+import { selectOccurrences } from './occurrences';
+import { textValue } from './icsText';
 
 // node-ical's VEvent plus the fields this plugin adds while filtering/expanding
 // recurrences. All additions are optional since a freshly-parsed VEvent won't
@@ -110,206 +110,52 @@ function matchTextForPattern(text: string, pattern: FieldExtractionPattern): str
 }
 
 
-function applyRecurrenceDateAndTimezone(originalDate: Date, currentDate: Date, tzid: string): Date {
-  const originalMoment = tz(originalDate, tzid);
-
-  // Create a moment in the target timezone using just the date components of currentDate
-  // This avoids timezone conversion issues with the recurrence date
-  const currentDateMoment = moment.utc(currentDate);
-  const adjustedMoment = tz(`${currentDateMoment.format('YYYY-MM-DD')} ${originalMoment.format('HH:mm:ss')}`, tzid);
-
-  return adjustedMoment.toDate();
-}
-
-function isExcluded(recurrenceDate: moment.Moment, exdateArray: moment.Moment[]): boolean {
-  return exdateArray.some(exDate => exDate.isSame(recurrenceDate, 'day'));
-}
-
-// SUMMARY/LOCATION/DESCRIPTION are ICS "TEXT" properties: node-ical returns a
-// plain string unless the property carries parameters, in which case it's
-// { val, params } instead.
-export function textValue(value: ical.ParameterValue<string, Record<string, string>> | undefined): string {
-  return typeof value === 'string' ? value : value?.val ?? '';
-}
-
-function processRecurrenceOverrides(
-  event: ProcessedEvent,
-  sortedDaysToMatch: string[],
-  matchingEvents: ProcessedEvent[],
-  showOngoing: boolean,
-) {
-  // node-ical keys event.recurrences by both a date-only key and a full
-  // ISO-timestamp key for the same override, so the same override object
-  // can appear twice under different keys. Dedupe by recurrenceid.
-  const seenRecurrenceIds = new Set<number>();
-
-  for (const date in event.recurrences) {
-    const recurrence = event.recurrences[date] as ProcessedEvent;
-    const recurrenceMoment = moment(date).startOf('day');
-
-    const recurrenceIdTime = recurrence.recurrenceid instanceof Date
-      ? recurrence.recurrenceid.getTime()
-      : undefined;
-    if (recurrenceIdTime !== undefined) {
-      if (seenRecurrenceIds.has(recurrenceIdTime)) {
-        continue;
-      }
-      seenRecurrenceIds.add(recurrenceIdTime);
-    }
-
-    // Skip canceled overrides
-    if (recurrence.status && recurrence.status.toUpperCase() === "CANCELLED") {
-      console.debug(`Skipping canceled recurrence override: ${textValue(recurrence.summary)} on ${date}`);
-      continue;
-    }
-
-    recurrence.recurrent = true;
-
-    const startsInRange = moment(recurrence.start).isBetween(
-      sortedDaysToMatch[0],
-      sortedDaysToMatch[sortedDaysToMatch.length - 1],
-      "day",
-      "[]",
-    );
-    const continuesIntoRange = showOngoing && sortedDaysToMatch.some(
-      dayToMatch => shouldIncludeOngoing(recurrence, dayToMatch),
-    );
-
-    if (startsInRange || continuesIntoRange) {
-      console.debug(`Adding recurring event with override: ${textValue(recurrence.summary)} on ${recurrenceMoment.format('YYYY-MM-DD')}`);
-      recurrence.eventType = "recurring override";
-      matchingEvents.push(recurrence);
-    }
-  }
-}
-
-function processRecurringRules(event: ProcessedEvent, sortedDaysToMatch: string[], excludedDates: moment.Moment[], matchingEvents: ProcessedEvent[]) {
-  // Only ever called when event.rrule is truthy (checked by the caller)
-  const rrule = event.rrule;
-  const tzid = (rrule.options.tzid as string) || 'UTC';
-
-  // Use UTC for rrule calculations to avoid timezone offset issues
-  const startOfRange = moment.utc(sortedDaysToMatch[0]).subtract(1, 'day').startOf('day').toDate();
-  const endOfRange = moment.utc(sortedDaysToMatch[sortedDaysToMatch.length - 1]).add(1, 'day').endOf('day').toDate();
-
-  // Get recurrence dates within the range
-  const recurrenceDates = rrule.between(startOfRange, endOfRange, true);
-
-  recurrenceDates.forEach(recurrenceDate => {
-    const recurrenceMoment = tz(recurrenceDate, tzid).startOf('day');
-
-    if (isExcluded(recurrenceMoment, excludedDates)) {
-      console.debug(`Skipping excluded recurrence: ${textValue(event.summary)} on ${recurrenceMoment.format('YYYY-MM-DD')}`);
-      return;
-    }
-
-    // Clone the event and apply proper timezone-aware date/time calculation
-    const clonedEvent = { ...event };
-    clonedEvent.start = applyRecurrenceDateAndTimezone(event.start, recurrenceDate, tzid);
-    clonedEvent.end = applyRecurrenceDateAndTimezone(event.end, recurrenceDate, tzid);
-
-    delete clonedEvent.rrule;
-    clonedEvent.recurrent = true;
-
-    // Check if the recurrence falls within the requested date range using timezone-aware comparison
-    const eventStartMoment = tz(clonedEvent.start, tzid);
-    const eventStartDate = eventStartMoment.format('YYYY-MM-DD');
-    if (sortedDaysToMatch.includes(eventStartDate)) {
-      console.debug(`Adding recurring event: ${textValue(clonedEvent.summary)} ${clonedEvent.start?.toISOString()} - ${clonedEvent.end?.toISOString()}`);
-      console.debug("Excluded dates:", excludedDates.map(date => date.format('YYYY-MM-DD')));
-
-      console.debug(clonedEvent);
-      clonedEvent.eventType = "recurring";
-      matchingEvents.push(clonedEvent);
-    }
-  });
-}
-
-function shouldIncludeOngoing(event: ProcessedEvent, dayToMatch: string): boolean {
-  const day = moment(dayToMatch, 'YYYY-MM-DD').startOf('day');
-  const eventStartDay = moment(event.start).startOf('day');
-  const eventEndDay = moment(event.end).startOf('day');
-
-  // Avoid duplicating the initial occurrence; it's already included elsewhere.
-  if (day.isSame(eventStartDay, 'day')) {
-    return false;
-  }
-
-  // Include full days between start and end.
-  if (day.isBetween(eventStartDay, eventEndDay, 'day', '()')) {
-    return true;
-  }
-
-  // Include the ending day when the event continues past its start.
-  if (day.isSame(eventEndDay, 'day')) {
-    return moment(event.end).diff(eventEndDay, 'minutes') > 0;
-  }
-
-  return false;
-}
+// Re-exported from ./icsText, which is where it now lives so that both this
+// module and ./occurrences can use it without a runtime import cycle. Callers
+// have always imported it from here.
+export { textValue } from './icsText';
 
 export function filterMatchingEvents(icsArray: ProcessedEvent[], daysToMatch: string[], showOngoing: boolean): ProcessedEvent[] {
-  const sortedDaysToMatch = [...daysToMatch].sort();
-  return icsArray.reduce<ProcessedEvent[]>((matchingEvents, event) => {
-    // Skip canceled parent events
-    if (event.status && event.status.toUpperCase() === "CANCELLED") {
-      console.debug(`Skipping canceled event: ${textValue(event.summary)}`);
-      return matchingEvents;
+  // Thin adapter over the occurrence pipeline in ./occurrences: expand each
+  // event into concrete occurrences, keep the ones landing on a requested day,
+  // and present each as the event-shaped object callers already expect.
+  //
+  // The returned objects are copies. Filtering used to tag the parsed VEVENTs
+  // in place (and node-ical stores one override object under two keys, so a
+  // single tag could land on two entries), which made a second call over the
+  // same parsed array behave differently from the first.
+  return selectOccurrences(icsArray, daysToMatch, showOngoing).map(occurrence => {
+    const matched: ProcessedEvent = {
+      ...occurrence.source,
+      start: occurrence.start,
+      end: occurrence.end,
+      // The occurrence is the authority on whether this is an all-day range:
+      // it may have been recognised as one that an exporter re-encoded with
+      // explicit 00:00:00-23:59:59 times. eventDateFields reads datetype to
+      // populate the public IEvent.allDay, and other helpers read dateOnly, so
+      // both have to agree with the occurrence rather than with the raw VEVENT.
+      datetype: occurrence.allDay ? 'date' : 'date-time',
+      recurrent: occurrence.recurrent,
+      eventType: occurrence.kind,
+    };
+
+    if (occurrence.allDay) {
+      // Safe to tag: these Dates were built for this occurrence, not taken
+      // from the parsed input.
+      (matched.start as { dateOnly?: boolean }).dateOnly = true;
+      (matched.end as { dateOnly?: boolean }).dateOnly = true;
     }
 
-    // Populate excluded dates from exdates and recurrence overrides
-    const excludedDates = [
-      ...(event.exdate
-        ? Object.keys(event.exdate).map(key => {
-          const date = tz(event.exdate[key], event.exdate[key].tz || 'UTC');
-          return date.startOf('day');
-        })
-        : []),
+    // An expanded occurrence is a single instance, not a rule.
+    delete matched.rrule;
 
-      // Add overridden dates from recurrences
-      ...(event.recurrences
-        ? Object.keys(event.recurrences).map(key => moment(key).startOf('day'))
-        : [])
-    ];
-
-    // Process recurrence overrides to populate matching events and excluded dates
-    if (event.recurrences) {
-      processRecurrenceOverrides(event, sortedDaysToMatch, matchingEvents, showOngoing);
-    }
-
-    // Process recurring rules, skipping overridden dates
-    if (event.rrule) {
-      processRecurringRules(event, sortedDaysToMatch, excludedDates, matchingEvents)
-    }
-
-    // Process non-recurring events
-    if (!event.recurrences && !event.rrule && moment(event.start).isBetween(sortedDaysToMatch[0], sortedDaysToMatch[sortedDaysToMatch.length - 1], "day", "[]")) {
-      console.debug("Adding one-off event:", {
-        summary: event.summary,
-        start: event.start,
-        end: event.end,
-        recurrenceId: event.recurrenceid || null,
-        isRecurring: !!event.rrule || !!event.recurrences,
-      });
-      event.eventType = "one-off";
-      matchingEvents.push(event);
-    }
-
-    // Include ongoing events
-    const eventStartDay = moment(event.start).startOf('day');
-    const originalOccurrenceExcluded = excludedDates.some(
-      excludedDate => excludedDate.isSame(eventStartDay, 'day'),
+    console.debug(
+      `Matched ${occurrence.kind}: ${textValue(occurrence.source.summary)} `
+      + `${occurrence.start.toISOString()} - ${occurrence.end.toISOString()}`,
     );
-    if (
-      showOngoing
-      && !originalOccurrenceExcluded
-      && daysToMatch.some(dayToMatch => shouldIncludeOngoing(event, dayToMatch))
-    ) {
-      matchingEvents.push(event);
-    }
 
-    return matchingEvents;
-  }, []);
+    return matched;
+  });
 }
 
 function preprocessMicrosoftIcs(ics: string): string {

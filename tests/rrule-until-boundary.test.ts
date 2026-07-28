@@ -1,4 +1,12 @@
+import { moment } from 'obsidian';
 import { parseIcs, filterMatchingEvents } from '../src/icalUtils';
+
+// A timed occurrence belongs to the host's local day for that instant, the same
+// day the daily note asking for it is named after. These tests are about
+// recurrence expansion, not day attribution, so they derive the day they ask
+// for from the occurrence's real instant - hard-coding the organiser's date
+// would make them pass only on a host in the organiser's timezone.
+const hostDay = (instant: string): string => moment(instant).format('YYYY-MM-DD');
 
 describe('issue #190 - RRULE UNTIL boundary inclusivity', () => {
   // RFC 5545: UNTIL is inclusive. Fixed by the node-ical 0.27 upgrade
@@ -34,7 +42,7 @@ END:VEVENT
 END:VCALENDAR`;
     const events = parseIcs(ics);
     // 2026-06-30 is the Tuesday the series lands exactly on the UNTIL instant (12:00 UTC = 14:00 local)
-    const matching = filterMatchingEvents(events, ['2026-06-30'], false);
+    const matching = filterMatchingEvents(events, [hostDay('2026-06-30T12:00:00.000Z')], false);
     expect(matching.length).toBe(1);
   });
 });
