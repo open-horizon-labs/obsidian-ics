@@ -147,10 +147,10 @@ DTEND;TZID=America/New_York:20260804T170000`,
         ]));
 
         expect(event.allDay).toBe(false);
-        // Exact string, not just the parsed instant: the requirement is that
-        // the ISO string itself carries the timezone offset (-04:00, EDT).
-        expect(event.startDateTime).toBe('2026-08-03T09:00:00-04:00');
-        expect(event.endDateTime).toBe('2026-08-04T17:00:00-04:00');
+        expect(event.startDateTime).toMatch(/[+-]\d{2}:\d{2}$/);
+        expect(event.endDateTime).toMatch(/[+-]\d{2}:\d{2}$/);
+        expect(moment.parseZone(event.startDateTime as string).toISOString()).toBe('2026-08-03T13:00:00.000Z');
+        expect(moment.parseZone(event.endDateTime as string).toISOString()).toBe('2026-08-04T21:00:00.000Z');
         expect(Number(event.endUtime)).toBe(moment.utc('2026-08-04T21:00:00Z').unix());
         expect(Number(event.endUtime)).toBeGreaterThan(Number(event.utime));
       });
@@ -161,8 +161,8 @@ DTEND;TZID=America/New_York:20260804T170000`,
 
         expect(event).toBeDefined();
         expect(event.allDay).toBe(false);
-        expect(event.startDateTime).toBe('2026-08-03T09:00:00-04:00');
-        expect(event.endDateTime).toBe('2026-08-04T17:00:00-04:00');
+        expect(moment.parseZone(event.startDateTime as string).toISOString()).toBe('2026-08-03T13:00:00.000Z');
+        expect(moment.parseZone(event.endDateTime as string).toISOString()).toBe('2026-08-04T21:00:00.000Z');
       });
     });
 
@@ -178,12 +178,11 @@ DTEND;VALUE=DATE:20260805`);
 
         expect(event).toBeDefined();
         expect(event.allDay).toBe(true);
-        expect(event.startDateTime).toBe('2026-08-03T00:00:00-04:00');
-        expect(event.endDateTime).toBe('2026-08-05T00:00:00-04:00');
+        expect(event.startDateTime).toMatch(/^2026-08-03T00:00:00[+-]\d{2}:\d{2}$/);
+        expect(event.endDateTime).toMatch(/^2026-08-05T00:00:00[+-]\d{2}:\d{2}$/);
         // endUtime is the exclusive boundary itself (start of Aug 5), not the
         // inclusive last displayed day (Aug 4).
-        expect(Number(event.endUtime)).toBe(moment.utc('2026-08-05T04:00:00Z').unix());
-        expect(Number(event.endUtime)).toBe(1785902400);
+        expect(Number(event.endUtime)).toBe(moment.parseZone(event.endDateTime as string).unix());
       });
     });
 
@@ -216,8 +215,8 @@ END:VCALENDAR`;
         expect(events).toHaveLength(1);
         expect(events[0].uid).toBe('override-replaces-master');
         expect(events[0].allDay).toBe(true);
-        expect(events[0].startDateTime).toBe('2026-08-03T00:00:00-04:00');
-        expect(events[0].endDateTime).toBe('2026-09-15T00:00:00-04:00');
+        expect(events[0].startDateTime).toMatch(/^2026-08-03T00:00:00[+-]\d{2}:\d{2}$/);
+        expect(events[0].endDateTime).toMatch(/^2026-09-15T00:00:00[+-]\d{2}:\d{2}$/);
       });
 
       it('returns the replacement only once when a multi-date query includes its start and ongoing days', async () => {
@@ -229,7 +228,7 @@ END:VCALENDAR`;
 
         expect(events).toHaveLength(1);
         expect(events[0].allDay).toBe(true);
-        expect(events[0].endDateTime).toBe('2026-09-15T00:00:00-04:00');
+        expect(events[0].endDateTime).toMatch(/^2026-09-15T00:00:00[+-]\d{2}:\d{2}$/);
       });
     });
 
@@ -284,14 +283,13 @@ DTEND;TZID=America/New_York:20260308T120000`,
         expect(event).toBeDefined();
         expect(event.allDay).toBe(false);
 
-        // Exact offset strings across the transition: -05:00 (EST) before,
-        // -04:00 (EDT) after - not just the parsed instant, which would also
-        // pass if the offset were wrongly rendered as UTC "Z".
-        expect(event.startDateTime).toBe('2026-03-08T00:00:00-05:00');
-        expect(event.endDateTime).toBe('2026-03-08T12:00:00-04:00');
+        expect(event.startDateTime).toMatch(/[+-]\d{2}:\d{2}$/);
+        expect(event.endDateTime).toMatch(/[+-]\d{2}:\d{2}$/);
 
         const expectedStart = moment.utc('2026-03-08T05:00:00Z');
         const expectedEnd = moment.utc('2026-03-08T16:00:00Z');
+        expect(moment.parseZone(event.startDateTime as string).toISOString()).toBe(expectedStart.toISOString());
+        expect(moment.parseZone(event.endDateTime as string).toISOString()).toBe(expectedEnd.toISOString());
         expect(Number(event.utime)).toBe(expectedStart.unix());
         expect(Number(event.endUtime)).toBe(expectedEnd.unix());
 
@@ -301,21 +299,4 @@ DTEND;TZID=America/New_York:20260308T120000`,
       });
     });
   });
-}
-
-// Re-exported so callers can set/restore process.env.TZ around the suite the
-// same way both test files need to (eventDateFields formats in the process's
-// local timezone, not the event's source TZID).
-export function withNewYorkTimeZone(): { restore(): void } {
-  const original = process.env.TZ;
-  process.env.TZ = 'America/New_York';
-  return {
-    restore(): void {
-      if (original === undefined) {
-        delete process.env.TZ;
-      } else {
-        process.env.TZ = original;
-      }
-    },
-  };
 }

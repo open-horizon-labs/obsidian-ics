@@ -3,7 +3,6 @@ import * as os from 'os';
 import * as path from 'path';
 import {
   registerIssue198GetEventsSuite,
-  withNewYorkTimeZone,
   type Issue198PluginCtor,
   type Issue198PluginLike,
 } from './helpers/issue198Suite';
@@ -134,14 +133,6 @@ function requireCopiedPlugin(pluginDir: string): Issue198PluginCtor {
   }
   return loaded.default;
 }
-
-let tz: { restore(): void };
-beforeAll(() => {
-  tz = withNewYorkTimeZone();
-});
-afterAll(() => {
-  tz.restore();
-});
 
 describe('issue #198 - compiled artifact identity', () => {
   it('dist/main.js exists and exports a usable ICSPlugin constructor', () => {

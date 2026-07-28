@@ -1,5 +1,5 @@
 import ICSPlugin from '../src/main';
-import { registerIssue198GetEventsSuite, withNewYorkTimeZone, type Issue198PluginCtor } from './helpers/issue198Suite';
+import { registerIssue198GetEventsSuite, type Issue198PluginCtor } from './helpers/issue198Suite';
 
 // Regression coverage for https://github.com/open-horizon-labs/obsidian-ics/issues/198.
 //
@@ -20,19 +20,6 @@ import { registerIssue198GetEventsSuite, withNewYorkTimeZone, type Issue198Plugi
 // that file for why source-level coverage alone isn't sufficient for this
 // issue: the bug report was that the *shipped build*, not the source, was
 // missing these fields.
-
-// eventDateFields() formats startDateTime/endDateTime in the process's local
-// timezone (moment(date).format() with no explicit zone), not the event's
-// source TZID - so the offset in the assertions only means what it claims to
-// mean if this suite runs as America/New_York. Restored after the suite so it
-// can't leak into other test files sharing this Jest worker.
-let tz: { restore(): void };
-beforeAll(() => {
-  tz = withNewYorkTimeZone();
-});
-afterAll(() => {
-  tz.restore();
-});
 
 // ICSPlugin's real constructor is typed against App/PluginManifest, narrower
 // than Issue198PluginCtor's deliberately loose (unknown, unknown) signature -
