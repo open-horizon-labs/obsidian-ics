@@ -1,5 +1,13 @@
+import { moment } from 'obsidian';
 import { parseIcs, filterMatchingEvents, extractFields } from '../src/icalUtils';
 import { DEFAULT_FIELD_EXTRACTION_PATTERNS } from '../src/settings/ICSSettings';
+
+// A timed occurrence belongs to the host's local day for that instant, the same
+// day the daily note asking for it is named after. These tests are about
+// recurrence expansion, not day attribution, so they derive the day they ask
+// for from the occurrence's real instant - hard-coding the organiser's date
+// would make them pass only on a host in the organiser's timezone.
+const hostDay = (instant: string): string => moment(instant).format('YYYY-MM-DD');
 
 describe('icalUtils', () => {
   describe('parseIcs', () => {
@@ -254,11 +262,13 @@ END:VCALENDAR`;
       expect(events).toHaveLength(1);
 
       // Test multiple dates to ensure recurring logic works correctly
+      // 09:00 America/New_York: EST (14:00Z) before the Mar 9 DST change, EDT
+      // (13:00Z) after it.
       const testDates = [
-        '2025-03-01', // Original event
-        '2025-03-08', // First recurrence
-        '2025-03-15', // Excluded date
-        '2025-03-22'  // Should appear
+        hostDay('2025-03-01T14:00:00.000Z'), // Original event
+        hostDay('2025-03-08T14:00:00.000Z'), // First recurrence
+        hostDay('2025-03-15T13:00:00.000Z'), // Excluded date
+        hostDay('2025-03-22T13:00:00.000Z'), // Should appear
       ];
 
       const results = testDates.map(date => filterMatchingEvents(events, [date], false));

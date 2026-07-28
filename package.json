@@ -12,6 +12,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:dist-artifact": "jest --config jest.dist-artifact.config.js",
+    "test:timezones": "node scripts/test-timezones.js",
     "update-timezones": "node scripts/update-timezones.js"
   },
   "keywords": [],
