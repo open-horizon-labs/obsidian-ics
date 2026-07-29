@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-// Runs the occurrence-selection suites once per host timezone.
+// Runs the full test suite once per host timezone.
 //
 // Occurrence selection has two temporal models that only differ outside the
 // timezone a test happens to be written in: VALUE=DATE values are floating
@@ -15,10 +15,8 @@
 // zone whose local midnight is on the other side of UTC midnight from the
 // fixtures, and three offsets that aren't whole hours.
 //
-// Scope note: this runs the occurrence suites, not the whole test suite. Some
-// older tests elsewhere (date-input normalisation, Windows timezone mapping)
-// still encode the author's timezone in their expectations and fail in far
-// eastern zones both before and after this change; they're a separate cleanup.
+// Every test that deals in DATE-TIME values must derive its expected calendar
+// day from the represented instant. VALUE=DATE expectations remain fixed.
 
 const { spawnSync } = require('node:child_process');
 const path = require('node:path');
@@ -35,8 +33,6 @@ const TIMEZONES = [
   'Pacific/Midway',    // -11, the western extreme
 ];
 
-const TEST_PATTERN = 'occurrence';
-
 const projectRoot = path.resolve(__dirname, '..');
 const failures = [];
 
@@ -45,7 +41,7 @@ for (const timezone of TIMEZONES) {
 
   const result = spawnSync(
     process.execPath,
-    [path.join(projectRoot, 'node_modules', '.bin', 'jest'), TEST_PATTERN, '--silent'],
+    [path.join(projectRoot, 'node_modules', '.bin', 'jest'), '--runInBand', '--silent'],
     {
       cwd: projectRoot,
       env: { ...process.env, TZ: timezone },

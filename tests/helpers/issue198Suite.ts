@@ -1,5 +1,10 @@
 import { moment } from 'obsidian';
 
+// Timed events belong to the host's local calendar day for their instant.
+// Derive query dates from the instants so this shared source/artifact suite
+// exercises the same start and end days in every host timezone.
+const hostDay = (instant: string): string => moment(instant).format('YYYY-MM-DD');
+
 // Shared regression coverage for https://github.com/open-horizon-labs/obsidian-ics/issues/198,
 // run against two different ICSPlugin constructors:
 //   - tests/issue-198-getEvents-fields.test.ts drives the TypeScript source (src/main.ts).
@@ -136,7 +141,7 @@ DTEND;TZID=America/New_York:20260804T170000`,
 
       it('carries all four new fields on the start day, alongside every existing field', async () => {
         const plugin = createPlugin(PluginCtor, ics, { showOngoing: true });
-        const [event] = await plugin.getEvents('2026-08-03');
+        const [event] = await plugin.getEvents(hostDay('2026-08-03T13:00:00Z'));
 
         expect(event).toBeDefined();
         expect(Object.getOwnPropertyNames(event)).toEqual(expect.arrayContaining([
@@ -157,7 +162,7 @@ DTEND;TZID=America/New_York:20260804T170000`,
 
       it('still reports the same start/end fields on the ongoing (end) day', async () => {
         const plugin = createPlugin(PluginCtor, ics, { showOngoing: true });
-        const [event] = await plugin.getEvents('2026-08-04');
+        const [event] = await plugin.getEvents(hostDay('2026-08-04T21:00:00Z'));
 
         expect(event).toBeDefined();
         expect(event.allDay).toBe(false);

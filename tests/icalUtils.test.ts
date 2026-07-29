@@ -8,6 +8,8 @@ import { DEFAULT_FIELD_EXTRACTION_PATTERNS } from '../src/settings/ICSSettings';
 // for from the occurrence's real instant - hard-coding the organiser's date
 // would make them pass only on a host in the organiser's timezone.
 const hostDay = (instant: string): string => moment(instant).format('YYYY-MM-DD');
+const hostDayAfter = (instant: string, days: number): string =>
+  moment(instant).add(days, 'day').format('YYYY-MM-DD');
 
 describe('icalUtils', () => {
   describe('parseIcs', () => {
@@ -65,11 +67,11 @@ END:VCALENDAR`;
         datetype: 'date-time' as const
       }];
 
-      const matching = filterMatchingEvents(events, ['2025-03-01'], false);
+      const matching = filterMatchingEvents(events, [hostDay('2025-03-01T12:00:00Z')], false);
       expect(matching).toHaveLength(1);
       expect(matching[0].summary).toBe('Test Event');
 
-      const notMatching = filterMatchingEvents(events, ['2025-03-02'], false);
+      const notMatching = filterMatchingEvents(events, [hostDayAfter('2025-03-01T12:00:00Z', 1)], false);
       expect(notMatching).toHaveLength(0);
     });
 
@@ -85,11 +87,12 @@ END:VCALENDAR`;
       }];
 
       // Should not match without showOngoing
-      const withoutOngoing = filterMatchingEvents(events, ['2025-03-02'], false);
+      const middleDay = hostDayAfter('2025-03-01T12:00:00Z', 1);
+      const withoutOngoing = filterMatchingEvents(events, [middleDay], false);
       expect(withoutOngoing).toHaveLength(0);
 
       // Should match with showOngoing
-      const withOngoing = filterMatchingEvents(events, ['2025-03-02'], true);
+      const withOngoing = filterMatchingEvents(events, [middleDay], true);
       expect(withOngoing).toHaveLength(1);
       expect(withOngoing[0].summary).toBe('Multi-day Event');
     });
@@ -105,19 +108,23 @@ END:VCALENDAR`;
         datetype: 'date-time' as const
       }];
 
-      const dates = ['2025-10-09', '2025-10-10', '2025-10-11'];
+      const dates = [
+        hostDay('2025-10-09T09:00:00Z'),
+        hostDayAfter('2025-10-09T09:00:00Z', 1),
+        hostDay('2025-10-11T17:00:00Z'),
+      ];
 
       // With showOngoing OFF: only the start date should include the event
       const eventsOnDatesWithOngoingOff = dates.map(date => filterMatchingEvents(events, [date], false));
-      expect(eventsOnDatesWithOngoingOff[0]).toHaveLength(1); // 2025-10-09 (start)
-      expect(eventsOnDatesWithOngoingOff[1]).toHaveLength(0); // 2025-10-10 (middle)
-      expect(eventsOnDatesWithOngoingOff[2]).toHaveLength(0); // 2025-10-11 (end)
+      expect(eventsOnDatesWithOngoingOff[0]).toHaveLength(1); // host-local start day
+      expect(eventsOnDatesWithOngoingOff[1]).toHaveLength(0); // host-local middle day
+      expect(eventsOnDatesWithOngoingOff[2]).toHaveLength(0); // host-local end day
 
       // With showOngoing ON: all dates from start to end should include the event
       const eventsOnDatesWithOngoingOn = dates.map(date => filterMatchingEvents(events, [date], true));
-      expect(eventsOnDatesWithOngoingOn[0]).toHaveLength(1); // 2025-10-09 (start)
-      expect(eventsOnDatesWithOngoingOn[1]).toHaveLength(1); // 2025-10-10 (middle)
-      expect(eventsOnDatesWithOngoingOn[2]).toHaveLength(1); // 2025-10-11 (end)
+      expect(eventsOnDatesWithOngoingOn[0]).toHaveLength(1); // host-local start day
+      expect(eventsOnDatesWithOngoingOn[1]).toHaveLength(1); // host-local middle day
+      expect(eventsOnDatesWithOngoingOn[2]).toHaveLength(1); // host-local end day
 
       // Sanity: verify correct event is returned
       eventsOnDatesWithOngoingOn.forEach((res) => {

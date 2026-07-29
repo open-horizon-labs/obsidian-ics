@@ -16,7 +16,10 @@ describe('DateNormalizer', () => {
           { input: 'March 1, 2025', expected: '2025-03-01' },
           { input: '1 Mar 2025', expected: '2025-03-01' },
           { input: '2025-03-01T12:30:00', expected: '2025-03-01' },
-          { input: '2025-03-01T12:30:00Z', expected: '2025-03-01' }
+          {
+            input: '2025-03-01T12:30:00Z',
+            expected: moment('2025-03-01T12:30:00Z').format('YYYY-MM-DD')
+          }
         ];
 
         testCases.forEach(({ input, expected }) => {
@@ -221,10 +224,10 @@ describe('DateNormalizer', () => {
     });
 
     it('should handle timezone edge cases', () => {
-      // Test dates around timezone boundaries
+      // Date objects represent instants, so normalize to the host's local day.
       const utcDate = new Date('2025-03-01T23:59:59Z');
       const result = DateNormalizer.normalizeDateInput(utcDate);
-      expect(result).toBe('2025-03-01'); // Should be same day regardless of local timezone
+      expect(result).toBe(moment(utcDate).format('YYYY-MM-DD'));
     });
   });
 });
