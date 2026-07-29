@@ -1,5 +1,6 @@
 import { parseIcs, filterMatchingEvents } from '../src/icalUtils';
 import { eventDateFields } from '../src/eventDates';
+import { moment } from 'obsidian';
 
 // Regression coverage for https://github.com/open-horizon-labs/obsidian-ics/issues/198
 // A multi-day all-day event (a six-week German school holiday) reported as only
@@ -81,8 +82,8 @@ DTEND:20260803T103000Z`));
       const fields = eventDateFields(event, 'HH:mm');
 
       expect(fields.allDay).toBe(false);
-      expect(fields.startDateTime).toContain('2026-08-03T');
-      expect(fields.endDateTime).toContain('2026-08-03T');
+      expect(moment.parseZone(fields.startDateTime).toISOString()).toBe('2026-08-03T09:00:00.000Z');
+      expect(moment.parseZone(fields.endDateTime).toISOString()).toBe('2026-08-03T10:30:00.000Z');
     });
   });
 

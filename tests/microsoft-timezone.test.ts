@@ -1,6 +1,9 @@
 import { parseIcs, filterMatchingEvents, textValue } from '../src/icalUtils';
 import { WINDOWS_TO_IANA_TIMEZONES } from '../src/generated/windowsTimezones';
 import * as ical from 'node-ical';
+import { moment } from 'obsidian';
+
+const hostDay = (instant: string): string => moment(instant).format('YYYY-MM-DD');
 
 // node-ical's parseICS export is no longer a configurable property, so
 // jest.spyOn(ical, 'parseICS') throws "Cannot redefine property". Mocking
@@ -74,7 +77,7 @@ END:VCALENDAR`;
 
     // This should handle the error gracefully and succeed after preprocessing
     const parsedEvents = parseIcs(problematicIcsContent);
-    const matchingEvents = filterMatchingEvents(parsedEvents, ['2024-09-24'], false);
+    const matchingEvents = filterMatchingEvents(parsedEvents, [hostDay('2024-09-24T08:30:00Z')], false);
 
     expect(matchingEvents.length).toBeGreaterThanOrEqual(1);
     expect(ical.parseICS).toHaveBeenCalledTimes(2); // First call fails, second succeeds
@@ -121,51 +124,6 @@ END:VCALENDAR`;
       filterMatchingEvents(parsedEvents, ['2024-09-24'], false);
     }).not.toThrow();
   });
-  it.skip('should handle timezone names with spaces in RECURRENCE-ID fields', () => {
-    // Sample ICS content that reproduces the Microsoft O365 timezone issue
-    // This contains TZID=Tokyo Standard Time which causes node-ical to fail
-    // Note: Skipping this test as the current node-ical version (0.20.1) handles this correctly
-    const microsoftIcsContent = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Microsoft Corporation//Outlook 16.0 MIMEDIR//EN
-METHOD:PUBLISH
-X-WR-CALNAME:Test Calendar
-BEGIN:VTIMEZONE
-TZID:Tokyo Standard Time
-BEGIN:STANDARD
-DTSTART:16010101T000000
-TZOFFSETFROM:+0900
-TZOFFSETTO:+0900
-RRULE:FREQ=YEARLY;COUNT=1
-TZNAME:JST
-END:STANDARD
-END:VTIMEZONE
-BEGIN:VEVENT
-UID:test-recurring-event-microsoft
-DTSTART;TZID=Tokyo Standard Time:20240924T163000
-DTEND;TZID=Tokyo Standard Time:20240924T173000
-SUMMARY:Microsoft Recurring Meeting
-RRULE:FREQ=WEEKLY;COUNT=3
-DTSTAMP:20240924T120000Z
-END:VEVENT
-BEGIN:VEVENT
-UID:test-recurring-event-microsoft
-RECURRENCE-ID;TZID=Tokyo Standard Time:20240924T163000
-DTSTART;TZID=Tokyo Standard Time:20240924T173000
-DTEND;TZID=Tokyo Standard Time:20240924T183000
-SUMMARY:Microsoft Recurring Meeting (Rescheduled)
-DTSTAMP:20240924T120000Z
-END:VEVENT
-END:VCALENDAR`;
-
-    // This should fail with the current node-ical library
-    // TypeError: tz.startsWith is not a function
-    expect(() => {
-      const parsedEvents = parseIcs(microsoftIcsContent);
-      filterMatchingEvents(parsedEvents, ['2024-09-24'], false);
-    }).toThrow('tz.startsWith is not a function');
-  });
-
   it('should handle timezone names with spaces correctly', () => {
     // Verify that the current node-ical version handles Microsoft timezones properly
     const microsoftIcsContent = `BEGIN:VCALENDAR
@@ -203,7 +161,7 @@ END:VCALENDAR`;
 
     // This should work with the current node-ical version
     const parsedEvents = parseIcs(microsoftIcsContent);
-    const matchingEvents = filterMatchingEvents(parsedEvents, ['2024-09-24'], false);
+    const matchingEvents = filterMatchingEvents(parsedEvents, [hostDay('2024-09-24T08:30:00Z')], false);
 
     // Should return the recurring override event
     expect(matchingEvents.length).toBeGreaterThanOrEqual(1);
@@ -254,7 +212,10 @@ END:VEVENT
 END:VCALENDAR`;
 
     const parsedEvents = parseIcs(microsoftTimezoneFormats);
-    const matchingEvents = filterMatchingEvents(parsedEvents, ['2024-09-24'], false);
+    const matchingEvents = filterMatchingEvents(parsedEvents, [
+      hostDay('2024-09-24T14:00:00Z'),
+      hostDay('2024-09-24T17:00:00Z'),
+    ], false);
 
     expect(matchingEvents).toHaveLength(2);
     expect(matchingEvents.find(e => textValue(e.summary) === 'Eastern Meeting')).toBeDefined();
@@ -298,7 +259,7 @@ END:VCALENDAR`;
 
     // This should parse successfully and handle the RECURRENCE-ID properly
     const parsedEvents = parseIcs(recurrenceIdIcsContent);
-    const matchingEvents = filterMatchingEvents(parsedEvents, ['2024-09-24'], false);
+    const matchingEvents = filterMatchingEvents(parsedEvents, [hostDay('2024-09-24T09:00:00Z')], false);
 
     // Should find the modified instance (recurrence override)
     expect(matchingEvents.length).toBeGreaterThanOrEqual(1);
@@ -353,7 +314,7 @@ END:VCALENDAR`;
 
     // Should parse successfully with the expanded timezone mappings
     const parsedEvents = parseIcs(comprehensiveIcsContent);
-    const matchingEvents = filterMatchingEvents(parsedEvents, ['2024-09-24'], false);
+    const matchingEvents = filterMatchingEvents(parsedEvents, [hostDay('2024-09-24T08:30:00Z')], false);
 
     // Should successfully parse the timezone mappings and find the Mumbai meeting
     expect(matchingEvents.length).toBeGreaterThanOrEqual(1);
@@ -384,7 +345,7 @@ END:VCALENDAR`;
     // This should work even without VTIMEZONE definition in the ICS
     // because our preprocessing will map "Romance Standard Time" to "Europe/Paris"
     const parsedEvents = parseIcs(romanceTimezoneIcsContent);
-    const matchingEvents = filterMatchingEvents(parsedEvents, ['2024-09-24'], false);
+    const matchingEvents = filterMatchingEvents(parsedEvents, [hostDay('2024-09-24T12:00:00Z')], false);
 
     expect(matchingEvents).toHaveLength(1);
     expect(matchingEvents[0].summary).toBe('Brussels/Paris Meeting');
