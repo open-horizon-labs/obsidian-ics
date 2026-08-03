@@ -50,6 +50,14 @@ export default [
       "obsidianmd/settings-tab/prefer-setting-definitions": "off",
     },
   },
+  // The crypto shim must work in Obsidian's renderer and the Node-based
+  // compiled-artifact contract test, so the standard global is intentional.
+  {
+    files: ["src/cryptoShim.ts"],
+    rules: {
+      "obsidianmd/no-global-this": "off",
+    },
+  },
   // Build tooling and maintenance scripts run under Node, never inside Obsidian,
   // so the plugin rules about Node APIs and console use don't apply to them.
   {
