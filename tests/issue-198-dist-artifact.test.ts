@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
+import * as vm from 'vm';
+import { moment } from 'obsidian';
 import {
   registerIssue198GetEventsSuite,
   type Issue198PluginCtor,
@@ -135,6 +137,74 @@ function requireCopiedPlugin(pluginDir: string): Issue198PluginCtor {
   return loaded.default;
 }
 
+// Execute the literal bundle with `node:crypto` unavailable, which is the
+// mobile runtime boundary reported in #259. node-ical initializes node:fs for
+// its optional parseFile API, so leave that existing dependency available; the
+// getEvents -> parseICS path must not request node:crypto at all.
+function requireMobileCompatiblePlugin(): {
+  PluginCtor: Issue198PluginCtor;
+  requestedBuiltins: string[];
+} {
+  const requestedBuiltins: string[] = [];
+  const mobileObsidian = {
+    Plugin: class {
+      app: unknown;
+
+      constructor(app: unknown) {
+        this.app = app;
+      }
+
+      addSettingTab() {}
+      addCommand() {}
+    },
+    Notice: class {
+      constructor(_message: string, _timeout: number) {}
+    },
+    PluginSettingTab: class {},
+    Modal: class {},
+    request: () => {
+      throw new Error('request() is not shimmed - use calendarType "vdir"');
+    },
+    moment,
+  };
+  const bundledModule = { exports: {} as { default?: Issue198PluginCtor } };
+  const mobileRequire = (moduleName: string) => {
+    if (moduleName === 'obsidian') {
+      return mobileObsidian;
+    }
+    if (moduleName === 'node:fs') {
+      return fs;
+    }
+    if (moduleName.startsWith('node:')) {
+      requestedBuiltins.push(moduleName);
+      return null;
+    }
+    throw new Error(`Unexpected external module in mobile bundle: ${moduleName}`);
+  };
+  const script = new vm.Script(
+    `(function (exports, require, module) {${fs.readFileSync(DIST_MAIN_JS, 'utf8')}\n})`,
+    { filename: DIST_MAIN_JS },
+  );
+  const wrapper = script.runInNewContext({
+    console,
+    crypto: { randomUUID: () => 'f47ac10b-58cc-4372-a567-0e02b2c3d479' },
+    Date,
+    fetch: () => Promise.reject(new Error('fetch() is not shimmed - use calendarType "vdir"')),
+  }) as unknown as (
+    exports: typeof bundledModule.exports,
+    require: typeof mobileRequire,
+    module: typeof bundledModule,
+  ) => void;
+
+  wrapper(bundledModule.exports, mobileRequire, bundledModule);
+
+  if (typeof bundledModule.exports.default !== 'function') {
+    throw new Error(`${DIST_MAIN_JS} did not export a default class constructor as expected.`);
+  }
+
+  return { PluginCtor: bundledModule.exports.default, requestedBuiltins };
+}
+
 describe('issue #198 - compiled artifact identity', () => {
   it('dist/main.js exists and exports a usable ICSPlugin constructor', () => {
     const PluginCtor = requireDistMainJs();
@@ -162,6 +232,67 @@ describe('issue #198 - compiled artifact identity', () => {
       `  manifest: id=${manifest.id} version=${manifest.version}\n` +
       `  copied main.js size: ${fs.statSync(path.join(pluginDir, 'main.js')).size} bytes`,
     );
+  });
+});
+
+describe('issue #259 - mobile-compatible compiled artifact', () => {
+  it('does not load node:crypto and parses a recurring override through getEvents()', async () => {
+    const { PluginCtor, requestedBuiltins } = requireMobileCompatiblePlugin();
+    const file = { extension: 'ics', path: 'calendar.ics' };
+    const plugin = new PluginCtor({
+      vault: {
+        getFiles: () => [file],
+        read: async () => `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//test//EN
+BEGIN:VEVENT
+UID:issue-259-recurring-event
+DTSTAMP:20260101T000000Z
+DTSTART:20260803T090000
+DTEND:20260803T100000
+RRULE:FREQ=DAILY;COUNT=2
+SUMMARY:Original event
+END:VEVENT
+BEGIN:VEVENT
+UID:issue-259-recurring-event
+RECURRENCE-ID:20260804T090000
+DTSTAMP:20260101T000000Z
+DTSTART:20260804T110000
+DTEND:20260804T120000
+SUMMARY:Overridden event
+END:VEVENT
+END:VCALENDAR`,
+      },
+    }, {});
+    plugin.data = {
+      format: { timeFormat: 'HH:mm', dataViewSyntax: false },
+      calendars: {
+        test: {
+          icsUrl: 'calendar.ics',
+          icsName: 'Test Calendar',
+          calendarType: 'vdir',
+          format: {
+            checkbox: true,
+            includeEventEndTime: true,
+            icsName: true,
+            summary: true,
+            location: true,
+            description: false,
+            calendarType: 'remote',
+            showAttendees: false,
+            showOngoing: true,
+            showTransparentEvents: false,
+          },
+        },
+      },
+      fieldExtraction: { enabled: true, patterns: [] },
+    };
+
+    const events = await plugin.getEvents('2026-08-04');
+
+    expect(events).toHaveLength(1);
+    expect(events[0].summary).toBe('Overridden event');
+    expect(requestedBuiltins).not.toContain('node:crypto');
   });
 });
 
