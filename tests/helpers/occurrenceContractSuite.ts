@@ -114,6 +114,22 @@ export function registerOccurrenceContractSuite(
   PluginCtor: OccurrenceContractPluginCtor,
 ): void {
   describe(`getEvents() occurrence contract [${label}]`, () => {
+    it('keeps the whole calendar when early-year anniversaries are present (#263)', async () => {
+      const body = ['0000', '0001', '0099', '0935', '2026'].map(year => `BEGIN:VEVENT
+UID:anniversary-${year}
+DTSTAMP:20260101T000000Z
+DTSTART;VALUE=DATE:${year}0928
+RRULE:FREQ=YEARLY
+SUMMARY:Anniversary ${year}
+END:VEVENT`).join('\n');
+      const events = await createPlugin(PluginCtor, calendar(body, false))
+        .getEvents('2026-09-28');
+      expect(events.map(event => event.uid).sort()).toEqual([
+        'anniversary-0000', 'anniversary-0001', 'anniversary-0099',
+        'anniversary-0935', 'anniversary-2026',
+      ]);
+    });
+
     describe('event identity', () => {
       it('returns both events when two distinct UIDs share summary, start and end', async () => {
         // Duplicate-looking but genuinely distinct events: two people booking
